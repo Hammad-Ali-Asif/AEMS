@@ -118,6 +118,9 @@ border:none;</string>
           <height>80</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="frameShape">
          <enum>QFrame::WinPanel</enum>
         </property>
@@ -127,6 +130,12 @@ border:none;</string>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QLabel" name="text">
+           <property name="maximumSize">
+            <size>
+             <width>250</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <family>Ebrima</family>
@@ -135,11 +144,12 @@ border:none;</string>
              <bold>true</bold>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(103, 49, 71);
+margin-left:150px;</string>
+           </property>
            <property name="text">
             <string>Sign In</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignHCenter|Qt::AlignTop</set>
            </property>
           </widget>
          </item>
@@ -172,7 +182,8 @@ border:none;</string>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">margin-left:56px;
+            <string notr="true">margin-left:76px;
+color: rgb(103, 49, 71);
 </string>
            </property>
            <property name="text">
@@ -199,7 +210,7 @@ border:none;</string>
            </property>
            <property name="maximumSize">
             <size>
-             <width>300</width>
+             <width>350</width>
              <height>30</height>
             </size>
            </property>
@@ -207,7 +218,7 @@ border:none;</string>
             <bool>false</bool>
            </property>
            <property name="styleSheet">
-            <string notr="true">margin-left:60px;
+            <string notr="true">margin-left:80px;
 border:1px solid;
 border-radius:10px</string>
            </property>
@@ -245,7 +256,8 @@ border-radius:10px</string>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">margin-left:56px</string>
+            <string notr="true">margin-left:76px;
+color: rgb(103, 49, 71);</string>
            </property>
            <property name="text">
             <string>Password.</string>
@@ -256,12 +268,12 @@ border-radius:10px</string>
           <widget class="QLineEdit" name="password_box">
            <property name="maximumSize">
             <size>
-             <width>300</width>
+             <width>350</width>
              <height>30</height>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">margin-left:60px;
+            <string notr="true">margin-left:80px;
 border:1px solid;
 border-radius:10px</string>
            </property>
@@ -284,27 +296,31 @@ border-radius:10px</string>
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QPushButton" name="login_button">
+        <widget class="QPushButton" name="Sign_in_button">
          <property name="geometry">
           <rect>
-           <x>50</x>
-           <y>0</y>
-           <width>201</width>
-           <height>100</height>
+           <x>160</x>
+           <y>20</y>
+           <width>111</width>
+           <height>41</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border:2px solid;
+border-radius:10px;
+background-color:rgb(103, 49, 71);
+border-color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>Images/login_button.png</normaloff>Images/login_button.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>1000</width>
-           <height>1000</height>
-          </size>
+          <string>Sign In</string>
          </property>
         </widget>
        </widget>
