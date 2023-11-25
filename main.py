@@ -1,15 +1,13 @@
-from PyQt5.QtWidgets import QApplication
-from login_page import Ui_Form  # Replace with your actual module name
+from PySide6.QtWidgets import QApplication, QMainWindow
+from login_page import Ui_Login_page  # Assuming 'temp' is the name of your UI module
 
-class MyApplication(Ui_Form):
-    def __init__(self, Form):
-        super(MyApplication, self).__init__()
-        self.setupUi(MainWindow)
-        # Add your application logic here
+class MyLoginPage(QMainWindow, Ui_Login_page):
+    def __init__(self):
+        super(MyLoginPage, self).__init__()
+        self.setupUi(self)
 
 if __name__ == "__main__":
-    import sys
-    app = QApplication(sys.argv)
-    MainWindow = MyApplication()
-    MainWindow.show()
-    sys.exit(app.exec_())
+    app = QApplication([])
+    window = MyLoginPage()
+    window.show()
+    app.exec_()
