@@ -1,0 +1,23 @@
+1-Employee/HR
+2-Login
+3-side bar
+-----------Employee-------------
+profile
+attendance (show attendance)
+leave(past leaves, apply for leave, number of leaves remaining,type of leave(general,health,marraige(4),Parental,religous)
+view salary report --> if generated
+past year salary record(S no,month,amount, issuance date,view details)
+apply for attendance report
+leave report
+
+------------HR------------------
+mark attendance(employee id ki base peh)
+add/remove empolyee
+review leave application
+list of employess --> can view any employee profile
+
+
+----------System---------------
+genrate salary and salary report
+generate attendance report
+leave report
