@@ -1,16 +1,19 @@
-1-Employee/HR
-2-Login
-3-side bar
+1-Employee/HR (Fatima)
+
 -----------Employee-------------
-profile
-attendance (show attendance)
-leave(past leaves, apply for leave, number of leaves remaining,type of leave(general,health,marraige(4),Parental,religous)
+Login (Fatima)
+Side Bar (Fatima)
+profile (Fatima)
+leave application(past leaves, apply for leave, number of leaves remaining,type of leave(general,health,marraige(4),Parental,religous) (Fatima)
+
+attendance (show attendance) (Aatiqa)
 view salary report --> if generated
 past year salary record(S no,month,amount, issuance date,view details)
-apply for attendance report
 leave report
 
 ------------HR------------------
+Login
+Side Bar
 mark attendance(employee id ki base peh)
 add/remove empolyee
 review leave application
@@ -21,3 +24,7 @@ list of employess --> can view any employee profile
 genrate salary and salary report
 generate attendance report
 leave report
+
+
+*Dimension: 1280 x 720
+*Color scheme:* plum and white (plum RGB: 88, 55, 89)
