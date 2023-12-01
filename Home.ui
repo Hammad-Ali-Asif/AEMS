@@ -31,7 +31,7 @@
      <rect>
       <x>0</x>
       <y>-10</y>
-      <width>291</width>
+      <width>290</width>
       <height>731</height>
      </rect>
     </property>
@@ -45,7 +45,7 @@
      <property name="geometry">
       <rect>
        <x>-10</x>
-       <y>137</y>
+       <y>140</y>
        <width>301</width>
        <height>81</height>
       </rect>
@@ -84,7 +84,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>218</y>
+       <y>220</y>
        <width>291</width>
        <height>81</height>
       </rect>
@@ -439,7 +439,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
      </size>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="dashboard_page">
      <property name="styleSheet">
@@ -838,7 +838,7 @@ border-radius:30px;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="Employeelist_page">
-     <widget class="QGroupBox" name="title_bar_3">
+     <widget class="QGroupBox" name="List_title_bar">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -853,7 +853,7 @@ border-radius:30px;</string>
       <property name="title">
        <string/>
       </property>
-      <widget class="QLabel" name="new_employee_text_2">
+      <widget class="QLabel" name="List_employee_text">
        <property name="geometry">
         <rect>
          <x>33</x>
@@ -874,6 +874,103 @@ border-radius:30px;</string>
         <string>List of Employess</string>
        </property>
       </widget>
+     </widget>
+     <widget class="QTableWidget" name="List">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>221</y>
+        <width>925</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QHeaderView::section {
+    background-color: rgb(88, 55, 89); /* Set your desired background color */
+    color: white; /* Set the text color */
+    border: 1px solid rgb(88, 55, 89); /* Set the border color */
+}</string>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="rowCount">
+       <number>0</number>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>230</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderMinimumSectionSize">
+       <number>25</number>
+      </attribute>
+      <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Employee ID</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>First Name</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Last Name</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Email</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="AddEmployee_Page">
