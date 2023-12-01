@@ -159,6 +159,7 @@ class Sidebar(QGroupBox):
         self.Dashboard_button.clicked.connect(lambda: stacked_widget.setCurrentIndex(0))
         self.list_employee.clicked.connect(lambda:stacked_widget.setCurrentIndex(1))
         self.Add_employee.clicked.connect(lambda: stacked_widget.setCurrentIndex(2))
+        self.Remove_employee.clicked.connect(lambda: stacked_widget.setCurrentIndex(3))
         
 
 class Add_Employee_page(QWidget):
@@ -460,6 +461,7 @@ class Employee_list_page(QWidget):
 
         self.List.setObjectName(u"List")
         self.List.setGeometry(QRect(25, 221, 940, 331))
+        self.List.setMaximumHeight(200)
         self.List.setStyleSheet(u"QHeaderView::section {\n"
                                 "    background-color: rgb(88, 55, 89);\n"
                                 "    color: white;\n"
@@ -477,6 +479,7 @@ class Employee_list_page(QWidget):
         self.List.verticalHeader().setMinimumSectionSize(25)
         self.List.verticalHeader().setProperty("showSortIndicator", False)
         self.List.verticalHeader().setStretchLastSection(False)
+        
 
     def refreshDataFromDatabase(self):
         # Clear existing data
@@ -530,6 +533,113 @@ class Employee_list_page(QWidget):
             max_width = max(self.List.sizeHintForColumn(col), self.List.columnWidth(col))
             max_width -= 2
             self.List.setColumnWidth(col, max_width)
+class Remove_Employee_page(QWidget):
+    def __init__(self, Page):
+        super(Remove_Employee_page, self).__init__(Page)
+        self.setObjectName(u"Removeemployee_page")
+        self.Remove_bar = QGroupBox(self)
+        self.Remove_bar.setObjectName(u"Remove_bar")
+        self.Remove_bar.setGeometry(QRect(0, 0, 991, 80))
+        self.Remove_bar.setStyleSheet(u"background-color: rgb(88, 55, 89);")
+        self.new_employee_text_2 = QLabel(self.Remove_bar)
+        self.new_employee_text_2.setObjectName(u"new_employee_text_2")
+        self.new_employee_text_2.setGeometry(QRect(60, 20, 261, 31))
+        font10=QFont()
+        font10.setPointSize(18)
+        self.new_employee_text_2.setFont(font10)
+        self.new_employee_text_2.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.Enter_ID = QLabel(self)
+        self.Enter_ID.setObjectName(u"Enter_ID")
+        self.Enter_ID.setGeometry(QRect(320, 260, 311, 51))
+        font4=QFont()
+        font4.setPointSize(20)
+        self.Enter_ID.setFont(font4)
+        self.Enter_ID.setStyleSheet(u"background-color: rgb(88, 55, 89);\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius:20px;")
+        self.Enter_ID.setAlignment(Qt.AlignCenter)
+        self.ID_box = QLineEdit(self)
+        self.ID_box.setObjectName(u"ID_box")
+        self.ID_box.setGeometry(QRect(370, 370, 201, 31))
+        self.ID_box.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.Remove = QPushButton(self)
+        self.Remove.setObjectName(u"Remove")
+        self.Remove.setGeometry(QRect(425, 440, 90, 30))
+        font11=QFont()
+        font11.setBold(True)
+        self.Remove.setFont(font11)
+        self.Remove.setCursor(QCursor(Qt.PointingHandCursor))
+        self.Remove.setStyleSheet(u"border-radius:15px;\n"
+"background-color: rgb(175, 0, 0);\n"
+"color: rgb(255, 255, 255);")
+        self.Remove.clicked.connect(self.remove_employee_from_database)
+        
+    def remove_employee_from_database(self):
+        # Get the employee ID from the input box
+        employee_id = self.ID_box.text()
+
+        # Validate if the ID is not empty
+        if not employee_id:
+            error_message = "Please enter the Employee ID."
+            self.show_error_message(error_message)
+            return
+
+        try:
+            connection = psycopg2.connect(
+                user="postgres",
+                password="12345678",
+                host="localhost",
+                port="5432",
+                database="AEMS"
+            )
+            cursor = connection.cursor()
+
+            # Check if the employee ID exists in the database
+            existing_id_query = f"SELECT * FROM Employee WHERE id = '{employee_id}'"
+            cursor.execute(existing_id_query)
+            existing_id = cursor.fetchone()
+
+            if not existing_id:
+                error_message = "Employee ID does not exist."
+                self.show_error_message(error_message)
+                return
+
+            # Execute a query to remove the employee from the database
+            remove_query = f"DELETE FROM Employee WHERE id = '{employee_id}'"
+            cursor.execute(remove_query)
+
+            connection.commit()
+            cursor.close()
+
+            success_message = "Employee removed successfully!"
+            self.show_success_message(success_message)
+            # Clear the input box
+            self.ID_box.clear()
+
+        except (Exception, psycopg2.Error) as error:
+            # Handle database errors
+            error_message = f"Error removing employee from the database: {error}"
+            self.show_error_message(error_message)
+
+    def show_error_message(self, message):
+        # Create a QMessageBox to show the error message
+        error_box = QMessageBox()
+        error_box.setWindowTitle("Error")
+        error_box.setText(message)
+        error_box.setIcon(QMessageBox.Warning)
+        error_box.setStandardButtons(QMessageBox.Ok)
+
+        # Set the window modality to make it a blocking message box
+        error_box.setWindowModality(Qt.WindowModal)
+
+        # Show the message box
+        error_box.exec_()
+    
+    def show_success_message(self, message):
+        QMessageBox.information(self, "Success", message, QMessageBox.Ok)
+
 class DashboardPage(QWidget):
     def __init__(self,Page):
         super(DashboardPage, self).__init__(Page)
@@ -694,10 +804,11 @@ class  AdminPage(QMainWindow):
         self.dashboard_page = DashboardPage(self.PAGE)
         self.listemployee_page=Employee_list_page(self.PAGE)
         self.addEmployee_page =Add_Employee_page(self.PAGE)
-        
+        self.remove_page=Remove_Employee_page(self.PAGE)
         self.Main_pages.addWidget(self.dashboard_page)
         self.Main_pages.addWidget(self.listemployee_page )
         self.Main_pages.addWidget(self.addEmployee_page )
+        self.Main_pages.addWidget(self.remove_page)
         self.side_bar.setup_connections(self.Main_pages)
         self.setCentralWidget(self.PAGE)
 
@@ -767,6 +878,10 @@ class  AdminPage(QMainWindow):
         ___qtablewidgetitem2.setText(QCoreApplication.translate("HR_Page", u"Last Name", None))
         ___qtablewidgetitem3 = self.listemployee_page.List.horizontalHeaderItem(3)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("HR_Page", u"Email", None))
+        self.remove_page.Remove_bar.setTitle("")
+        self.remove_page.new_employee_text_2.setText(QCoreApplication.translate("HR_Page", u"Remove Employee", None))
+        self.remove_page.Enter_ID.setText(QCoreApplication.translate("HR_Page", u"Enter Employee ID", None))
+        self.remove_page.Remove.setText(QCoreApplication.translate("HR_Page", u"Remove", None))
         
     # retranslateUi
 

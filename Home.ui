@@ -174,7 +174,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="tabSpacing">
       <number>10</number>
@@ -427,7 +427,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>0</y>
+      <y>10</y>
       <width>990</width>
       <height>720</height>
      </rect>
@@ -439,7 +439,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
      </size>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="dashboard_page">
      <property name="styleSheet">
@@ -1384,6 +1384,113 @@ color: rgb(255, 255, 255);</string>
        <string notr="true">border:1px solid;
 border-radius:15px;
 </string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Removeemployee_page">
+     <widget class="QGroupBox" name="Remove_bar">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>991</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(88, 55, 89);</string>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QLabel" name="new_employee_text_2">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>20</y>
+         <width>261</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Remove Employee</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="Enter_ID">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>260</y>
+        <width>311</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(88, 55, 89);
+color: rgb(255, 255, 255);
+border-radius:20px;</string>
+      </property>
+      <property name="text">
+       <string>Enter Employee ID</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="ID_box">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>370</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:1px solid;
+border-radius:15px;
+</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Remove">
+      <property name="geometry">
+       <rect>
+        <x>425</x>
+        <y>440</y>
+        <width>90</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius:15px;
+background-color: rgb(175, 0, 0);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Remove</string>
       </property>
      </widget>
     </widget>

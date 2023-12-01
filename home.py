@@ -157,7 +157,7 @@ class Ui_HR_Page(object):
         self.Main_pages = QStackedWidget(self.PAGE)
         self.Main_pages.setObjectName(u"Main_pages")
         self.Main_pages.setEnabled(True)
-        self.Main_pages.setGeometry(QRect(290, 0, 990, 720))
+        self.Main_pages.setGeometry(QRect(290, 10, 990, 720))
         self.Main_pages.setMinimumSize(QSize(990, 720))
         self.dashboard_page = QWidget()
         self.dashboard_page.setObjectName(u"dashboard_page")
@@ -450,14 +450,48 @@ class Ui_HR_Page(object):
 "border-radius:15px;\n"
 "")
         self.Main_pages.addWidget(self.AddEmployee_Page)
+        self.Removeemployee_page = QWidget()
+        self.Removeemployee_page.setObjectName(u"Removeemployee_page")
+        self.Remove_bar = QGroupBox(self.Removeemployee_page)
+        self.Remove_bar.setObjectName(u"Remove_bar")
+        self.Remove_bar.setGeometry(QRect(0, 0, 991, 80))
+        self.Remove_bar.setStyleSheet(u"background-color: rgb(88, 55, 89);")
+        self.new_employee_text_2 = QLabel(self.Remove_bar)
+        self.new_employee_text_2.setObjectName(u"new_employee_text_2")
+        self.new_employee_text_2.setGeometry(QRect(60, 20, 261, 31))
+        self.new_employee_text_2.setFont(font10)
+        self.new_employee_text_2.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.Enter_ID = QLabel(self.Removeemployee_page)
+        self.Enter_ID.setObjectName(u"Enter_ID")
+        self.Enter_ID.setGeometry(QRect(320, 260, 311, 51))
+        self.Enter_ID.setFont(font4)
+        self.Enter_ID.setStyleSheet(u"background-color: rgb(88, 55, 89);\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius:20px;")
+        self.Enter_ID.setAlignment(Qt.AlignCenter)
+        self.ID_box = QLineEdit(self.Removeemployee_page)
+        self.ID_box.setObjectName(u"ID_box")
+        self.ID_box.setGeometry(QRect(370, 370, 201, 31))
+        self.ID_box.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.Remove = QPushButton(self.Removeemployee_page)
+        self.Remove.setObjectName(u"Remove")
+        self.Remove.setGeometry(QRect(425, 440, 90, 30))
+        self.Remove.setFont(font11)
+        self.Remove.setCursor(QCursor(Qt.PointingHandCursor))
+        self.Remove.setStyleSheet(u"border-radius:15px;\n"
+"background-color: rgb(175, 0, 0);\n"
+"color: rgb(255, 255, 255);")
+        self.Main_pages.addWidget(self.Removeemployee_page)
         HR_Page.setCentralWidget(self.PAGE)
 
         self.retranslateUi(HR_Page)
 
         self.attendance.setDefault(False)
-        self.EandL.setCurrentIndex(1)
+        self.EandL.setCurrentIndex(0)
         self.EandL.layout().setSpacing(10)
-        self.Main_pages.setCurrentIndex(1)
+        self.Main_pages.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(HR_Page)
@@ -525,5 +559,9 @@ class Ui_HR_Page(object):
         self.Password_text.setText(QCoreApplication.translate("HR_Page", u"Password:", None))
         self.add_button.setText(QCoreApplication.translate("HR_Page", u"ADD", None))
         self.Salary_text.setText(QCoreApplication.translate("HR_Page", u"Salary:", None))
+        self.Remove_bar.setTitle("")
+        self.new_employee_text_2.setText(QCoreApplication.translate("HR_Page", u"Remove Employee", None))
+        self.Enter_ID.setText(QCoreApplication.translate("HR_Page", u"Enter Employee ID", None))
+        self.Remove.setText(QCoreApplication.translate("HR_Page", u"Remove", None))
     # retranslateUi
 
