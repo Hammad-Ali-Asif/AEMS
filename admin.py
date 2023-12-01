@@ -8,7 +8,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGroupBox,
     QLabel, QLayout, QLineEdit, QMainWindow,
     QPushButton, QSizePolicy, QStackedWidget, QToolBox,
-    QWidget,QMessageBox,QTableWidget, QTableWidgetItem,QVBoxLayout,QHeaderView)
+    QWidget,QMessageBox,QTableWidget, QTableWidgetItem,QVBoxLayout)
 import re
 import psycopg2
 def is_valid_email(email):
@@ -421,40 +421,31 @@ class Add_Employee_page(QWidget):
     
     def show_success_message(self, message):
         QMessageBox.information(self, "Success", message, QMessageBox.Ok)
-        
-        
-
-
 class Employee_list_page(QWidget):
     def __init__(self, Page):
         super(Employee_list_page, self).__init__(Page)
-        self.setObjectName("EmployeeListPage")
-        self.current_page = 0
-
+        self.setObjectName(u"Employeelist_page")
         self.List_title_bar = QGroupBox(self)
-        self.List_title_bar.setObjectName("List_title_bar")
-        self.List_title_bar.setGeometry(0, 40, 991, 80)
-        self.List_title_bar.setStyleSheet("background-color: rgb(88, 55, 89);")
-        
+        self.List_title_bar.setObjectName(u"List_title_bar")
+        self.List_title_bar.setGeometry(QRect(0, 40, 991, 80))
+        self.List_title_bar.setStyleSheet(u"background-color: rgb(88, 55, 89);")
         self.List_employee_text = QLabel(self.List_title_bar)
-        self.List_employee_text.setObjectName("List_employee_text")
-        self.List_employee_text.setGeometry(33, 22, 261, 31)
+        self.List_employee_text.setObjectName(u"List_employee_text")
+        self.List_employee_text.setGeometry(QRect(33, 22, 261, 31))
         font10 = QFont()
         font10.setPointSize(18)
         self.List_employee_text.setFont(font10)
-        self.List_employee_text.setStyleSheet("color: rgb(255, 255, 255);")
+        self.List_employee_text.setStyleSheet(u"color: rgb(255, 255, 255);")
 
         self.List = QTableWidget(self)
-        self.next_button = QPushButton("Next", self)
-        self.prev_button = QPushButton("Previous", self)
-        
         self.setupTable()
-        self.fetchDataFromDatabase()
-        self.adjustTableHeight()
-        self.adjustTableWidth()
+        self.adjustTableHeightAndWidth()
 
-        self.next_button.clicked.connect(self.nextPage)
-        self.prev_button.clicked.connect(self.prevPage)
+        # Add a refresh button
+        self.refresh_button = QPushButton("Refresh", self)
+        self.refresh_button.setGeometry(QRect(25, 180, 80, 30))
+        self.refresh_button.setStyleSheet(u"background-color: rgb(88, 55, 89);\n" "color: rgb(255, 255, 255);" "border-radius:10px;")
+        self.refresh_button.clicked.connect(self.refreshDataFromDatabase)
 
     def setupTable(self):
         if (self.List.columnCount() < 4):
@@ -467,9 +458,13 @@ class Employee_list_page(QWidget):
             header_item.setFont(font11)
             self.List.setHorizontalHeaderItem(col, header_item)
 
-        self.List.setObjectName("List")
-        self.List.setGeometry(25, 221, 940, 331)
-        self.List.setStyleSheet("QHeaderView::section {background-color: rgb(88, 55, 89); color: white; border: 1px solid rgb(88, 55, 89);}")
+        self.List.setObjectName(u"List")
+        self.List.setGeometry(QRect(25, 221, 940, 331))
+        self.List.setStyleSheet(u"QHeaderView::section {\n"
+                                "    background-color: rgb(88, 55, 89);\n"
+                                "    color: white;\n"
+                                "    border: 1px solid rgb(88, 55, 89);\n"
+                                "}")
         self.List.setShowGrid(True)
         self.List.setSortingEnabled(False)
         self.List.setRowCount(0)
@@ -483,10 +478,12 @@ class Employee_list_page(QWidget):
         self.List.verticalHeader().setProperty("showSortIndicator", False)
         self.List.verticalHeader().setStretchLastSection(False)
 
-        self.next_button.setGeometry(800, 570, 80, 30)
-        self.prev_button.setGeometry(700, 570, 80, 30)
+    def refreshDataFromDatabase(self):
+        # Clear existing data
+        self.setupTable()
+        self.adjustTableHeightAndWidth()
+        self.List.setRowCount(0)
 
-    def fetchDataFromDatabase(self):
         try:
             connection = psycopg2.connect(
                 user="postgres",
@@ -497,8 +494,8 @@ class Employee_list_page(QWidget):
             )
             cursor = connection.cursor()
 
-            # Execute a query to fetch employee data for the current page
-            cursor.execute("SELECT id, Fname, Lname, email FROM Employee ORDER BY id OFFSET %s LIMIT 10", (self.current_page * 10,))
+            # Execute a query to fetch employee data
+            cursor.execute("SELECT id, Fname, Lname, email FROM Employee")
             data = cursor.fetchall()
 
             # Populate the QTableWidget with fetched data
@@ -512,49 +509,27 @@ class Employee_list_page(QWidget):
                     self.List.setItem(row_num, col, item)
 
             connection.commit()
+            cursor.close()
 
         except Exception as e:
             print("Error:", e)
 
-        finally:
-            self.closeConnection(cursor, connection)
+        # Adjust table height and width after fetching new data
+        self.adjustTableHeightAndWidth()
 
-    def adjustTableHeight(self):
+    def adjustTableHeightAndWidth(self):
         # Adjust the height of the table according to the number of rows
         total_height = sum(self.List.rowHeight(row) for row in range(self.List.rowCount()))
         # Add some extra height to account for header and spacing
-        total_height += self.List.horizontalHeader().height() + 15
+        total_height += self.List.horizontalHeader().height() + 10
         # Set the height of the table
         self.List.setFixedHeight(total_height)
 
-    def adjustTableWidth(self):
         # Adjust the width of the table according to the content
         for col in range(self.List.columnCount()):
             max_width = max(self.List.sizeHintForColumn(col), self.List.columnWidth(col))
-            max_width+=100
-
-    def nextPage(self):
-        # Move to the next page and fetch data
-        self.current_page += 1
-        self.List.clearContents()
-        self.List.setRowCount(0)
-        self.fetchDataFromDatabase()
-        self.adjustTableHeight()
-
-    def prevPage(self):
-        # Move to the previous page and fetch data
-        if self.current_page > 0:
-            self.current_page -= 1
-            self.List.clearContents()
-            self.List.setRowCount(0)
-            self.fetchDataFromDatabase()
-            self.adjustTableHeight()
-
-    def closeConnection(self, cursor, connection):
-        if cursor:
-            cursor.close()
-        if connection:
-            connection.close()
+            max_width -= 2
+            self.List.setColumnWidth(col, max_width)
 class DashboardPage(QWidget):
     def __init__(self,Page):
         super(DashboardPage, self).__init__(Page)
@@ -723,7 +698,6 @@ class  AdminPage(QMainWindow):
         self.Main_pages.addWidget(self.dashboard_page)
         self.Main_pages.addWidget(self.listemployee_page )
         self.Main_pages.addWidget(self.addEmployee_page )
-
         self.side_bar.setup_connections(self.Main_pages)
         self.setCentralWidget(self.PAGE)
 
