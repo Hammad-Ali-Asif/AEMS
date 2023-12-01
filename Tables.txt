@@ -1,0 +1,39 @@
+* User
+o id
+o name
+o email
+o password
+o address
+o department (sales/marketing/accounts/finance/research/HR)
+o salary (general monthly salary)
+o phone_no
+
+* Salary Record
+o Emplyee_id
+o date (month and year)
+o amount
+o deduction (based on absents)
+o total (amount+bonus-deduction)
+
+
+* Leave Record
+o leave_id (auto_generation)
+o employee_id
+o start_date
+o end_date 
+o description (reason for leave)
+o category (general, health)
+o satus (accepted, rejected, pending)
+
+* Attendance
+o employee_id
+o date
+o status
+
+* Admin
+o id (admin)
+o password (admin)
+
+
+
+
