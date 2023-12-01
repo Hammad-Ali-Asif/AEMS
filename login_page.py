@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QMainWindow,
     QPushButton, QSizePolicy, QWidget)
-from psycopg2 import connect, sql
+
 
 class Ui_Login_page(object):
     def setupUi(self, Login_page):
