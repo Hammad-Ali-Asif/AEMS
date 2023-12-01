@@ -17,6 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QMainWindow,
     QPushButton, QSizePolicy, QWidget)
+from psycopg2 import connect, sql
 
 class Ui_Login_page(object):
     def setupUi(self, Login_page):
@@ -118,5 +119,47 @@ class Ui_Login_page(object):
         self.HR_ID_BOX.setPlaceholderText(QCoreApplication.translate("Login_page", u"Enter your ID", None))
         self.password_box.setPlaceholderText(QCoreApplication.translate("Login_page", u"Enter password", None))
         self.Sign_in_button.setText(QCoreApplication.translate("Login_page", u"Sign In", None))
+
     # retranslateUi
 
+
+class LoginPage(QMainWindow, Ui_Login_page):
+    def __init__(self):
+        super(LoginPage, self).__init__()
+        self.setupUi(self)
+
+        
+
+    def check_credentials(self):
+        # Get HR ID and Password from the input boxes
+        hr_id = self.HR_ID_BOX.text()
+        password = self.password_box.text()
+
+        # Example query (replace with your actual query)
+        query = sql.SQL("SELECT * FROM users WHERE user_id = {} AND password = {};").format(
+            sql.Literal(hr_id), sql.Literal(password)
+        )
+
+        # Execute the query
+        self.cursor.execute(query)
+
+        # Fetch the result
+        result = self.cursor.fetchone()
+
+        if result:
+            print("Login Successful")
+            # Add your logic for a successful login here
+        else:
+            print("Login Failed")
+            # Add your logic for a failed login here
+
+    def closeEvent(self, event):
+        # Close the database connection when the application is closed
+        self.cursor.close()
+        self.connection.close()
+
+if __name__ == "__main__":
+    app = QApplication([])
+    login_page = LoginPage()
+    login_page.show()
+    app.exec_()
