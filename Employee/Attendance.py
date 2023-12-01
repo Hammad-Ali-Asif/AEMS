@@ -227,3 +227,26 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Status", None));
     # retranslateUi
 
+
+class MyMainWindow(QMainWindow):
+    def __init__(self):
+        super(MyMainWindow, self).__init__()
+
+        # Create an instance of the UI
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+
+        # Connect button signals to corresponding functions
+        self.ui.jan.clicked.connect(self.show_january_data)
+        # Connect other buttons in a similar way
+
+    def show_january_data(self):
+        # Implement the functionality to show January data here
+        # For example, switch to the appropriate page in the stacked widget
+        self.ui.stackedWidget.setCurrentIndex(0)
+
+if __name__ == "__main__":
+    app = QApplication([])
+    main_window = MyMainWindow()
+    main_window.show()
+    app.exec()

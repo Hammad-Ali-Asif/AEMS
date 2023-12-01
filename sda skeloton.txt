@@ -26,5 +26,13 @@ generate attendance report
 leave report
 
 
-*Dimension: 1280 x 720
-*Color scheme:* plum and white (plum RGB: 88, 55, 89)
+Dimensions: 1280 x 720
+SideBar Dimensions: 350 x 720
+
+Admin:
+Color scheme: plum and white (plum RGB: 88, 55, 89)
+
+Employee:
+Color scheme: dull blue and gre (dull blue: 50, 82, 110, grey: 30, 30, 30)
+
+
