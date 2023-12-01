@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'AttendanceliUjHo.ui'
+## Form generated from reading UI file 'Employee Side BargEKXaX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -37,7 +37,7 @@ class Ui_Dialog(object):
         self.logo = QLabel(self.side_bar)
         self.logo.setObjectName(u"logo")
         self.logo.setGeometry(QRect(0, 20, 341, 191))
-        self.logo.setPixmap(QPixmap(u"../Project & Assignments/Semester 5/SDA/AEMS/Images/logo-grey.png"))
+        self.logo.setPixmap(QPixmap(u"../Images/logo-grey.png"))
         self.logo.setScaledContents(True)
         self.profile = QPushButton(self.side_bar)
         self.profile.setObjectName(u"profile")
@@ -47,37 +47,37 @@ class Ui_Dialog(object):
         self.profile.setCursor(QCursor(Qt.PointingHandCursor))
         self.profile.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
 "color: rgb(230, 230, 230);")
-        self.profile_2 = QPushButton(self.side_bar)
-        self.profile_2.setObjectName(u"profile_2")
-        self.profile_2.setGeometry(QRect(0, 210, 348, 65))
-        self.profile_2.setMinimumSize(QSize(348, 65))
-        self.profile_2.setMaximumSize(QSize(348, 65))
-        self.profile_2.setCursor(QCursor(Qt.PointingHandCursor))
-        self.profile_2.setStyleSheet(u"font: 20pt \"Sitka\";\n"
+        self.leave_report = QPushButton(self.side_bar)
+        self.leave_report.setObjectName(u"leave_report")
+        self.leave_report.setGeometry(QRect(0, 210, 348, 65))
+        self.leave_report.setMinimumSize(QSize(348, 65))
+        self.leave_report.setMaximumSize(QSize(348, 65))
+        self.leave_report.setCursor(QCursor(Qt.PointingHandCursor))
+        self.leave_report.setStyleSheet(u"font: 20pt \"Sitka\";\n"
 "color: rgb(230, 230, 230);")
-        self.profile_5 = QPushButton(self.side_bar)
-        self.profile_5.setObjectName(u"profile_5")
-        self.profile_5.setGeometry(QRect(0, 405, 348, 65))
-        self.profile_5.setMinimumSize(QSize(348, 65))
-        self.profile_5.setMaximumSize(QSize(348, 65))
-        self.profile_5.setCursor(QCursor(Qt.PointingHandCursor))
-        self.profile_5.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
+        self.leave_application = QPushButton(self.side_bar)
+        self.leave_application.setObjectName(u"leave_application")
+        self.leave_application.setGeometry(QRect(0, 405, 348, 65))
+        self.leave_application.setMinimumSize(QSize(348, 65))
+        self.leave_application.setMaximumSize(QSize(348, 65))
+        self.leave_application.setCursor(QCursor(Qt.PointingHandCursor))
+        self.leave_application.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
 "color: rgb(230, 230, 230);")
-        self.profile_4 = QPushButton(self.side_bar)
-        self.profile_4.setObjectName(u"profile_4")
-        self.profile_4.setGeometry(QRect(0, 275, 348, 65))
-        self.profile_4.setMinimumSize(QSize(348, 65))
-        self.profile_4.setMaximumSize(QSize(348, 65))
-        self.profile_4.setCursor(QCursor(Qt.PointingHandCursor))
-        self.profile_4.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
+        self.salary = QPushButton(self.side_bar)
+        self.salary.setObjectName(u"salary")
+        self.salary.setGeometry(QRect(0, 275, 348, 65))
+        self.salary.setMinimumSize(QSize(348, 65))
+        self.salary.setMaximumSize(QSize(348, 65))
+        self.salary.setCursor(QCursor(Qt.PointingHandCursor))
+        self.salary.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
 "color: rgb(230, 230, 230);")
-        self.profile_3 = QPushButton(self.side_bar)
-        self.profile_3.setObjectName(u"profile_3")
-        self.profile_3.setGeometry(QRect(0, 340, 348, 65))
-        self.profile_3.setMinimumSize(QSize(348, 65))
-        self.profile_3.setMaximumSize(QSize(348, 65))
-        self.profile_3.setCursor(QCursor(Qt.PointingHandCursor))
-        self.profile_3.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
+        self.attendance = QPushButton(self.side_bar)
+        self.attendance.setObjectName(u"attendance")
+        self.attendance.setGeometry(QRect(0, 340, 348, 65))
+        self.attendance.setMinimumSize(QSize(348, 65))
+        self.attendance.setMaximumSize(QSize(348, 65))
+        self.attendance.setCursor(QCursor(Qt.PointingHandCursor))
+        self.attendance.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
 "color: rgb(230, 230, 230);")
 
         self.retranslateUi(Dialog)
@@ -90,9 +90,9 @@ class Ui_Dialog(object):
         self.side_bar.setTitle("")
         self.logo.setText("")
         self.profile.setText(QCoreApplication.translate("Dialog", u"Leave Application", None))
-        self.profile_2.setText(QCoreApplication.translate("Dialog", u"Profile", None))
-        self.profile_5.setText(QCoreApplication.translate("Dialog", u"Salary", None))
-        self.profile_4.setText(QCoreApplication.translate("Dialog", u"Leave Report", None))
-        self.profile_3.setText(QCoreApplication.translate("Dialog", u"Attendance", None))
+        self.leave_report.setText(QCoreApplication.translate("Dialog", u"Profile", None))
+        self.leave_application.setText(QCoreApplication.translate("Dialog", u"Salary", None))
+        self.salary.setText(QCoreApplication.translate("Dialog", u"Leave Report", None))
+        self.attendance.setText(QCoreApplication.translate("Dialog", u"Attendance", None))
     # retranslateUi
 
