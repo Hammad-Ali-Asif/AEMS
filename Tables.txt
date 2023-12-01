@@ -30,5 +30,10 @@ o employee_id
 o date
 o status
 
+* Admin
+o id (admin)
+o password (admin)
+
+
 
 

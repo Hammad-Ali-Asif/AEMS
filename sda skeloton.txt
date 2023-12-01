@@ -1,7 +1,7 @@
-1-Employee/HR (Fatima)
+1-Employee/Admin (Fatima)
+2-Login (Hammad)
 
 -----------Employee-------------
-Login (Fatima)
 Side Bar (Fatima)
 profile (Fatima)
 leave application(past leaves, apply for leave, number of leaves remaining,type of leave(general,health,marraige(4),Parental,religous) (Fatima)
@@ -11,7 +11,7 @@ view salary report --> if generated
 past year salary record(S no,month,amount, issuance date,view details)
 leave report
 
-------------HR------------------
+--------------Admin------------------
 Login
 Side Bar
 mark attendance(employee id ki base peh)
