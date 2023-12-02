@@ -1036,12 +1036,6 @@ class DashboardPage(QWidget):
         self.declined_leaves_count.setFont(font8)
         self.declined_leaves_count.setStyleSheet(u"color: rgb(255, 255, 255);")
 
-    
-
-        
-    
-        
-
 class  AdminPage(QMainWindow):
     def __init__(self):
         super( AdminPage, self).__init__()
@@ -1147,9 +1141,6 @@ class  AdminPage(QMainWindow):
         self.remove_page.Remove.setText(QCoreApplication.translate("Admin_Page", u"Remove", None))
         
     # retranslateUi
-
-
-
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
