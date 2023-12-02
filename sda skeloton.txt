@@ -34,5 +34,3 @@ Color scheme: plum and white (plum RGB: 88, 55, 89)
 
 Employee:
 Color scheme: dull blue and gre (dull blue: 50, 82, 110, grey: 230, 230, 230)
-
-
