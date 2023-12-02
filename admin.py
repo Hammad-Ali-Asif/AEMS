@@ -8,7 +8,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGroupBox,
     QLabel, QLayout, QLineEdit, QMainWindow,
     QPushButton, QSizePolicy, QStackedWidget, QToolBox,
-    QWidget,QMessageBox,QTableWidget, QTableWidgetItem,QVBoxLayout)
+QWidget,QMessageBox,QTableWidget, QTableWidgetItem,QVBoxLayout,QItemDelegate,QSpinBox,QDateEdit,QAbstractItemView)
 import re
 import psycopg2
 from functools import partial
@@ -21,6 +21,18 @@ def is_valid_email(email):
 
     # If there is a match, the email is valid
     return match is not None
+
+class CustomSpinBox(QSpinBox):
+    def __init__(self, parent=None):
+        super(CustomSpinBox, self).__init__(parent)
+        
+    def textFromValue(self, value):
+        if value == 0:
+            return "A"
+        elif value == 1:
+            return "P"
+        else:
+            return super(CustomSpinBox, self).textFromValue(value)
 
 class Sidebar(QGroupBox):
     def __init__(self,Page):
@@ -158,10 +170,260 @@ class Sidebar(QGroupBox):
     def setup_connections(self, stacked_widget):
         # Connect the Dashboard_button click signal to show_dashboard_page function
         self.Dashboard_button.clicked.connect(lambda: stacked_widget.setCurrentIndex(0))
-        self.list_employee.clicked.connect(lambda:stacked_widget.setCurrentIndex(1))
-        self.Add_employee.clicked.connect(lambda: stacked_widget.setCurrentIndex(2))
-        self.Remove_employee.clicked.connect(lambda: stacked_widget.setCurrentIndex(3))
+        self.attendance.clicked.connect(lambda:stacked_widget.setCurrentIndex(1))
+        self.list_employee.clicked.connect(lambda:stacked_widget.setCurrentIndex(2))
+        self.Add_employee.clicked.connect(lambda: stacked_widget.setCurrentIndex(3))
+        self.Remove_employee.clicked.connect(lambda: stacked_widget.setCurrentIndex(4))
         
+
+class AttendanceStatusDelegate(QItemDelegate):
+    def createEditor(self, parent, option, index):
+        editor = QComboBox(parent)
+        editor.addItems(["A", "P"])
+        return editor
+
+    def setEditorData(self, editor, index):
+        value = index.model().data(index, Qt.EditRole)
+        editor.setCurrentText("A" if value == 0 else "P")
+
+
+
+    
+
+
+class AttendancePage(QWidget):
+    def __init__(self, page, stacked_widget):
+        super(AttendancePage, self).__init__(page)
+        font10 = QFont()
+        font10.setPointSize(18)
+        font11 = QFont()
+        font11.setBold(True)
+
+        self.setObjectName(u"Attendance")
+        self.Date = QDateEdit(self)
+        self.Date.setObjectName(u"Date")
+        self.Date.setGeometry(230, 130, 110, 22)
+        self.Date.setMaximumDate(QDate(2023, 12, 31))
+        self.Date.setMinimumDate(QDate(2000, 1, 1))
+        self.Date.setCalendarPopup(True)
+
+        self.Attendance_Bar = QGroupBox(self)
+        self.Attendance_Bar.setObjectName(u"Attendance_Bar")
+        self.Attendance_Bar.setGeometry(0, 0, 991, 80)
+        self.Attendance_Bar.setStyleSheet(u"background-color: rgb(88, 55, 89);")
+        self.Attendance_bar_text = QLabel(self.Attendance_Bar)
+        self.Attendance_bar_text.setObjectName(u"Attendance_bar_text")
+        self.Attendance_bar_text.setGeometry(33, 22, 261, 31)
+        self.Attendance_bar_text.setFont(font10)
+        self.Attendance_bar_text.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.Mark_button = QPushButton(self)
+        self.Mark_button.setObjectName(u"Mark_button")
+        self.Mark_button.setGeometry(QRect(410, 630, 111, 31))
+        font13 = QFont()
+        font13.setPointSize(10)
+        font13.setBold(True)
+        self.Mark_button.setFont(font13)
+        self.Mark_button.setCursor(QCursor(Qt.PointingHandCursor))
+        self.Mark_button.setStyleSheet(u"border-radius:15px;\n"
+"background-color: rgb(88, 55, 89);\n"
+"color: rgb(255, 255, 255);")
+        self.Mark_button.clicked.connect(self.markAttendance)
+        self.Select_date = QLabel(self)
+        self.Select_date.setObjectName(u"Select_date")
+        self.Select_date.setGeometry(110, 130, 121, 21)
+        font14 = QFont()
+        font14.setPointSize(12)
+        font14.setBold(True)
+        self.Select_date.setFont(font14)
+        self.Select_date.setStyleSheet(u"color: rgb(88, 55, 89);")
+
+        self.Attendance_sheet = QTableWidget(self)
+        self.setupTable()
+        
+        self.Date.dateChanged.connect(self.refreshAndPopulateTable)
+        self.refreshAndPopulateTable()  # Populate the table with employee data
+
+    def setupTable(self):
+        self.Attendance_sheet.setColumnCount(5)
+        
+        font11 = QFont()
+        font11.setPointSize(14)
+        font11.setBold(True)
+        for col, header_text in enumerate(["Employee ID", "First Name", "Last Name", "Date", "Status"]):
+            header_item = QTableWidgetItem(header_text)
+            header_item.setFont(font11)
+            self.Attendance_sheet.setHorizontalHeaderItem(col, header_item)
+
+        self.Attendance_sheet.setObjectName(u"Attendance_sheet")
+        self.Attendance_sheet.setGeometry(25, 221, 940, 331)
+        self.Attendance_sheet.setMaximumHeight(200)
+        self.Attendance_sheet.setStyleSheet(u"QHeaderView::section {\n"
+                                "    background-color: rgb(88, 55, 89);\n"
+                                "    color: white;\n"
+                                "    border: 1px solid rgb(88, 55, 89);\n"
+                                "}")
+        self.Attendance_sheet.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+    # Set edit triggers
+        self.Attendance_sheet.setEditTriggers(QAbstractItemView.AllEditTriggers | QAbstractItemView.EditKeyPressed)
+
+        # Set the delegate for Status column
+        self.Attendance_sheet.setItemDelegateForColumn(4, AttendanceStatusDelegate())
+        
+
+        # Styling for table rows
+
+        self.Attendance_sheet.setShowGrid(True)
+        self.Attendance_sheet.setSortingEnabled(False)
+        self.Attendance_sheet.setRowCount(0)
+        self.Attendance_sheet.horizontalHeader().setCascadingSectionResizes(False)
+        self.Attendance_sheet.horizontalHeader().setDefaultSectionSize(200)
+        self.Attendance_sheet.horizontalHeader().setHighlightSections(False)
+        self.Attendance_sheet.horizontalHeader().setProperty("showSortIndicator", False)
+        self.Attendance_sheet.horizontalHeader().setStretchLastSection(False)
+        self.Attendance_sheet.verticalHeader().setCascadingSectionResizes(False)
+        self.Attendance_sheet.verticalHeader().setMinimumSectionSize(25)
+        self.Attendance_sheet.verticalHeader().setProperty("showSortIndicator", False)
+        self.Attendance_sheet.verticalHeader().setStretchLastSection(False)
+
+        # Set the edit trigger to allow editing when a key is pressed
+        self.Attendance_sheet.setEditTriggers(QAbstractItemView.AllEditTriggers | QAbstractItemView.EditKeyPressed)
+    def refreshAndPopulateTable(self):
+        # Clear existing data in the table
+        self.Attendance_sheet.setRowCount(0)
+
+        # Fetch employee data from the database
+        try:
+            connection = psycopg2.connect(
+                user="postgres",
+                password="12345678",
+                host="localhost",
+                port="5432",
+                database="AEMS"
+            )
+            cursor = connection.cursor()
+
+            # Execute a query to fetch employee data
+            cursor.execute("SELECT id, Fname, Lname FROM Employee")
+            employee_data = cursor.fetchall()
+
+            # Populate the QTableWidget with fetched employee data and the selected date
+            selected_date = self.Date.date().toString("yyyy-MM-dd")
+            for row_data in employee_data:
+                row_num = self.Attendance_sheet.rowCount()
+                self.Attendance_sheet.insertRow(row_num)
+                for col, value in enumerate(row_data):
+                    item = QTableWidgetItem(str(value))
+                    font = QFont()
+                    font.setPointSize(13)
+                    item.setFont(font)
+                    self.Attendance_sheet.setItem(row_num, col, item)
+
+                # Add date column with the selected date
+                date_item = QTableWidgetItem(selected_date)
+                date_item.setFont(font)
+                self.Attendance_sheet.setItem(row_num, 3, date_item)
+
+            connection.commit()
+            cursor.close()
+
+        except Exception as e:
+            print("Error fetching employee data:", e)
+
+        # Fetch existing attendance data for the selected date
+        try:
+            connection = psycopg2.connect(
+                user="postgres",
+                password="12345678",
+                host="localhost",
+                port="5432",
+                database="AEMS"
+            )
+            cursor = connection.cursor()
+
+            # Execute a query to fetch existing attendance data for the selected date
+            cursor.execute("SELECT employee_id, status FROM Attendance WHERE date_ = %s", (selected_date,))
+            attendance_data = cursor.fetchall()
+
+            # Update the QTableWidget with fetched attendance data
+            for row_data in attendance_data:
+                employee_id, status = row_data
+                # Find the row corresponding to the employee_id
+                for row in range(self.Attendance_sheet.rowCount()):
+                    if self.Attendance_sheet.item(row, 0).text() == str(employee_id):
+                        # Update the status column with the fetched status
+                        status_item = QTableWidgetItem(status)
+                        font = QFont()
+                        font.setPointSize(13)
+                        status_item.setFont(font)
+                        self.Attendance_sheet.setItem(row, 4, status_item)
+
+            connection.commit()
+            cursor.close()
+
+        except Exception as e:
+            print("Error fetching attendance data:", e)
+
+        self.adjustTableHeightAndWidth()
+
+    def markAttendance(self):
+        # Implement the logic to mark attendance in the database for all rows
+        total_rows = self.Attendance_sheet.rowCount()
+        selected_date = self.Date.date().toString("yyyy-MM-dd")
+
+        for row in range(total_rows):
+            employee_id = self.Attendance_sheet.item(row, 0).text()
+            attendance_status_item = self.Attendance_sheet.item(row, 4)
+            attendance_status = attendance_status_item.text()
+            # Update the attendance table in the database with the selected date, employee_id, and attendance_status
+            self.updateAttendanceInDatabase(selected_date, employee_id, attendance_status)
+
+        # Optionally, show a success message
+        QMessageBox.information(self, "Success", "Attendance marked successfully!")
+
+
+
+
+    def updateAttendanceInDatabase(self, selected_date, employee_id, attendance_status):
+        try:
+            connection = psycopg2.connect(
+                user="postgres",
+                password="12345678",
+                host="localhost",
+                port="5432",
+                database="AEMS"
+            )
+            cursor = connection.cursor()
+
+            # Execute a query to update the attendance table for the specific employee and date
+            query = "INSERT INTO Attendance (employee_id, date_, status) VALUES (%s, %s, %s) ON CONFLICT (employee_id, date_) DO UPDATE SET status = %s"
+            cursor.execute(query, (employee_id, selected_date, attendance_status, attendance_status))
+
+            connection.commit()
+            cursor.close()
+
+        except Exception as e:
+            print("Error updating attendance data:", e)
+            # Show an error message if the update fails
+            QMessageBox.critical(self, "Error", f"Failed to mark attendance:\n{str(e)}")
+
+
+    def adjustTableHeightAndWidth(self):
+        # Adjust the height of the table according to the number of rows
+        total_height = sum(self.Attendance_sheet.rowHeight(row) for row in range(self.Attendance_sheet.rowCount()))
+        # Add some extra height to account for header and spacing
+        total_height += self.Attendance_sheet.horizontalHeader().height() + 10
+        # Set the height of the table
+        self.Attendance_sheet.setFixedHeight(total_height)
+
+        # Adjust the width of the table according to the content
+        for col in range(self.Attendance_sheet.columnCount()):
+            self.Attendance_sheet.resizeColumnToContents(col)
+            # Increase the width by a fixed amount (adjust the value as needed)
+            new_width = self.Attendance_sheet.columnWidth(col) + 85
+            self.Attendance_sheet.setColumnWidth(col, new_width)
+
+    
 
 class Add_Employee_page(QWidget):
     def __init__(self,Page):
@@ -350,7 +612,7 @@ class Add_Employee_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -484,6 +746,7 @@ class Employee_list_page(QWidget):
         self.List.verticalHeader().setMinimumSectionSize(25)
         self.List.verticalHeader().setProperty("showSortIndicator", False)
         self.List.verticalHeader().setStretchLastSection(False)
+        self.List.setEditTriggers(QAbstractItemView.NoEditTriggers)
         
 
     def refreshDataFromDatabase(self):
@@ -495,7 +758,7 @@ class Employee_list_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -571,7 +834,7 @@ class Employee_list_page(QWidget):
         details_page.Department_Text_2.setText(QCoreApplication.translate("Admin_Page", u"Department:", None))
         details_page.back_button.setText(QCoreApplication.translate("Admin_Page", u"Back", None))
         self.stack_widget.addWidget(details_page)
-        self.stack_widget.setCurrentIndex(4)
+        self.stack_widget.setCurrentIndex(5)
 class Employee_detail_page(QWidget):
     def __init__(self,id,stacked_widget):
         super(Employee_detail_page, self).__init__()
@@ -718,7 +981,7 @@ class Employee_detail_page(QWidget):
         current_page.deleteLater()
 
         # Set the current index after the removal and deletion are processed
-        self.stack_widget.setCurrentIndex(1)
+        self.stack_widget.setCurrentIndex(2)
 
     def fetchDataFromDatabase(self):
         try:
@@ -1059,10 +1322,12 @@ class  AdminPage(QMainWindow):
         self.Main_pages.setGeometry(QRect(290, 0, 990, 720))
         self.Main_pages.setMinimumSize(QSize(990, 720))
         self.dashboard_page = DashboardPage(self.PAGE)
+        self.attendance_page=AttendancePage(self.PAGE,self.Main_pages)
         self.listemployee_page=Employee_list_page(self.PAGE,self.Main_pages)
         self.addEmployee_page =Add_Employee_page(self.PAGE)
         self.remove_page=Remove_Employee_page(self.PAGE)
         self.Main_pages.addWidget(self.dashboard_page)
+        self.Main_pages.addWidget(self.attendance_page)
         self.Main_pages.addWidget(self.listemployee_page )
         self.Main_pages.addWidget(self.addEmployee_page )
         self.Main_pages.addWidget(self.remove_page)
@@ -1139,7 +1404,20 @@ class  AdminPage(QMainWindow):
         self.remove_page.new_employee_text_2.setText(QCoreApplication.translate("Admin_Page", u"Remove Employee", None))
         self.remove_page.Enter_ID.setText(QCoreApplication.translate("Admin_Page", u"Enter Employee ID", None))
         self.remove_page.Remove.setText(QCoreApplication.translate("Admin_Page", u"Remove", None))
-        
+        self.attendance_page.Attendance_Bar.setTitle("")
+        self.attendance_page.Attendance_bar_text.setText(QCoreApplication.translate("Admin_Page", u"Mark Attendance", None))
+        self.attendance_page.Select_date.setText(QCoreApplication.translate("Admin_Page", u"Select Date:", None))
+        ___qtablewidgetitem4 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(0)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("Admin_Page", u"Employee ID", None));
+        ___qtablewidgetitem5 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(1)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("Admin_Page", u"First Name", None));
+        ___qtablewidgetitem6 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(2)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("Admin_Page", u"Last Name", None));
+        ___qtablewidgetitem7 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(3)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("Admin_Page", u"Date", None));
+        ___qtablewidgetitem8 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(4)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("Admin_Page", u"Status", None));
+        self.attendance_page.Mark_button.setText(QCoreApplication.translate("Admin_Page", u"Mark", None))
     # retranslateUi
 if __name__ == "__main__":
     import sys
