@@ -1,6 +1,6 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+    QSize, QTime, QUrl, Qt,QTimer)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGroupBox,
     QWidget,QMessageBox,QTableWidget, QTableWidgetItem,QVBoxLayout)
 import re
 import psycopg2
+from functools import partial
 def is_valid_email(email):
     # Define a regular expression pattern for a basic email validation
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -423,8 +424,9 @@ class Add_Employee_page(QWidget):
     def show_success_message(self, message):
         QMessageBox.information(self, "Success", message, QMessageBox.Ok)
 class Employee_list_page(QWidget):
-    def __init__(self, Page):
+    def __init__(self, Page,stacked_widget):
         super(Employee_list_page, self).__init__(Page)
+        self.stack_widget=stacked_widget
         self.setObjectName(u"Employeelist_page")
         self.List_title_bar = QGroupBox(self)
         self.List_title_bar.setObjectName(u"List_title_bar")
@@ -446,21 +448,24 @@ class Employee_list_page(QWidget):
         self.refresh_button = QPushButton("Refresh", self)
         self.refresh_button.setGeometry(QRect(25, 180, 80, 30))
         self.refresh_button.setStyleSheet(u"background-color: rgb(88, 55, 89);\n" "color: rgb(255, 255, 255);" "border-radius:10px;")
+        self.refresh_button.setCursor(QCursor(Qt.PointingHandCursor))
         self.refresh_button.clicked.connect(self.refreshDataFromDatabase)
 
     def setupTable(self):
-        if (self.List.columnCount() < 4):
-            self.List.setColumnCount(4)
+        if self.List.columnCount() < 5:  # Increase column count to accommodate the "Details" button
+            self.List.setColumnCount(5)
+
         font11 = QFont()
         font11.setPointSize(14)
         font11.setBold(True)
-        for col, header_text in enumerate(["ID", "First Name", "Last Name", "Department"]):
+
+        for col, header_text in enumerate(["ID", "First Name", "Last Name", "Department", "Details"]):
             header_item = QTableWidgetItem(header_text)
             header_item.setFont(font11)
             self.List.setHorizontalHeaderItem(col, header_item)
 
         self.List.setObjectName(u"List")
-        self.List.setGeometry(QRect(25, 221, 940, 331))
+        self.List.setGeometry(25, 221, 940, 331)
         self.List.setMaximumHeight(200)
         self.List.setStyleSheet(u"QHeaderView::section {\n"
                                 "    background-color: rgb(88, 55, 89);\n"
@@ -471,7 +476,7 @@ class Employee_list_page(QWidget):
         self.List.setSortingEnabled(False)
         self.List.setRowCount(0)
         self.List.horizontalHeader().setCascadingSectionResizes(False)
-        self.List.horizontalHeader().setDefaultSectionSize(230)
+        self.List.horizontalHeader().setDefaultSectionSize(200)
         self.List.horizontalHeader().setHighlightSections(False)
         self.List.horizontalHeader().setProperty("showSortIndicator", False)
         self.List.horizontalHeader().setStretchLastSection(False)
@@ -511,6 +516,18 @@ class Employee_list_page(QWidget):
                     item.setFont(font)
                     self.List.setItem(row_num, col, item)
 
+                # Add "Details" button to the last column
+                details_button = QPushButton("Details", self)
+                details_button.setStyleSheet(u"border-radius:15px;\n"
+                                            "background-color: rgb(50, 55, 89);\n"
+                                            "color: rgb(255, 255, 255);")
+                details_button.setCursor(QCursor(Qt.PointingHandCursor))
+                details_button.clicked.connect(partial(self.showDetails, row_num))
+
+
+
+                self.List.setCellWidget(row_num, 4, details_button)  # Use the correct column index
+
             connection.commit()
             cursor.close()
 
@@ -531,8 +548,252 @@ class Employee_list_page(QWidget):
         # Adjust the width of the table according to the content
         for col in range(self.List.columnCount()):
             max_width = max(self.List.sizeHintForColumn(col), self.List.columnWidth(col))
-            max_width -= 2
+            max_width -= 9
             self.List.setColumnWidth(col, max_width)
+
+    def showDetails(self, row):
+        # Get the employee ID from the selected row
+        employee_id = self.List.item(row, 0).text()
+
+        # Create an instance of the EmployeeDetailsPage with the employee ID
+        details_page = Employee_detail_page(employee_id,self.stack_widget)
+        details_page.View_Edit.setTitle("")
+        details_page.View_edit_text.setText(QCoreApplication.translate("Admin_Page", u"View and Edit Employee", None))
+        details_page.Password_text_2.setText(QCoreApplication.translate("Admin_Page", u"Password:", None))
+        details_page.Contact_text_2.setText(QCoreApplication.translate("Admin_Page", u"Contact #:", None))
+        details_page.Employee_id_text_2.setText(QCoreApplication.translate("Admin_Page", u"Employee ID:", None))
+        details_page.Email_text_2.setText(QCoreApplication.translate("Admin_Page", u"Email:", None))
+        details_page.Save_button.setText(QCoreApplication.translate("Admin_Page", u"Save", None))
+        details_page.Lname_text_2.setText(QCoreApplication.translate("Admin_Page", u"Last Name:", None))
+        details_page.Fname_text_2.setText(QCoreApplication.translate("Admin_Page", u"First Name:", None))
+        details_page.Salary_text_2.setText(QCoreApplication.translate("Admin_Page", u"Salary:", None))
+        details_page.Address_text_2.setText(QCoreApplication.translate("Admin_Page", u"Address:", None))
+        details_page.Department_Text_2.setText(QCoreApplication.translate("Admin_Page", u"Department:", None))
+        details_page.back_button.setText(QCoreApplication.translate("Admin_Page", u"Back", None))
+        self.stack_widget.addWidget(details_page)
+        self.stack_widget.setCurrentIndex(4)
+class Employee_detail_page(QWidget):
+    def __init__(self,id,stacked_widget):
+        super(Employee_detail_page, self).__init__()
+        self.empid=id
+        self.stack_widget=stacked_widget
+        font10 = QFont()
+        font10.setPointSize(18)
+        font12 = QFont()
+        font12.setPointSize(13)
+        font12.setBold(True)
+        font13 = QFont()
+        font13.setPointSize(10)
+        font13.setBold(True)
+        self.setObjectName(u"Employee_Detail_Page")
+        self.Email_2 = QLineEdit(self)
+        self.Email_2.setObjectName(u"Email_2")
+        self.Email_2.setGeometry(QRect(210, 455, 211, 31))
+        self.Email_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.Address_2 = QLineEdit(self)
+        self.Address_2.setObjectName(u"Address_2")
+        self.Address_2.setGeometry(QRect(660, 345, 211, 31))
+        self.Address_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.Salary_2 = QLineEdit(self)
+        self.Salary_2.setObjectName(u"Salary_2")
+        self.Salary_2.setGeometry(QRect(390, 540, 211, 31))
+        self.Salary_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.Contact_2 = QLineEdit(self)
+        self.Contact_2.setObjectName(u"Contact_2")
+        self.Contact_2.setGeometry(QRect(210, 345, 211, 31))
+        self.Contact_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.Department_Text_2 = QLabel(self)
+        self.Department_Text_2.setObjectName(u"Department_Text_2")
+        self.Department_Text_2.setGeometry(QRect(90, 130, 111, 21))
+        self.Department_Text_2.setFont(font12)
+        self.Lname_2 = QLineEdit(self)
+        self.Lname_2.setObjectName(u"Lname_2")
+        self.Lname_2.setGeometry(QRect(660, 235, 211, 31))
+        self.Lname_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.Fname_2 = QLineEdit(self)
+        self.Fname_2.setObjectName(u"Fname_2")
+        self.Fname_2.setGeometry(QRect(210, 235, 211, 31))
+        self.Fname_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.View_Edit = QGroupBox(self)
+        self.View_Edit.setObjectName(u"View_Edit")
+        self.View_Edit.setGeometry(QRect(0, -15, 991, 80))
+        self.View_Edit.setStyleSheet(u"background-color: rgb(88, 55, 89);")
+        self.View_edit_text = QLabel(self.View_Edit)
+        self.View_edit_text.setObjectName(u"View_edit_text")
+        self.View_edit_text.setGeometry(QRect(33, 30, 261, 31))
+        self.View_edit_text.setFont(font10)
+        self.View_edit_text.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.password_2 = QLineEdit(self)
+        self.password_2.setObjectName(u"password_2")
+        self.password_2.setGeometry(QRect(660, 455, 211, 31))
+        self.password_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.password_2.setEchoMode(QLineEdit.Password)
+        self.Employee_id_2 = QLineEdit(self)
+        self.Employee_id_2.setObjectName(u"Employee_id_2")
+        self.Employee_id_2.setGeometry(QRect(660, 125, 210, 30))
+        self.Employee_id_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.Password_text_2 = QLabel(self)
+        self.Password_text_2.setObjectName(u"Password_text_2")
+        self.Password_text_2.setGeometry(QRect(530, 460, 101, 21))
+        self.Password_text_2.setFont(font12)
+        self.Contact_text_2 = QLabel(self)
+        self.Contact_text_2.setObjectName(u"Contact_text_2")
+        self.Contact_text_2.setGeometry(QRect(90, 350, 101, 21))
+        self.Contact_text_2.setFont(font12)
+        self.Employee_id_text_2 = QLabel(self)
+        self.Employee_id_text_2.setObjectName(u"Employee_id_text_2")
+        self.Employee_id_text_2.setGeometry(QRect(530, 130, 121, 21))
+        self.Employee_id_text_2.setFont(font12)
+        self.Email_text_2 = QLabel(self)
+        self.Email_text_2.setObjectName(u"Email_text_2")
+        self.Email_text_2.setGeometry(QRect(90, 460, 101, 21))
+        self.Email_text_2.setFont(font12)
+        self.Save_button = QPushButton(self)
+        self.Save_button.setObjectName(u"Save_button")
+        self.Save_button.setGeometry(QRect(420, 615, 111, 31))
+        self.Save_button.setFont(font13)
+        self.Save_button.setCursor(QCursor(Qt.PointingHandCursor))
+        self.Save_button.setStyleSheet(u"border-radius:15px;\n"
+"background-color: rgb(88, 55, 89);\n"
+"color: rgb(255, 255, 255);")
+        self.Save_button.clicked.connect(self.updateDataToDatabase)
+        self.Lname_text_2 = QLabel(self)
+        self.Lname_text_2.setObjectName(u"Lname_text_2")
+        self.Lname_text_2.setGeometry(QRect(530, 240, 101, 21))
+        self.Lname_text_2.setFont(font12)
+        self.Fname_text_2 = QLabel(self)
+        self.Fname_text_2.setObjectName(u"Fname_text_2")
+        self.Fname_text_2.setGeometry(QRect(90, 240, 101, 21))
+        self.Fname_text_2.setFont(font12)
+        self.Salary_text_2 = QLabel(self)
+        self.Salary_text_2.setObjectName(u"Salary_text_2")
+        self.Salary_text_2.setGeometry(QRect(310, 545, 101, 21))
+        self.Salary_text_2.setFont(font12)
+        self.Address_text_2 = QLabel(self)
+        self.Address_text_2.setObjectName(u"Address_text_2")
+        self.Address_text_2.setGeometry(QRect(530, 350, 101, 21))
+        self.Address_text_2.setFont(font12)
+        self.Department_2 = QLineEdit(self)
+        self.Department_2.setObjectName(u"Department_2")
+        self.Department_2.setGeometry(QRect(210, 125, 210, 30))
+        self.Department_2.setStyleSheet(u"border:1px solid;\n"
+"border-radius:15px;\n"
+"")
+        self.back_button = QPushButton(self)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(40, 80, 111, 31))
+        self.back_button.setFont(font13)
+        self.back_button.setCursor(QCursor(Qt.PointingHandCursor))
+        self.back_button.setStyleSheet(u"border-radius:15px;\n"
+"background-color: rgb(88, 55, 89);\n"
+"color: rgb(255, 255, 255);")
+        self.back_button.clicked.connect(self.back_to_list)
+        self.fetchDataFromDatabase() 
+    def back_to_list(self):
+        # Assuming you have a QStackedWidget named stackedWidget and the current index is currentIndex
+        current_index = self.stack_widget.currentIndex()
+        current_page = self.stack_widget.widget(current_index)
+        self.stack_widget.removeWidget(current_page)
+        QTimer.singleShot(0, lambda: self.processRemoval(current_page, current_index))
+
+    def processRemoval(self, current_page, current_index):
+        # Remove the current page from the stack widget and delete it
+        self.stack_widget.removeWidget(current_page)
+        current_page.deleteLater()
+
+        # Set the current index after the removal and deletion are processed
+        self.stack_widget.setCurrentIndex(1)
+
+    def fetchDataFromDatabase(self):
+        try:
+            connection = psycopg2.connect(
+                user="postgres",
+                password="12345678",
+                host="localhost",
+                port="5432",
+                database="AEMS"
+            )
+            cursor = connection.cursor()
+
+            # Execute a query to fetch employee data based on employee_id
+            query = "SELECT * FROM Employee WHERE id = %s"
+            cursor.execute(query, (self.empid,))
+            data = cursor.fetchone()
+
+            # Display the fetched data in the line edits
+            if data:
+                self.Employee_id_2.setText(str(data[0]))
+                self.Department_2.setText(data[1])
+                self.Fname_2.setText(data[2])
+                self.Lname_2.setText(data[3])
+                self.Contact_2.setText(data[4])
+                self.Address_2.setText(data[5])
+                self.Email_2.setText(data[6])
+                self.password_2.setText(data[7])
+                self.Salary_2.setText(data[8])
+                
+                
+                # Similarly, set other line edits with respective data
+
+            connection.commit()
+            cursor.close()
+
+        except Exception as e:
+            print("Error:", e)
+    def updateDataToDatabase(self):
+        try:
+            connection = psycopg2.connect(
+                user="postgres",
+                password="12345678",
+                host="localhost",
+                port="5432",
+                database="AEMS"
+            )
+            cursor = connection.cursor()
+
+            # Get data from line edits
+            emp_id = self.Employee_id_2.text()
+            department = self.Department_2.text()
+            fname = self.Fname_2.text()
+            lname = self.Lname_2.text()
+            contact = self.Contact_2.text()
+            address = self.Address_2.text()
+            email = self.Email_2.text()
+            password = self.password_2.text()
+            salary = self.Salary_2.text()
+
+            # Execute a query to update employee data
+            query = """
+                UPDATE Employee 
+                SET department = %s, Fname = %s, Lname = %s, contact = %s, 
+                    address = %s, email = %s, password = %s, salary = %s
+                WHERE id = %s
+            """
+            cursor.execute(query, (department, fname, lname, contact, address, email, password, salary, emp_id))
+
+            connection.commit()
+            cursor.close()
+            QMessageBox.information(self, "Success", "Employee details updated successfully!")
+
+        except Exception as e:
+            print("Error:", e)
+
 class Remove_Employee_page(QWidget):
     def __init__(self, Page):
         super(Remove_Employee_page, self).__init__(Page)
@@ -775,6 +1036,8 @@ class DashboardPage(QWidget):
         self.declined_leaves_count.setFont(font8)
         self.declined_leaves_count.setStyleSheet(u"color: rgb(255, 255, 255);")
 
+    
+
         
     
         
@@ -802,7 +1065,7 @@ class  AdminPage(QMainWindow):
         self.Main_pages.setGeometry(QRect(290, 0, 990, 720))
         self.Main_pages.setMinimumSize(QSize(990, 720))
         self.dashboard_page = DashboardPage(self.PAGE)
-        self.listemployee_page=Employee_list_page(self.PAGE)
+        self.listemployee_page=Employee_list_page(self.PAGE,self.Main_pages)
         self.addEmployee_page =Add_Employee_page(self.PAGE)
         self.remove_page=Remove_Employee_page(self.PAGE)
         self.Main_pages.addWidget(self.dashboard_page)
@@ -869,19 +1132,19 @@ class  AdminPage(QMainWindow):
         self.addEmployee_page.add_button.setText(QCoreApplication.translate(" Admin_Page", u"ADD", None))
         self.addEmployee_page.Salary_text.setText(QCoreApplication.translate(" Admin_Page", u"Salary:", None))
         self.listemployee_page.List_title_bar.setTitle("")
-        self.listemployee_page.List_employee_text.setText(QCoreApplication.translate("HR_Page", u"List of Employess", None))
+        self.listemployee_page.List_employee_text.setText(QCoreApplication.translate("Admin_Page", u"List of Employess", None))
         ___qtablewidgetitem = self.listemployee_page.List.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("HR_Page", u"Employee ID", None))
+        ___qtablewidgetitem.setText(QCoreApplication.translate("Admin_Page", u"Employee ID", None))
         ___qtablewidgetitem1 = self.listemployee_page.List.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("HR_Page", u"First Name", None))
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("Admin_Page", u"First Name", None))
         ___qtablewidgetitem2 = self.listemployee_page.List.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("HR_Page", u"Last Name", None))
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("Admin_Page", u"Last Name", None))
         ___qtablewidgetitem3 = self.listemployee_page.List.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("HR_Page", u"Email", None))
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("Admin_Page", u"Email", None))
         self.remove_page.Remove_bar.setTitle("")
-        self.remove_page.new_employee_text_2.setText(QCoreApplication.translate("HR_Page", u"Remove Employee", None))
-        self.remove_page.Enter_ID.setText(QCoreApplication.translate("HR_Page", u"Enter Employee ID", None))
-        self.remove_page.Remove.setText(QCoreApplication.translate("HR_Page", u"Remove", None))
+        self.remove_page.new_employee_text_2.setText(QCoreApplication.translate("Admin_Page", u"Remove Employee", None))
+        self.remove_page.Enter_ID.setText(QCoreApplication.translate("Admin_Page", u"Enter Employee ID", None))
+        self.remove_page.Remove.setText(QCoreApplication.translate("Admin_Page", u"Remove", None))
         
     # retranslateUi
 
