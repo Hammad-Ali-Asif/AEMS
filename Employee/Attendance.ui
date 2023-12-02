@@ -472,7 +472,8 @@ QHeaderView::section {
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">background-color: rgb(230, 230, 230);
+color: rgb(50, 84, 110);</string>
      </property>
      <attribute name="horizontalHeaderDefaultSectionSize">
       <number>305</number>
