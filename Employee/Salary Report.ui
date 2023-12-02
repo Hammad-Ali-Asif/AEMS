@@ -417,8 +417,15 @@ font: 700 14pt &quot;Segoe UI&quot;;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(50, 84, 110);
-background-color: rgb(255, 255, 255);
+    <string notr="true">QHeaderView::section {
+    background-color: rgb(50, 84, 110); /* Set your desired background color */
+    color: rgb(230, 230, 230); /* Set the text color */
+}
+
+
+color: rgb(50, 84, 110);
+background-color: rgb(230, 230, 230);
+
 </string>
    </property>
    <attribute name="horizontalHeaderDefaultSectionSize">

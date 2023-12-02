@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Attendanceesuulw.ui'
+## Form generated from reading UI file 'AttendancencRtUh.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -124,9 +124,15 @@ class Ui_Dialog(object):
         self.stackedWidget = QStackedWidget(Dialog)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(380, 220, 741, 481))
-        self.page_5 = QWidget()
-        self.page_5.setObjectName(u"page_5")
-        self.table_start = QTableWidget(self.page_5)
+        self.stackedWidget.setStyleSheet(u"QHeaderView::section {\n"
+"    background-color: rgb(50, 84, 110); /* Set your desired background color */\n"
+"    color: rgb(230, 230, 230); /* Set the text color */\n"
+"};\n"
+"background-color: rgb(230, 230, 230);\n"
+"color: rgb(50, 84, 110);")
+        self.first_page = QWidget()
+        self.first_page.setObjectName(u"first_page")
+        self.table_start = QTableWidget(self.first_page)
         if (self.table_start.columnCount() < 2):
             self.table_start.setColumnCount(2)
         brush = QBrush(QColor(50, 84, 110, 255))
@@ -146,13 +152,19 @@ class Ui_Dialog(object):
         self.table_start.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         self.table_start.setObjectName(u"table_start")
         self.table_start.setGeometry(QRect(110, 30, 621, 441))
-        self.table_start.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.table_start.setStyleSheet(u"background-color: rgb(230, 230, 230);\n"
+"color: rgb(50, 84, 110);\n"
+"\n"
+"QHeaderView::section {\n"
+"    background-color: rgb(50, 84, 110); /* Set your desired background color */\n"
+"    color: rgb(230, 230, 230); /* Set the text color */\n"
+"};")
         self.table_start.horizontalHeader().setMinimumSectionSize(96)
         self.table_start.horizontalHeader().setDefaultSectionSize(305)
-        self.stackedWidget.addWidget(self.page_5)
-        self.page_6 = QWidget()
-        self.page_6.setObjectName(u"page_6")
-        self.table_end = QTableWidget(self.page_6)
+        self.stackedWidget.addWidget(self.first_page)
+        self.second_page = QWidget()
+        self.second_page.setObjectName(u"second_page")
+        self.table_end = QTableWidget(self.second_page)
         if (self.table_end.columnCount() < 2):
             self.table_end.setColumnCount(2)
         font2 = QFont()
@@ -173,7 +185,7 @@ class Ui_Dialog(object):
         self.table_end.setGeometry(QRect(110, 30, 621, 441))
         self.table_end.setStyleSheet(u"background-color: rgb(255, 255, 255);")
         self.table_end.horizontalHeader().setDefaultSectionSize(305)
-        self.stackedWidget.addWidget(self.page_6)
+        self.stackedWidget.addWidget(self.second_page)
         self.april = QPushButton(Dialog)
         self.april.setObjectName(u"april")
         self.april.setGeometry(QRect(920, 120, 90, 30))
@@ -262,7 +274,7 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(Dialog)
