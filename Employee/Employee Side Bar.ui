@@ -112,7 +112,7 @@ color: rgb(230, 230, 230);</string>
      <string>Leave Application</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="profile_2">
+   <widget class="QPushButton" name="leave_report">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -144,7 +144,7 @@ color: rgb(230, 230, 230);</string>
      <string>Profile</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="profile_5">
+   <widget class="QPushButton" name="leave_application">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -176,7 +176,7 @@ color: rgb(230, 230, 230);</string>
      <string>Salary</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="profile_4">
+   <widget class="QPushButton" name="salary">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -208,7 +208,7 @@ color: rgb(230, 230, 230);</string>
      <string>Leave Report</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="profile_3">
+   <widget class="QPushButton" name="attendance">
     <property name="geometry">
      <rect>
       <x>0</x>

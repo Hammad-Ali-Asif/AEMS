@@ -350,7 +350,7 @@ class Add_Employee_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -495,7 +495,7 @@ class Employee_list_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
