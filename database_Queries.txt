@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS Employee (
+    id varchar(10),
+    department varchar(50),
+	Fname varchar(50),
+	Lname varchar(50),
+	contact varchar(50),
+	address varchar(200),
+	email varchar(50),
+	password varchar(50),
+	salary varchar(50),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS Attendance (
+    employee_id varchar(10),
+    date_ Date,
+	status char(1),
+	Primary key(employee_id,date)
+);
