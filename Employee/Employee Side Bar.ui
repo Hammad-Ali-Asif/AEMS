@@ -240,6 +240,49 @@ color: rgb(230, 230, 230);</string>
      <string>Attendance</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="sign_out">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>660</y>
+      <width>348</width>
+      <height>65</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>348</width>
+      <height>65</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>348</width>
+      <height>65</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: italic 18pt &quot;Sitka&quot; rgb(255, 255, 255);
+color: rgb(230, 230, 230);</string>
+    </property>
+    <property name="text">
+     <string>  Sign Out </string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../Images/sign out-grey.png</normaloff>
+      <normalon>../Images/sign out-grey.png</normalon>../Images/sign out-grey.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

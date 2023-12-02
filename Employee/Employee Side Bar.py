@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Employee Side BargEKXaX.ui'
+## Form generated from reading UI file 'Employee Side BarioWkpX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -79,6 +79,19 @@ class Ui_Dialog(object):
         self.attendance.setCursor(QCursor(Qt.PointingHandCursor))
         self.attendance.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
 "color: rgb(230, 230, 230);")
+        self.sign_out = QPushButton(self.side_bar)
+        self.sign_out.setObjectName(u"sign_out")
+        self.sign_out.setGeometry(QRect(0, 660, 348, 65))
+        self.sign_out.setMinimumSize(QSize(348, 65))
+        self.sign_out.setMaximumSize(QSize(348, 65))
+        self.sign_out.setCursor(QCursor(Qt.PointingHandCursor))
+        self.sign_out.setStyleSheet(u"font: italic 18pt \"Sitka\" rgb(255, 255, 255);\n"
+"color: rgb(230, 230, 230);")
+        icon = QIcon()
+        icon.addFile(u"../Images/sign out-grey.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"../Images/sign out-grey.png", QSize(), QIcon.Normal, QIcon.On)
+        self.sign_out.setIcon(icon)
+        self.sign_out.setIconSize(QSize(30, 30))
 
         self.retranslateUi(Dialog)
 
@@ -94,5 +107,5 @@ class Ui_Dialog(object):
         self.leave_application.setText(QCoreApplication.translate("Dialog", u"Salary", None))
         self.salary.setText(QCoreApplication.translate("Dialog", u"Leave Report", None))
         self.attendance.setText(QCoreApplication.translate("Dialog", u"Attendance", None))
+        self.sign_out.setText(QCoreApplication.translate("Dialog", u"  Sign Out ", None))
     # retranslateUi
-
