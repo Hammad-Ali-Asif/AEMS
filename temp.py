@@ -81,10 +81,6 @@ class SideBar(QGroupBox):
         self.sign_out.setIconSize(QSize(30, 30))
         self.sign_out.clicked.connect(self.employee.signout)
     
-    
-
-        
-
 
 class Profile(QWidget):
     def __init__(self,Page,id):
@@ -205,12 +201,6 @@ class Profile(QWidget):
 "")
         self.horizontalLayout_52 = QHBoxLayout(self.leave)
         self.horizontalLayout_52.setObjectName(u"horizontalLayout_52")
-        self.name = QTextEdit(self)
-        self.name.setObjectName(u"name")
-        self.name.setGeometry(QRect(20, 20, 651, 61))
-        self.name.setMinimumSize(QSize(0, 61))
-        self.name.setMaximumSize(QSize(16777215, 16777215))
-        self.name.setStyleSheet(u"color: rgb(44, 72, 97);")
         self.contact = QGroupBox(self)
         self.contact.setObjectName(u"contact")
         self.contact.setGeometry(QRect(450, 290, 121, 41))
@@ -219,12 +209,6 @@ class Profile(QWidget):
 "")
         self.horizontalLayout3 = QHBoxLayout(self.contact)
         self.horizontalLayout3.setObjectName(u"horizontalLayout3")
-        self.department_st = QTextEdit(self)
-        self.department_st.setObjectName(u"department_st")
-        self.department_st.setGeometry(QRect(20, 70, 651, 51))
-        self.department_st.setMinimumSize(QSize(0, 0))
-        self.department_st.setMaximumSize(QSize(16777215, 16777215))
-        self.department_st.setStyleSheet(u"color: rgb(44, 72, 97);")
         self.present = QGroupBox(self)
         self.present.setObjectName(u"present")
         self.present.setGeometry(QRect(250, 580, 121, 41))
@@ -241,6 +225,16 @@ class Profile(QWidget):
 "")
         self.horizontalLayout_54 = QHBoxLayout(self.current_deduction)
         self.horizontalLayout_54.setObjectName(u"horizontalLayout_54")
+        self.head_dep = QGroupBox(self)
+        self.head_dep.setObjectName(u"head_dep")
+        self.head_dep.setGeometry(QRect(10, 60, 561, 40))
+        self.head_dep.setMinimumSize(QSize(0, 40))
+        self.head_dep.setMaximumSize(QSize(16777215, 40))
+        self.head_dep.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 500 18pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_22 = QHBoxLayout(self)
+        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
         self.contact_input = QGroupBox(self)
         self.contact_input.setObjectName(u"contact_input")
         self.contact_input.setGeometry(QRect(570, 290, 300, 40))
@@ -251,11 +245,17 @@ class Profile(QWidget):
 "")
         self.horizontalLayout4 = QHBoxLayout(self.contact_input)
         self.horizontalLayout4.setObjectName(u"horizontalLayout4")
-        self.general_info = QTextEdit(self)
-        self.general_info.setObjectName(u"general_info")
-        self.general_info.setGeometry(QRect(0, 150, 921, 51))
-        self.general_info.setStyleSheet(u"background-color: rgb(50, 82, 110);\n"
-"color: rgb(230, 230, 230);")
+        self.General_info = QLabel(self)
+        self.General_info.setObjectName(u"General_info")
+        self.General_info.setGeometry(QRect(0, 130, 925, 60))
+        font = QFont()
+        font.setPointSize(25)
+        font.setBold(True)
+        self.General_info.setFont(font)
+        self.General_info.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: \"#e6e6e6\";")
+        self.General_info.setAlignment(Qt.AlignCenter)
+
         self.email_input = QGroupBox(self)
         self.email_input.setObjectName(u"email_input")
         self.email_input.setGeometry(QRect(130, 290, 320, 40))
@@ -266,11 +266,13 @@ class Profile(QWidget):
 "")
         self.horizontalLayout5 = QHBoxLayout(self.email_input)
         self.horizontalLayout5.setObjectName(u"horizontalLayout5")
-        self.month_details = QTextEdit(self)
-        self.month_details.setObjectName(u"month_details")
-        self.month_details.setGeometry(QRect(0, 510, 921, 51))
-        self.month_details.setStyleSheet(u"background-color: rgb(50, 82, 110);\n"
-"color: rgb(230, 230, 230);")
+        self.Current_Month = QLabel(self)
+        self.Current_Month.setObjectName(u"Current_Month")
+        self.Current_Month.setGeometry(QRect(0, 480, 925, 60))
+        self.Current_Month.setFont(font)
+        self.Current_Month.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: \"#e6e6e6\";")
+        self.Current_Month.setAlignment(Qt.AlignCenter)
         self.department = QGroupBox(self)
         self.department.setObjectName(u"department")
         self.department.setGeometry(QRect(10, 410, 121, 40))
@@ -331,6 +333,16 @@ class Profile(QWidget):
 "")
         self.horizontalLayout8 = QHBoxLayout(self.address_input)
         self.horizontalLayout8.setObjectName(u"horizontalLayout8")
+        self.Head_name = QGroupBox(self)
+        self.Head_name.setObjectName(u"Head_name")
+        self.Head_name.setGeometry(QRect(10, 20, 561, 40))
+        self.Head_name.setMinimumSize(QSize(0, 40))
+        self.Head_name.setMaximumSize(QSize(16777215, 40))
+        self.Head_name.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 24pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_31 = QHBoxLayout(self.Head_name)
+        self.horizontalLayout_31.setObjectName(u"horizontalLayout_31")
         self.present_input = QGroupBox(self)
         self.present_input.setObjectName(u"present_input")
         self.present_input.setGeometry(QRect(370, 580, 100, 40))
@@ -387,8 +399,9 @@ class Profile(QWidget):
 
         if employee_data:
             # Update the profile page with the retrieved data
-            self.name.setPlainText(f"{employee_data[2]} {employee_data[3]}")
-            self.department_st.setPlainText(employee_data[1])
+            
+            self.Head_name.setTitle(QCoreApplication.translate("Employee_Page", employee_data[2]+" "+employee_data[3], None))
+            self.head_dep.setTitle(QCoreApplication.translate("Employee_Page", employee_data[3], None))
             self.f_name_input.setTitle(QCoreApplication.translate("Employee_Page", employee_data[2], None))
             self.l_name_input.setTitle(QCoreApplication.translate("Employee_Page", employee_data[3], None))
             self.address_input.setTitle(QCoreApplication.translate("Employee_Page", employee_data[5], None))
@@ -445,31 +458,13 @@ class EmployeePage(QDialog):
         self.Profile_page.salary_4.setTitle(QCoreApplication.translate("Employee_Page", u"Salary", None))
         self.Profile_page.email.setTitle(QCoreApplication.translate("Employee_Page", u"Email", None))
         self.Profile_page.leave.setTitle(QCoreApplication.translate("Employee_Page", u"Leave", None))
-        self.Profile_page.name.setHtml(QCoreApplication.translate("Employee_Page", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:28pt; font-weight:696;\">Aatiqa Hussain</span></p></body></html>", None))
         self.Profile_page.contact.setTitle(QCoreApplication.translate("Employee_Page", u"Contact", None))
-        self.Profile_page.department_st.setHtml(QCoreApplication.translate("Employee_Page", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:16pt;\">Accounts Department</span></p></body></html>", None))
+        self.Profile_page.head_dep.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))
         self.Profile_page.present.setTitle(QCoreApplication.translate("Employee_Page", u"Present", None))
         self.Profile_page.current_deduction.setTitle(QCoreApplication.translate("Employee_Page", u"Current Salary Deduction", None))
         
-        self.Profile_page.general_info.setHtml(QCoreApplication.translate("Employee_Page", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:20pt; font-weight:696;\">General Information</span></p></body></html>", None))
-        
-        self.Profile_page.month_details.setHtml(QCoreApplication.translate("Employee_Page", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:20pt; font-weight:696;\">Current Month Details</span></p></body></html>", None))
+        self.Profile_page.General_info.setText(QCoreApplication.translate("Employee_Page", u" General Information", None))
+        self.Profile_page.Current_Month.setText(QCoreApplication.translate("Employee_Page", u"Current Month Details", None))
         self.Profile_page.department.setTitle(QCoreApplication.translate("Employee_Page", u"Department", None))
         self.Profile_page.current_deduction_input.setTitle(QCoreApplication.translate("Employee_Page", u"Rs. 23666", None))
         self.Profile_page.department_input.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))

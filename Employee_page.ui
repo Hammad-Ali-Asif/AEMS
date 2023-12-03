@@ -626,7 +626,7 @@ font: 700 14pt &quot;Segoe UI&quot;;
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_52"/>
      </widget>
-     <widget class="QGroupBox" name="f_name_3">
+     <widget class="QGroupBox" name="head_dep">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -996,7 +996,7 @@ font: 14pt &quot;Segoe UI&quot;;
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_30"/>
      </widget>
-     <widget class="QGroupBox" name="f_name_2">
+     <widget class="QGroupBox" name="Head_name">
       <property name="geometry">
        <rect>
         <x>10</x>
