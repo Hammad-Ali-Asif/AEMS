@@ -476,7 +476,7 @@ class Profile(QWidget):
                 # Connect to the PostgreSQL database
                 db_connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -679,7 +679,7 @@ class leavereportpage(QWidget):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -944,7 +944,7 @@ class attendancepage(QWidget):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 db_connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -1119,6 +1119,7 @@ class salarypage(QWidget):
                 self.department_2.setFont(font2)
                 self.department_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
         "font: 900 16pt \"Segoe UI\";")
+                self.load_salary_data()
                 self.translateUI()
 
         def translateUI (self):
@@ -1133,7 +1134,7 @@ class salarypage(QWidget):
                 ___qtablewidgetitem11 = self.salary_record.horizontalHeaderItem(4)
                 ___qtablewidgetitem11.setText(QCoreApplication.translate("Employee_Page", u"Total Wage", None));
                 ___qtablewidgetitem12 = self.salary_record.verticalHeaderItem(0)
-                ___qtablewidgetitem12.setText(QCoreApplication.translate("Employee_Page", u"1.", None));
+                ___qtablewidgetitem12.setText(QCoreApplication.translate("Employee_Page", u"1.", None))
                 ___qtablewidgetitem13 = self.salary_record.verticalHeaderItem(1)
                 ___qtablewidgetitem13.setText(QCoreApplication.translate("Employee_Page", u"2.", None));
                 ___qtablewidgetitem14 = self.salary_record.verticalHeaderItem(2)
@@ -1185,11 +1186,95 @@ class salarypage(QWidget):
                 ___qtablewidgetitem35.setText(QCoreApplication.translate("Employee_Page", u"December", None));
                 self.salary_record.setSortingEnabled(__sortingEnabled)
 
-                self.name_input.setText(QCoreApplication.translate("Employee_Page", u"Aatiqa Hussain", None))
-                self.department_input_2.setText(QCoreApplication.translate("Employee_Page", u"Accounts", None))
+                self.name.setText(QCoreApplication.translate("Employee_Page", u"Name", None))
+                self.department_2.setText(QCoreApplication.translate("Employee_Page", u"Department", None))
                 self.title_2.setText(QCoreApplication.translate("Employee_Page", u"                                Annual Salary Report", None))
-                self.name.setText(QCoreApplication.translate("Employee_Page", u"Name :", None))
-                self.department_2.setText(QCoreApplication.translate("Employee_Page", u"Department :", None))
+               
+        def load_salary_data(self):
+                # Connect to the PostgreSQL database (adjust connection parameters accordingly)
+                db_connection = psycopg2.connect(
+                user="postgres",
+                password="zendagimigzara",
+                host="localhost",
+                port="5432",
+                database="AEMS"
+                )
+
+                 # Create a cursor
+                cursor = db_connection.cursor()
+                # Query to retrieve salary data for a specific employee
+                query = """
+                SELECT Fname, Lname, department
+                FROM Employee
+                WHERE id = %s
+                """
+
+                # Execute the query
+                cursor.execute(query, (self.emp_id,))
+
+                # Fetch all rows
+                emp_data = cursor.fetchall()
+                print (emp_data)
+                self.name_input.setText(QCoreApplication.translate("Employee_Page", str(emp_data[0][0]) + " " + str(emp_data[0][1]), None))
+                self.department_input_2.setText(QCoreApplication.translate("Employee_Page", emp_data[0][2], None))
+
+                # # Query to retrieve salary data for a specific employee
+                # query = """
+                # SELECT date_, deduction, amount, total
+                # FROM Salary_Record
+                # WHERE employee_id = %s
+                # """
+
+                # # Execute the query
+                # cursor.execute(query, (self.emp_id,))
+
+                # # Fetch all rows
+                # salary_data = cursor.fetchall()
+
+                # # Close the cursor and connection
+                # cursor.close()
+                # db_connection.close()
+
+                # # Clear existing items in the table
+                # self.salary_record.setRowCount(0)
+
+                # # Populate the table with data
+                # months_mapping = {
+                # 'January': 1,
+                # 'February': 2,
+                # 'March': 3,
+                # 'April': 4,
+                # 'May': 5,
+                # 'June': 6,
+                # 'July': 7,
+                # 'August': 8,
+                # 'September': 9,
+                # 'October': 10,
+                # 'November': 11,
+                # 'December': 12
+                # }
+
+                # for row, (date_, deduction, amount, total) in enumerate(salary_data):
+                #         # Extract month from 'yyyy-mm-dd' format
+                #         date_ = str(date_)
+                #         year, month, day = date_.split('-')
+
+                #         # Insert data into the row corresponding to the month number
+                #         month_number = int(month)
+                #         if (month_number >= 2):
+                #                 self.salary_record.insertRow(month_number - 2)
+                #                 self.salary_record.setItem(month_number - 2, 2, QTableWidgetItem(str(date_)))
+                #                 self.salary_record.setItem(month_number - 2, 3, QTableWidgetItem(str(deduction)))
+                #                 self.salary_record.setItem(month_number - 2, 4, QTableWidgetItem(str(amount)))
+                #                 self.salary_record.setItem(month_number - 2, 5, QTableWidgetItem(str(total)))
+                #         else:
+                #                 self.salary_record.insertRow(11)
+                #                 self.salary_record.setItem(11, 2, QTableWidgetItem(str(date_)))
+                #                 self.salary_record.setItem(11, 3, QTableWidgetItem(str(deduction)))
+                #                 self.salary_record.setItem(11, 4, QTableWidgetItem(str(amount)))
+                #                 self.salary_record.setItem(11, 5, QTableWidgetItem(str(total)))
+
+
                 
 class applicationpage(QWidget):
         def __init__(self,Page,id):
@@ -1330,6 +1415,18 @@ class EmployeePage(QDialog):
                 self.setWindowTitle(QCoreApplication.translate("Employee_Page", u"MainWindow", None))
     
 
+def generateSalary():
+         # Connect to the PostgreSQL database (adjust connection parameters accordingly)
+        db_connection = psycopg2.connect(
+        user="postgres",
+        password="zendagimigzara",
+        host="localhost",
+        port="5432",
+        database="AEMS"
+        )
+
+                # Create a cursor
+        cursor = db_connection.cursor()
 
 
 if __name__ == "__main__":
