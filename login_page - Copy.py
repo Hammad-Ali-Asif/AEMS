@@ -114,7 +114,7 @@ class Ui_Login_page(object):
     def check_credentials(self):
         self.connection = psycopg2.connect(
             user="postgres",
-            password="zendagimigzara",
+            password="12345678",
             host="localhost",
             port="5432",
             database="AEMS"
