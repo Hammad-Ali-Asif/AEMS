@@ -374,7 +374,9 @@ class AttendancePage(QWidget):
         for row in range(total_rows):
             employee_id = self.Attendance_sheet.item(row, 0).text()
             attendance_status_item = self.Attendance_sheet.item(row, 4)
-            attendance_status = attendance_status_item.text()
+            attendance_status='P'
+            if attendance_status_item:
+                attendance_status = attendance_status_item.text()
             # Update the attendance table in the database with the selected date, employee_id, and attendance_status
             self.updateAttendanceInDatabase(selected_date, employee_id, attendance_status)
 

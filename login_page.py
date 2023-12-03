@@ -16,8 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QMainWindow,
-    QPushButton, QSizePolicy, QWidget)
-
+    QPushButton, QSizePolicy, QWidget,QMessageBox)
+import temp
+import psycopg2
 
 class Ui_Login_page(object):
     def setupUi(self, Login_page):
@@ -41,7 +42,7 @@ class Ui_Login_page(object):
         self.logo = QLabel(self.centralwidget)
         self.logo.setObjectName(u"logo")
         self.logo.setGeometry(QRect(-10, 40, 531, 251))
-        self.logo.setPixmap(QPixmap(u"Images/logo.png"))
+        self.logo.setPixmap(QPixmap(u"Images/logo-black.png"))
         self.logo.setScaledContents(True)
         self.sign_in_text = QLabel(self.centralwidget)
         self.sign_in_text.setObjectName(u"sign_in_text")
@@ -51,7 +52,7 @@ class Ui_Login_page(object):
         font.setPointSize(20)
         font.setBold(True)
         self.sign_in_text.setFont(font)
-        self.sign_in_text.setStyleSheet(u"color: rgb(103, 49, 71);")
+        self.sign_in_text.setStyleSheet(u"color: rgb(50, 82, 110);")
         self.HR_ID = QLabel(self.centralwidget)
         self.HR_ID.setObjectName(u"HR_ID")
         self.HR_ID.setGeometry(QRect(120, 340, 71, 21))
@@ -60,7 +61,7 @@ class Ui_Login_page(object):
         font1.setPointSize(13)
         font1.setBold(True)
         self.HR_ID.setFont(font1)
-        self.HR_ID.setStyleSheet(u"color: rgb(103, 49, 71);")
+        self.HR_ID.setStyleSheet(u"color: rgb(50, 82, 110);")
         self.Password = QLabel(self.centralwidget)
         self.Password.setObjectName(u"Password")
         self.Password.setGeometry(QRect(40, 430, 201, 21))
@@ -70,7 +71,7 @@ class Ui_Login_page(object):
         font2.setBold(True)
         self.Password.setFont(font2)
         self.Password.setStyleSheet(u"margin-left:76px;\n"
-"color: rgb(103, 49, 71);")
+"color: rgb(50, 82, 110);")
         self.HR_ID_BOX = QLineEdit(self.centralwidget)
         self.HR_ID_BOX.setObjectName(u"HR_ID_BOX")
         self.HR_ID_BOX.setGeometry(QRect(40, 380, 350, 30))
@@ -98,10 +99,11 @@ class Ui_Login_page(object):
         self.Sign_in_button.setCursor(QCursor(Qt.PointingHandCursor))
         self.Sign_in_button.setStyleSheet(u"border:2px solid;\n"
 "border-radius:10px;\n"
-"background-color:rgb(103, 49, 71);\n"
+"background-color:rgb(50, 82, 110);\n"
 "border-color: rgb(255, 255, 255);\n"
 "color: rgb(255, 255, 255);\n"
 "")
+        self.Sign_in_button.clicked.connect(self.check_credentials)
         Login_page.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(Login_page)
@@ -109,12 +111,53 @@ class Ui_Login_page(object):
         QMetaObject.connectSlotsByName(Login_page)
     # setupUi
 
+    def check_credentials(self):
+        self.connection = psycopg2.connect(
+            user="postgres",
+            password="12345678",
+            host="localhost",
+            port="5432",
+            database="AEMS"
+        )
+
+        # Create a cursor object to execute SQL queries
+        self.cursor = self.connection.cursor()
+
+        email = self.HR_ID_BOX.text()
+        password = self.password_box.text()
+
+        # Execute the SELECT query
+        query = "SELECT * FROM Employee WHERE email = %s AND password = %s;"
+        self.cursor.execute(query, (email, password))
+
+        # Fetch the result
+        result = self.cursor.fetchone()
+        self.cursor.close()
+        self.connection.close()
+        if result:
+            id=result[0]
+            self.authenticate_user(id)
+        else:
+            QMessageBox.warning(self, "Login Failed", "Invalid username or password. Please try again.")
+
+    def authenticate_user(self,employee_id):
+
+        self.close()
+        
+        # Pass the employee ID to the EmployeePage instance
+        employee_page = temp.EmployeePage(employee_id)
+        employee_page.show()
+        
+
+            
+        
+
     def retranslateUi(self, Login_page):
         Login_page.setWindowTitle(QCoreApplication.translate("Login_page", u"MainWindow", None))
         self.login_image.setText("")
         self.logo.setText("")
         self.sign_in_text.setText(QCoreApplication.translate("Login_page", u"Sign In", None))
-        self.HR_ID.setText(QCoreApplication.translate("Login_page", u"HR ID.", None))
+        self.HR_ID.setText(QCoreApplication.translate("Login_page", u"Email.", None))
         self.Password.setText(QCoreApplication.translate("Login_page", u"Password.", None))
         self.HR_ID_BOX.setPlaceholderText(QCoreApplication.translate("Login_page", u"Enter your ID", None))
         self.password_box.setPlaceholderText(QCoreApplication.translate("Login_page", u"Enter password", None))
@@ -130,33 +173,7 @@ class LoginPage(QMainWindow, Ui_Login_page):
 
         
 
-    def check_credentials(self):
-        # Get HR ID and Password from the input boxes
-        hr_id = self.HR_ID_BOX.text()
-        password = self.password_box.text()
-
-        # Example query (replace with your actual query)
-        query = sql.SQL("SELECT * FROM users WHERE user_id = {} AND password = {};").format(
-            sql.Literal(hr_id), sql.Literal(password)
-        )
-
-        # Execute the query
-        self.cursor.execute(query)
-
-        # Fetch the result
-        result = self.cursor.fetchone()
-
-        if result:
-            print("Login Successful")
-            # Add your logic for a successful login here
-        else:
-            print("Login Failed")
-            # Add your logic for a failed login here
-
-    def closeEvent(self, event):
-        # Close the database connection when the application is closed
-        self.cursor.close()
-        self.connection.close()
+    
 
 if __name__ == "__main__":
     app = QApplication([])
