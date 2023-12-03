@@ -994,9 +994,9 @@ class salarypage(QWidget):
                 ___qtablewidgetitem3.setText(QCoreApplication.translate("Employee_Page", u"Date", None));
                 ___qtablewidgetitem4 = self.table_start.horizontalHeaderItem(1)
                 ___qtablewidgetitem4.setText(QCoreApplication.translate("Employee_Page", u"Status", None));
-                ___qtablewidgetitem5 = self.table_end.horizontalHeaderItem(0)
+                ___qtablewidgetitem5 = self.table_start.horizontalHeaderItem(0)
                 ___qtablewidgetitem5.setText(QCoreApplication.translate("Employee_Page", u"Date", None));
-                ___qtablewidgetitem6 = self.table_end.horizontalHeaderItem(1)
+                ___qtablewidgetitem6 = self.table_start.horizontalHeaderItem(1)
                 ___qtablewidgetitem6.setText(QCoreApplication.translate("Employee_Page", u"Status", None));
                 self.label.setText(QCoreApplication.translate("Employee_Page", u"<html><head/><body><p align=\"center\"><span style=\" color:#e6e6e6;\">Employee Attendance</span></p></body></html>", None))
                 self.may.setText(QCoreApplication.translate("Employee_Page", u"May", None))
@@ -1163,7 +1163,7 @@ class applicationpage(QWidget):
         "font: 700 32pt \"Segoe UI\";")
                 self.translateui()
 
-        def traslateui(self):
+        def translateui(self):
                 self.name.setText(QCoreApplication.translate("Employee_Page", u"Name :", None))
                 self.department_2.setText(QCoreApplication.translate("Employee_Page", u"Department :", None))
                 self.description.setText(QCoreApplication.translate("Employee_Page", u"Description", None))
