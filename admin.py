@@ -187,10 +187,6 @@ class AttendanceStatusDelegate(QItemDelegate):
         editor.setCurrentText("A" if value == 0 else "P")
 
 
-
-    
-
-
 class AttendancePage(QWidget):
     def __init__(self, page, stacked_widget):
         super(AttendancePage, self).__init__(page)
@@ -687,6 +683,7 @@ class Add_Employee_page(QWidget):
     
     def show_success_message(self, message):
         QMessageBox.information(self, "Success", message, QMessageBox.Ok)
+
 class Employee_list_page(QWidget):
     def __init__(self, Page,stacked_widget):
         super(Employee_list_page, self).__init__(Page)
@@ -837,6 +834,7 @@ class Employee_list_page(QWidget):
         details_page.back_button.setText(QCoreApplication.translate("Admin_Page", u"Back", None))
         self.stack_widget.addWidget(details_page)
         self.stack_widget.setCurrentIndex(5)
+
 class Employee_detail_page(QWidget):
     def __init__(self,id,stacked_widget):
         super(Employee_detail_page, self).__init__()
