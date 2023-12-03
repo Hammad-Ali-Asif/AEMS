@@ -476,7 +476,7 @@ class Profile(QWidget):
                 # Connect to the PostgreSQL database
                 db_connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -679,7 +679,7 @@ class leavereportpage(QWidget):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -944,7 +944,7 @@ class attendancepage(QWidget):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 db_connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -958,52 +958,170 @@ class salarypage(QWidget):
                 super(salarypage, self).__init__(Page)
                 self.emp_id=id
                 self.setObjectName(u"salary_report")
-                self.table_start = QTableWidget(self)
-                if (self.table_start.columnCount() < 2):
-                        self.table_start.setColumnCount(2)
-                brush1 = QBrush(QColor(50, 84, 110, 255))
-                brush1.setStyle(Qt.SolidPattern)
+                self.salary_record = QTableWidget(self)
+                if (self.salary_record.columnCount() < 5):
+                        self.salary_record.setColumnCount(5)
+                __qtablewidgetitem7 = QTableWidgetItem()
                 font4 = QFont()
                 font4.setPointSize(14)
                 font4.setBold(True)
-                __qtablewidgetitem3 = QTableWidgetItem()
-                __qtablewidgetitem3.setFont(font4)
-                __qtablewidgetitem3.setBackground(QColor(85, 55, 89))
-                __qtablewidgetitem3.setForeground(brush1);
-                self.table_start.setHorizontalHeaderItem(0, __qtablewidgetitem3)
-                __qtablewidgetitem4 = QTableWidgetItem()
-                __qtablewidgetitem4.setFont(font4);
-                __qtablewidgetitem4.setBackground(QColor(85, 55, 89));
-                __qtablewidgetitem4.setForeground(brush1);
-                self.table_start.setHorizontalHeaderItem(1, __qtablewidgetitem4)
-                self.table_start.setObjectName(u"table_start")
-                self.table_start.setGeometry(QRect(110, 30, 621, 441))
-                self.table_start.setStyleSheet(u"background-color: rgb(230, 230, 230);\n"
-        "color: rgb(50, 84, 110);\n"
-        "\n"
-        "QHeaderView::section {\n"
+                brush1 = QBrush(QColor(50, 84, 110, 255))
+                brush1.setStyle(Qt.SolidPattern)
+                __qtablewidgetitem7.setFont(font4);
+                __qtablewidgetitem7.setBackground(QColor(85, 55, 89));
+                __qtablewidgetitem7.setForeground(brush1);
+                self.salary_record.setHorizontalHeaderItem(0, __qtablewidgetitem7)
+                __qtablewidgetitem8 = QTableWidgetItem()
+                __qtablewidgetitem8.setFont(font4);
+                __qtablewidgetitem8.setBackground(QColor(85, 55, 89));
+                __qtablewidgetitem8.setForeground(brush1);
+                self.salary_record.setHorizontalHeaderItem(1, __qtablewidgetitem8)
+                __qtablewidgetitem9 = QTableWidgetItem()
+                __qtablewidgetitem9.setFont(font4);
+                __qtablewidgetitem9.setBackground(QColor(85, 55, 89));
+                __qtablewidgetitem9.setForeground(brush1);
+                self.salary_record.setHorizontalHeaderItem(2, __qtablewidgetitem9)
+                __qtablewidgetitem10 = QTableWidgetItem()
+                __qtablewidgetitem10.setFont(font4);
+                __qtablewidgetitem10.setBackground(QColor(81, 55, 89));
+                __qtablewidgetitem10.setForeground(brush1);
+                self.salary_record.setHorizontalHeaderItem(3, __qtablewidgetitem10)
+                __qtablewidgetitem11 = QTableWidgetItem()
+                __qtablewidgetitem11.setTextAlignment(Qt.AlignHCenter|Qt.AlignTop);
+                __qtablewidgetitem11.setFont(font4);
+                __qtablewidgetitem11.setBackground(QColor(85, 55, 89));
+                __qtablewidgetitem11.setForeground(brush1);
+                self.salary_record.setHorizontalHeaderItem(4, __qtablewidgetitem11)
+                if (self.salary_record.rowCount() < 12):
+                        self.salary_record.setRowCount(12)
+                __qtablewidgetitem12 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(0, __qtablewidgetitem12)
+                __qtablewidgetitem13 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(1, __qtablewidgetitem13)
+                __qtablewidgetitem14 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(2, __qtablewidgetitem14)
+                __qtablewidgetitem15 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(3, __qtablewidgetitem15)
+                __qtablewidgetitem16 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(4, __qtablewidgetitem16)
+                __qtablewidgetitem17 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(5, __qtablewidgetitem17)
+                __qtablewidgetitem18 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(6, __qtablewidgetitem18)
+                __qtablewidgetitem19 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(7, __qtablewidgetitem19)
+                __qtablewidgetitem20 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(8, __qtablewidgetitem20)
+                __qtablewidgetitem21 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(9, __qtablewidgetitem21)
+                __qtablewidgetitem22 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(10, __qtablewidgetitem22)
+                __qtablewidgetitem23 = QTableWidgetItem()
+                self.salary_record.setVerticalHeaderItem(11, __qtablewidgetitem23)
+                font7 = QFont()
+                font7.setPointSize(12)
+                __qtablewidgetitem24 = QTableWidgetItem()
+                __qtablewidgetitem24.setFont(font7);
+                self.salary_record.setItem(0, 0, __qtablewidgetitem24)
+                __qtablewidgetitem25 = QTableWidgetItem()
+                __qtablewidgetitem25.setFont(font7);
+                self.salary_record.setItem(1, 0, __qtablewidgetitem25)
+                __qtablewidgetitem26 = QTableWidgetItem()
+                __qtablewidgetitem26.setFont(font7);
+                self.salary_record.setItem(2, 0, __qtablewidgetitem26)
+                __qtablewidgetitem27 = QTableWidgetItem()
+                __qtablewidgetitem27.setFont(font7);
+                self.salary_record.setItem(3, 0, __qtablewidgetitem27)
+                __qtablewidgetitem28 = QTableWidgetItem()
+                __qtablewidgetitem28.setFont(font7);
+                self.salary_record.setItem(4, 0, __qtablewidgetitem28)
+                __qtablewidgetitem29 = QTableWidgetItem()
+                __qtablewidgetitem29.setFont(font7);
+                self.salary_record.setItem(5, 0, __qtablewidgetitem29)
+                __qtablewidgetitem30 = QTableWidgetItem()
+                __qtablewidgetitem30.setFont(font7);
+                self.salary_record.setItem(6, 0, __qtablewidgetitem30)
+                __qtablewidgetitem31 = QTableWidgetItem()
+                __qtablewidgetitem31.setFont(font7);
+                self.salary_record.setItem(7, 0, __qtablewidgetitem31)
+                __qtablewidgetitem32 = QTableWidgetItem()
+                __qtablewidgetitem32.setFont(font7);
+                self.salary_record.setItem(8, 0, __qtablewidgetitem32)
+                __qtablewidgetitem33 = QTableWidgetItem()
+                __qtablewidgetitem33.setFont(font7);
+                self.salary_record.setItem(9, 0, __qtablewidgetitem33)
+                font8 = QFont()
+                font8.setPointSize(13)
+                __qtablewidgetitem34 = QTableWidgetItem()
+                __qtablewidgetitem34.setFont(font8);
+                self.salary_record.setItem(10, 0, __qtablewidgetitem34)
+                __qtablewidgetitem35 = QTableWidgetItem()
+                __qtablewidgetitem35.setFont(font7);
+                self.salary_record.setItem(11, 0, __qtablewidgetitem35)
+                self.salary_record.setObjectName(u"salary_record")
+                self.salary_record.setGeometry(QRect(50, 230, 841, 401))
+                self.salary_record.setStyleSheet(u"QHeaderView::section {\n"
         "    background-color: rgb(50, 84, 110); /* Set your desired background color */\n"
         "    color: rgb(230, 230, 230); /* Set the text color */\n"
-        "};")
-                self.table_start.horizontalHeader().setMinimumSectionSize(96)
-                self.table_start.horizontalHeader().setDefaultSectionSize(305)
+        "};\n"
+        "\n"
+        "color: rgb(50, 84, 110);\n"
+        "background-color: rgb(230, 230, 230);\n"
+        "\n"
+        "")
+                self.salary_record.horizontalHeader().setDefaultSectionSize(162)
+                self.name_input = QLabel(self)
+                self.name_input.setObjectName(u"name_input")
+                self.name_input.setGeometry(QRect(240, 130, 500, 30))
+                font9 = QFont()
+                font9.setFamilies([u"Segoe UI"])
+                font9.setPointSize(14)
+                font9.setBold(True)
+                font9.setItalic(False)
+                font9.setUnderline(False)
+                self.name_input.setFont(font9)
+                self.name_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+        "font: 700 14pt \"Segoe UI\";")
+                self.department_input_2 = QLabel(self)
+                self.department_input_2.setObjectName(u"department_input_2")
+                self.department_input_2.setGeometry(QRect(240, 170, 500, 30))
+                font10 = QFont()
+                font10.setFamilies([u"Segoe UI"])
+                font10.setPointSize(14)
+                font10.setBold(True)
+                font10.setItalic(False)
+                self.department_input_2.setFont(font10)
+                self.department_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+        "font: 700 14pt \"Segoe UI\";")
+                self.title_2 = QLabel(self)
+                self.title_2.setObjectName(u"title_2")
+                self.title_2.setGeometry(QRect(0, 30, 925, 61))
+                font11 = QFont()
+                font11.setPointSize(26)
+                font11.setBold(True)
+                self.title_2.setFont(font11)
+                self.title_2.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+        "color: rgb(230, 230, 230);")
+                self.name = QLabel(self)
+                self.name.setObjectName(u"name")
+                self.name.setGeometry(QRect(60, 130, 150, 30))
+                font2 = QFont()
+                font2.setFamilies([u"Segoe UI"])
+                font2.setPointSize(16)
+                font2.setWeight(QFont.Black)
+                font2.setItalic(False)
+                self.name.setFont(font2)
+                self.name.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+        "font: 900 16pt \"Segoe UI\";")
+                self.department_2 = QLabel(self)
+                self.department_2.setObjectName(u"department_2")
+                self.department_2.setGeometry(QRect(60, 170, 150, 30))
+                self.department_2.setFont(font2)
+                self.department_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+        "font: 900 16pt \"Segoe UI\";")
                 self.translateUI()
 
         def translateUI (self):
-                ___qtablewidgetitem3 = self.table_start.horizontalHeaderItem(0)
-                ___qtablewidgetitem3.setText(QCoreApplication.translate("Employee_Page", u"Date", None));
-                ___qtablewidgetitem4 = self.table_start.horizontalHeaderItem(1)
-                ___qtablewidgetitem4.setText(QCoreApplication.translate("Employee_Page", u"Status", None));
-                ___qtablewidgetitem5 = self.table_end.horizontalHeaderItem(0)
-                ___qtablewidgetitem5.setText(QCoreApplication.translate("Employee_Page", u"Date", None));
-                ___qtablewidgetitem6 = self.table_end.horizontalHeaderItem(1)
-                ___qtablewidgetitem6.setText(QCoreApplication.translate("Employee_Page", u"Status", None));
-                self.label.setText(QCoreApplication.translate("Employee_Page", u"<html><head/><body><p align=\"center\"><span style=\" color:#e6e6e6;\">Employee Attendance</span></p></body></html>", None))
-                self.may.setText(QCoreApplication.translate("Employee_Page", u"May", None))
-                self.june.setText(QCoreApplication.translate("Employee_Page", u"June", None))
-                self.july.setText(QCoreApplication.translate("Employee_Page", u"July", None))
-                self.aug.setText(QCoreApplication.translate("Employee_Page", u"August", None))
-                self.nov.setText(QCoreApplication.translate("Employee_Page", u"November", None))
                 ___qtablewidgetitem7 = self.salary_record.horizontalHeaderItem(0)
                 ___qtablewidgetitem7.setText(QCoreApplication.translate("Employee_Page", u"Months", None));
                 ___qtablewidgetitem8 = self.salary_record.horizontalHeaderItem(1)
@@ -1070,7 +1188,9 @@ class salarypage(QWidget):
                 self.name_input.setText(QCoreApplication.translate("Employee_Page", u"Aatiqa Hussain", None))
                 self.department_input_2.setText(QCoreApplication.translate("Employee_Page", u"Accounts", None))
                 self.title_2.setText(QCoreApplication.translate("Employee_Page", u"                                Annual Salary Report", None))
-        
+                self.name.setText(QCoreApplication.translate("Employee_Page", u"Name :", None))
+                self.department_2.setText(QCoreApplication.translate("Employee_Page", u"Department :", None))
+                
 class applicationpage(QWidget):
         def __init__(self,Page,id):
                 super(applicationpage, self).__init__(Page)
@@ -1117,6 +1237,8 @@ class applicationpage(QWidget):
                 self.end_date_input.setObjectName(u"end_date_input")
                 self.end_date_input.setGeometry(QRect(640, 170, 151, 31))
                 self.end_date_input.setStyleSheet(u"font: 12pt \"Segoe UI\";")
+                self.end_date_input.setMaximumDate(QDate(2023, 12, 31))
+                self.end_date_input.setMinimumDate(QDate(2023, 1, 1))
                 self.submit_button = QPushButton(self)
                 self.submit_button.setObjectName(u"submit_button")
                 self.submit_button.setGeometry(QRect(420, 620, 131, 51))
@@ -1143,6 +1265,8 @@ class applicationpage(QWidget):
                 self.start_date_input.setObjectName(u"start_date_input")
                 self.start_date_input.setGeometry(QRect(260, 170, 151, 31))
                 self.start_date_input.setStyleSheet(u"font: 12pt \"Segoe UI\";")
+                self.start_date_input.setMaximumDate(QDate(2023, 12, 31))
+                self.start_date_input.setMinimumDate(QDate(2023, 1, 1))
                 self.start_date = QLabel(self)
                 self.start_date.setObjectName(u"start_date")
                 self.start_date.setGeometry(QRect(50, 170, 131, 31))
@@ -1163,20 +1287,17 @@ class applicationpage(QWidget):
         "font: 700 32pt \"Segoe UI\";")
                 self.translateui()
 
-        def traslateui(self):
-                self.name.setText(QCoreApplication.translate("Employee_Page", u"Name :", None))
-                self.department_2.setText(QCoreApplication.translate("Employee_Page", u"Department :", None))
+        def translateui(self):
                 self.description.setText(QCoreApplication.translate("Employee_Page", u"Description", None))
                 self.end_date.setText(QCoreApplication.translate("Employee_Page", u"End Date", None))
                 self.exp.setText(QCoreApplication.translate("Employee_Page", u"(Explain reason for leave in 2-5 lines.)", None))
                 self.category_input.setItemText(0, QCoreApplication.translate("Employee_Page", u"General", None))
                 self.category_input.setItemText(1, QCoreApplication.translate("Employee_Page", u"Health", None))
-
                 self.submit_button.setText(QCoreApplication.translate("Employee_Page", u"SUBMIT", None))
                 self.category.setText(QCoreApplication.translate("Employee_Page", u"Category", None))
                 self.start_date.setText(QCoreApplication.translate("Employee_Page", u"Start Date", None))
                 self.title_3.setText(QCoreApplication.translate("Employee_Page", u"                         Leave Application", None))
-    
+
 class EmployeePage(QDialog):
         def __init__(self,id):
                 super(EmployeePage, self).__init__()
@@ -1215,6 +1336,6 @@ if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
     global window
-    window =  EmployeePage('7')
+    window =  EmployeePage('1001')
     window.show()
     sys.exit(app.exec_())
