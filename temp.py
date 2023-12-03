@@ -13,9 +13,11 @@ QWidget,QMessageBox,QTableWidget, QTableWidgetItem,QVBoxLayout,QItemDelegate,QSp
 import psycopg2
 import login_page
 class SideBar(QGroupBox):
-    def __init__(self,Page,employee_instance):
+    def __init__(self,Page,employee_instance,empid):
         super(SideBar, self).__init__(Page)
         self.employee=employee_instance
+        self.emp_id=empid
+        self.page=Page
         self.setObjectName("side_bar")
         self.setGeometry(0, 0, 350, 722)
         self.setMinimumSize(350, 722)
@@ -26,37 +28,37 @@ class SideBar(QGroupBox):
         self.logo.setGeometry(QRect(0, 20, 341, 191))
         self.logo.setPixmap(QPixmap(u"Images/logo-grey.png"))
         self.logo.setScaledContents(True)
-        self.profile = QPushButton(self)
-        self.profile.setObjectName(u"profile")
-        self.profile.setGeometry(QRect(0, 470, 348, 65))
-        self.profile.setMinimumSize(QSize(348, 65))
-        self.profile.setMaximumSize(QSize(348, 65))
-        self.profile.setCursor(QCursor(Qt.PointingHandCursor))
-        self.profile.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
-"color: rgb(230, 230, 230);")
-        self.leave_report = QPushButton(self)
-        self.leave_report.setObjectName(u"leave_report")
-        self.leave_report.setGeometry(QRect(0, 210, 348, 65))
-        self.leave_report.setMinimumSize(QSize(348, 65))
-        self.leave_report.setMaximumSize(QSize(348, 65))
-        self.leave_report.setCursor(QCursor(Qt.PointingHandCursor))
-        self.leave_report.setStyleSheet(u"font: 20pt \"Sitka\";\n"
-"color: rgb(230, 230, 230);")
         self.leave_application = QPushButton(self)
         self.leave_application.setObjectName(u"leave_application")
-        self.leave_application.setGeometry(QRect(0, 405, 348, 65))
+        self.leave_application.setGeometry(QRect(0, 470, 348, 65))
         self.leave_application.setMinimumSize(QSize(348, 65))
         self.leave_application.setMaximumSize(QSize(348, 65))
         self.leave_application.setCursor(QCursor(Qt.PointingHandCursor))
         self.leave_application.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
 "color: rgb(230, 230, 230);")
-        self.salary_3 = QPushButton(self)
-        self.salary_3.setObjectName(u"salary_3")
-        self.salary_3.setGeometry(QRect(0, 275, 348, 65))
-        self.salary_3.setMinimumSize(QSize(348, 65))
-        self.salary_3.setMaximumSize(QSize(348, 65))
-        self.salary_3.setCursor(QCursor(Qt.PointingHandCursor))
-        self.salary_3.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
+        self.profile = QPushButton(self)
+        self.profile.setObjectName(u"profile")
+        self.profile.setGeometry(QRect(0, 210, 348, 65))
+        self.profile.setMinimumSize(QSize(348, 65))
+        self.profile.setMaximumSize(QSize(348, 65))
+        self.profile.setCursor(QCursor(Qt.PointingHandCursor))
+        self.profile.setStyleSheet(u"font: 20pt \"Sitka\";\n"
+"color: rgb(230, 230, 230);")
+        self.salary = QPushButton(self)
+        self.salary.setObjectName(u"salary")
+        self.salary.setGeometry(QRect(0, 405, 348, 65))
+        self.salary.setMinimumSize(QSize(348, 65))
+        self.salary.setMaximumSize(QSize(348, 65))
+        self.salary.setCursor(QCursor(Qt.PointingHandCursor))
+        self.salary.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
+"color: rgb(230, 230, 230);")
+        self.leave_report = QPushButton(self)
+        self.leave_report.setObjectName(u"leave_report")
+        self.leave_report.setGeometry(QRect(0, 275, 348, 65))
+        self.leave_report.setMinimumSize(QSize(348, 65))
+        self.leave_report.setMaximumSize(QSize(348, 65))
+        self.leave_report.setCursor(QCursor(Qt.PointingHandCursor))
+        self.leave_report.setStyleSheet(u"font: 20pt \"Sitka\" rgb(255, 255, 255);\n"
 "color: rgb(230, 230, 230);")
         self.attendance = QPushButton(self)
         self.attendance.setObjectName(u"attendance")
@@ -80,8 +82,56 @@ class SideBar(QGroupBox):
         self.sign_out.setIcon(icon)
         self.sign_out.setIconSize(QSize(30, 30))
         self.sign_out.clicked.connect(self.employee.signout)
-    
+        self.translateUI()
+   
+    def translateUI(self):
+        self.setTitle("")
+        self.logo.setText("")
+        self.leave_application.setText(QCoreApplication.translate("Employee_Page", u"Leave Application", None))
+        self.profile.setText(QCoreApplication.translate("Employee_Page", u"Profile", None))
+        self.salary.setText(QCoreApplication.translate("Employee_Page", u"Salary", None))
+        self.leave_report.setText(QCoreApplication.translate("Employee_Page", u"Leave Report", None))
+        self.attendance.setText(QCoreApplication.translate("Employee_Page", u"Attendance", None))
+        self.sign_out.setText(QCoreApplication.translate("Employee_Page", u"  Sign Out ", None))
+    def setup_connections(self, stacked_widget):
+        self.profile.clicked.connect(lambda: self.setprofilepage(stacked_widget))
+        self.leave_report.clicked.connect(lambda: self.setleavereportpage(stacked_widget))
+        self.attendance.clicked.connect(lambda: self.setattendancepage(stacked_widget))
 
+    def setprofilepage(self, stacked_widget):
+        current_index = stacked_widget.currentIndex()
+        if current_index != -1:
+                current_widget = stacked_widget.widget(current_index)
+                stacked_widget.removeWidget(current_widget)
+                current_widget.deleteLater()
+        new_profile_page = Profile(self.page,self.emp_id)
+        stacked_widget.addWidget(new_profile_page)
+        new_index = stacked_widget.indexOf(new_profile_page)
+        stacked_widget.setCurrentIndex(new_index)
+
+    def setleavereportpage(self, stacked_widget):
+        current_index = stacked_widget.currentIndex()
+        if current_index != -1:
+                current_widget = stacked_widget.widget(current_index)
+                stacked_widget.removeWidget(current_widget)
+                current_widget.deleteLater()
+        new_leave_page = leavereportpage(self.page,self.emp_id)
+        stacked_widget.addWidget(new_leave_page)
+        new_index = stacked_widget.indexOf(new_leave_page)
+        stacked_widget.setCurrentIndex(new_index)
+
+    def setattendancepage(self, stacked_widget):
+        current_index = stacked_widget.currentIndex()
+        if current_index != -1:
+                current_widget = stacked_widget.widget(current_index)
+                stacked_widget.removeWidget(current_widget)
+                current_widget.deleteLater()
+        new_leave_page = attendancepage(self.page,self.emp_id)
+        stacked_widget.addWidget(new_leave_page)
+        new_index = stacked_widget.indexOf(new_leave_page)
+        stacked_widget.setCurrentIndex(new_index)
+
+    
 class Profile(QWidget):
     def __init__(self,Page,id):
         super(Profile, self).__init__(Page)
@@ -374,7 +424,37 @@ class Profile(QWidget):
         self.horizontalLayout_60 = QHBoxLayout(self.total_days_input)
         self.horizontalLayout_60.setObjectName(u"horizontalLayout_60")
         self.load_employee_data(self.emp_id)
+        self.translateUI()
+
+    def translateUI(self):
+        self.l_name.setTitle(QCoreApplication.translate("Employee_Page", u"Last Name", None))
+        self.address.setTitle(QCoreApplication.translate("Employee_Page", u"Address", None))
         
+        self.absent_input.setTitle(QCoreApplication.translate("Employee_Page", u"2", None))
+        self.pending_applications_input.setTitle(QCoreApplication.translate("Employee_Page", u"1", None))
+       
+        self.f_name.setTitle(QCoreApplication.translate("Employee_Page", u"First Name", None))
+        
+        self.pending_applications.setTitle(QCoreApplication.translate("Employee_Page", u"Pending Leave Applications", None))
+        self.salary_4.setTitle(QCoreApplication.translate("Employee_Page", u"Salary", None))
+        self.email.setTitle(QCoreApplication.translate("Employee_Page", u"Email", None))
+        self.leave.setTitle(QCoreApplication.translate("Employee_Page", u"Leave", None))
+        self.contact.setTitle(QCoreApplication.translate("Employee_Page", u"Contact", None))
+        self.head_dep.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))
+        self.present.setTitle(QCoreApplication.translate("Employee_Page", u"Present", None))
+        self.current_deduction.setTitle(QCoreApplication.translate("Employee_Page", u"Current Salary Deduction", None))
+        
+        self.General_info.setText(QCoreApplication.translate("Employee_Page", u" General Information", None))
+        self.Current_Month.setText(QCoreApplication.translate("Employee_Page", u"Current Month Details", None))
+        self.department.setTitle(QCoreApplication.translate("Employee_Page", u"Department", None))
+        self.current_deduction_input.setTitle(QCoreApplication.translate("Employee_Page", u"Rs. 23666", None))
+        self.department_input.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))
+        self.leave_input.setTitle(QCoreApplication.translate("Employee_Page", u"1", None))
+        self.absent.setTitle(QCoreApplication.translate("Employee_Page", u"Absent", None))
+        
+        self.present_input.setTitle(QCoreApplication.translate("Employee_Page", u"21", None))
+        self.total_days.setTitle(QCoreApplication.translate("Employee_Page", u"Total Days", None))
+        self.total_days_input.setTitle(QCoreApplication.translate("Employee_Page", u"24", None))
     def load_employee_data(self, employee_id):
         # Connect to the PostgreSQL database
         db_connection = psycopg2.connect(
@@ -409,6 +489,344 @@ class Profile(QWidget):
             self.email_input.setTitle(QCoreApplication.translate("Employee_Page", employee_data[6], None))
             self.salary_input.setTitle(QCoreApplication.translate("Employee_Page", employee_data[8], None))
 
+class leavereportpage(QWidget):
+    def __init__(self,Page,id):
+        super(leavereportpage, self).__init__(Page)
+        self.emp_id=id
+        self.setObjectName(u"leave_report")
+        self.title = QLabel(self)
+        self.title.setObjectName(u"title")
+        self.title.setGeometry(QRect(0, 30, 925, 60))
+        font = QFont()
+        font.setPointSize(25)
+        font.setBold(True)
+        self.title.setFont(font)
+        self.title.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: \"#e6e6e6\";")
+        self.remaining_health = QLabel(self)
+        self.remaining_health.setObjectName(u"remaining_health")
+        self.remaining_health.setGeometry(QRect(570, 160, 30, 41))
+        font1 = QFont()
+        font1.setFamilies([u"Segoe UI"])
+        font1.setPointSize(16)
+        font1.setWeight(QFont.DemiBold)
+        font1.setItalic(False)
+        self.remaining_health.setFont(font1)
+        self.remaining_health.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"\n"
+"font: 600 16pt \"Segoe UI\";")
+        self.total = QLabel(self)
+        self.total.setObjectName(u"total")
+        self.total.setGeometry(QRect(290, 130, 120, 40))
+        font2 = QFont()
+        font2.setFamilies([u"Segoe UI"])
+        font2.setPointSize(16)
+        font2.setWeight(QFont.Black)
+        font2.setItalic(False)
+        self.total.setFont(font2)
+        self.total.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 900 16pt \"Segoe UI\";")
+        self.total_general = QLabel(self)
+        self.total_general.setObjectName(u"total_general")
+        self.total_general.setGeometry(QRect(450, 130, 30, 40))
+        self.total_general.setFont(font1)
+        self.total_general.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 600 16pt \"Segoe UI\";")
+        self.health = QLabel(self)
+        self.health.setObjectName(u"health")
+        self.health.setGeometry(QRect(550, 100, 100, 40))
+        self.health.setFont(font2)
+        self.health.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 900 16pt \"Segoe UI\";")
+        self.remaining_general = QLabel(self)
+        self.remaining_general.setObjectName(u"remaining_general")
+        self.remaining_general.setGeometry(QRect(450, 160, 30, 41))
+        self.remaining_general.setFont(font1)
+        self.remaining_general.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"\n"
+"font: 600 16pt \"Segoe UI\";")
+        self.remaing = QLabel(self)
+        self.remaing.setObjectName(u"remaing")
+        self.remaing.setGeometry(QRect(270, 160, 120, 41))
+        self.remaing.setFont(font2)
+        self.remaing.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 900 16pt \"Segoe UI\";")
+        self.general = QLabel(self)
+        self.general.setObjectName(u"general")
+        self.general.setGeometry(QRect(420, 100, 100, 40))
+        self.general.setFont(font2)
+        self.general.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 900 16pt \"Segoe UI\";")
+        self.total_health = QLabel(self)
+        self.total_health.setObjectName(u"total_health")
+        self.total_health.setGeometry(QRect(570, 130, 30, 40))
+        self.total_health.setFont(font1)
+        self.total_health.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 600 16pt \"Segoe UI\";")
+        self.leave_record = QTableWidget(self)
+        if (self.leave_record.columnCount() < 3):
+            self.leave_record.setColumnCount(3)
+        brush = QBrush(QColor(85, 55, 89, 255))
+        brush.setStyle(Qt.SolidPattern)
+        font3 = QFont()
+        font3.setPointSize(12)
+        font3.setBold(True)
+        __qtablewidgetitem = QTableWidgetItem()
+        __qtablewidgetitem.setFont(font3)
+        __qtablewidgetitem.setBackground(QColor(85, 55, 89))
+        __qtablewidgetitem.setForeground(brush)
+        self.leave_record.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        __qtablewidgetitem1.setFont(font3)
+        __qtablewidgetitem1.setBackground(QColor(85, 55, 89))
+        __qtablewidgetitem1.setForeground(brush)
+        self.leave_record.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        __qtablewidgetitem2.setFont(font3)
+        __qtablewidgetitem2.setBackground(QColor(85, 55, 89))
+        __qtablewidgetitem2.setForeground(brush)
+        self.leave_record.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        self.leave_record.setObjectName(u"leave_record")
+        self.leave_record.setGeometry(QRect(100, 220, 721, 461))
+        self.leave_record.setStyleSheet(u"QHeaderView::section {\n"
+"    background-color: rgb(50, 84, 110); /* Set your desired background color */\n"
+"    color: rgb(230, 230, 230); /* Set the text color */\n"
+"};\n"
+"\n"
+"\n"
+"color: rgb(50, 84, 110);\n"
+"background-color: rgb(230, 230, 230);")
+        self.leave_record.horizontalHeader().setDefaultSectionSize(237)
+        self.translateUI()
+    def translateUI(self):
+        self.title.setText(QCoreApplication.translate("Employee_Page", u"                                         Leave Report", None))
+        self.remaining_health.setText(QCoreApplication.translate("Employee_Page", u"15", None))
+        self.total.setText(QCoreApplication.translate("Employee_Page", u"Total", None))
+        self.total_general.setText(QCoreApplication.translate("Employee_Page", u"10", None))
+        self.health.setText(QCoreApplication.translate("Employee_Page", u"Health", None))
+        self.remaining_general.setText(QCoreApplication.translate("Employee_Page", u"8", None))
+        self.remaing.setText(QCoreApplication.translate("Employee_Page", u"Remaining", None))
+        self.general.setText(QCoreApplication.translate("Employee_Page", u"General", None))
+        self.total_health.setText(QCoreApplication.translate("Employee_Page", u"15", None))
+        ___qtablewidgetitem = self.leave_record.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("Employee_Page", u"Date", None));
+        ___qtablewidgetitem1 = self.leave_record.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("Employee_Page", u"Type", None));
+        ___qtablewidgetitem2 = self.leave_record.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("Employee_Page", u"Status", None));
+
+class attendancepage(QWidget):
+    def __init__(self,Page,id):
+        super(attendancepage, self).__init__(Page)
+        self.emp_id=id
+        self.setObjectName(u"attendance")
+        self.dec = QPushButton(self)
+        self.dec.setObjectName(u"dec")
+        font3 = QFont()
+        font3.setPointSize(12)
+        font3.setBold(True)
+        self.dec.setGeometry(QRect(830, 170, 90, 30))
+        self.dec.setFont(font3)
+        self.dec.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.sep = QPushButton(self)
+        self.sep.setObjectName(u"sep")
+        self.sep.setGeometry(QRect(529, 170, 92, 30))
+        self.sep.setFont(font3)
+        self.sep.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.april = QPushButton(self)
+        self.april.setObjectName(u"april")
+        self.april.setGeometry(QRect(580, 130, 90, 30))
+        self.april.setFont(font3)
+        self.april.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.march = QPushButton(self)
+        self.march.setObjectName(u"march")
+        self.march.setGeometry(QRect(480, 130, 90, 30))
+        self.march.setFont(font3)
+        self.march.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px\n"
+"")
+        self.oct = QPushButton(self)
+        self.oct.setObjectName(u"oct")
+        self.oct.setGeometry(QRect(630, 170, 90, 30))
+        self.oct.setFont(font3)
+        self.oct.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.feb = QPushButton(self)
+        self.feb.setObjectName(u"feb")
+        self.feb.setGeometry(QRect(380, 130, 90, 30))
+        self.feb.setFont(font3)
+        self.feb.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.jan = QPushButton(self)
+        self.jan.setObjectName(u"jan")
+        self.jan.setGeometry(QRect(280, 130, 90, 30))
+        self.jan.setFont(font3)
+        self.jan.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.stackedWidget = QStackedWidget(self)
+        self.stackedWidget.setObjectName(u"stackedWidget")
+        self.stackedWidget.setGeometry(QRect(40, 230, 741, 481))
+        self.stackedWidget.setStyleSheet(u"QHeaderView::section {\n"
+"    background-color: rgb(50, 84, 110); /* Set your desired background color */\n"
+"    color: rgb(230, 230, 230); /* Set the text color */\n"
+"};\n"
+"background-color: rgb(230, 230, 230);\n"
+"color: rgb(50, 84, 110);")
+        self.first_page = QWidget()
+        self.first_page.setObjectName(u"first_page")
+        self.table_start = QTableWidget(self.first_page)
+        if (self.table_start.columnCount() < 2):
+            self.table_start.setColumnCount(2)
+        brush1 = QBrush(QColor(50, 84, 110, 255))
+        brush1.setStyle(Qt.SolidPattern)
+        font4 = QFont()
+        font4.setPointSize(14)
+        font4.setBold(True)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        __qtablewidgetitem3.setFont(font4);
+        __qtablewidgetitem3.setBackground(QColor(85, 55, 89));
+        __qtablewidgetitem3.setForeground(brush1);
+        self.table_start.setHorizontalHeaderItem(0, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        __qtablewidgetitem4.setFont(font4);
+        __qtablewidgetitem4.setBackground(QColor(85, 55, 89));
+        __qtablewidgetitem4.setForeground(brush1);
+        self.table_start.setHorizontalHeaderItem(1, __qtablewidgetitem4)
+        self.table_start.setObjectName(u"table_start")
+        self.table_start.setGeometry(QRect(110, 30, 621, 441))
+        self.table_start.setStyleSheet(u"background-color: rgb(230, 230, 230);\n"
+"color: rgb(50, 84, 110);\n"
+"\n"
+"QHeaderView::section {\n"
+"    background-color: rgb(50, 84, 110); /* Set your desired background color */\n"
+"    color: rgb(230, 230, 230); /* Set the text color */\n"
+"};")
+        self.table_start.horizontalHeader().setMinimumSectionSize(96)
+        self.table_start.horizontalHeader().setDefaultSectionSize(305)
+        self.stackedWidget.addWidget(self.first_page)
+        self.second_page = QWidget()
+        self.second_page.setObjectName(u"second_page")
+        self.table_end = QTableWidget(self.second_page)
+        if (self.table_end.columnCount() < 2):
+            self.table_end.setColumnCount(2)
+        font5 = QFont()
+        font5.setPointSize(14)
+        font5.setBold(True)
+        font5.setKerning(True)
+        __qtablewidgetitem5 = QTableWidgetItem()
+        __qtablewidgetitem5.setFont(font5);
+        __qtablewidgetitem5.setBackground(QColor(230, 230, 230, 10));
+        __qtablewidgetitem5.setForeground(brush1);
+        self.table_end.setHorizontalHeaderItem(0, __qtablewidgetitem5)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        __qtablewidgetitem6.setFont(font4);
+        __qtablewidgetitem6.setBackground(QColor(230, 230, 230));
+        __qtablewidgetitem6.setForeground(brush1);
+        self.table_end.setHorizontalHeaderItem(1, __qtablewidgetitem6)
+        self.table_end.setObjectName(u"table_end")
+        self.table_end.setGeometry(QRect(110, 30, 621, 441))
+        self.table_end.setStyleSheet(u"background-color: rgb(230, 230, 230);\n"
+"color: rgb(50, 84, 110);")
+        self.table_end.horizontalHeader().setDefaultSectionSize(305)
+        self.stackedWidget.addWidget(self.second_page)
+        self.label = QLabel(self)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(10, 30, 915, 65))
+        font6 = QFont()
+        font6.setPointSize(25)
+        font6.setBold(True)
+        font6.setUnderline(False)
+        font6.setStrikeOut(False)
+        font6.setKerning(True)
+        self.label.setFont(font6)
+        self.label.setAutoFillBackground(False)
+        self.label.setStyleSheet(u"background-color: rgb(50, 84, 110);")
+        self.may = QPushButton(self)
+        self.may.setObjectName(u"may")
+        self.may.setGeometry(QRect(680, 130, 90, 30))
+        
+        self.may.setFont(font3)
+        self.may.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.june = QPushButton(self)
+        self.june.setObjectName(u"june")
+        self.june.setGeometry(QRect(780, 130, 90, 30))
+        self.june.setFont(font3)
+        self.june.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px\n"
+"")
+        self.july = QPushButton(self)
+        self.july.setObjectName(u"july")
+        self.july.setGeometry(QRect(330, 170, 90, 30))
+        self.july.setFont(font3)
+        self.july.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.aug = QPushButton(self)
+        self.aug.setObjectName(u"aug")
+        self.aug.setGeometry(QRect(430, 170, 90, 30))
+        self.aug.setFont(font3)
+        self.aug.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.nov = QPushButton(self)
+        self.nov.setObjectName(u"nov")
+        self.nov.setGeometry(QRect(730, 170, 90, 30))
+        self.nov.setFont(font3)
+        self.nov.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: rgb(230, 230, 230);\n"
+"border:1px solid;\n"
+"border-radius: 10px")
+        self.translateui()
+        
+    def translateui(self):
+        self.dec.setText(QCoreApplication.translate("Employee_Page", u"December", None))
+        self.sep.setText(QCoreApplication.translate("Employee_Page", u"September", None))
+        self.april.setText(QCoreApplication.translate("Employee_Page", u"April", None))
+        self.march.setText(QCoreApplication.translate("Employee_Page", u"March", None))
+        self.oct.setText(QCoreApplication.translate("Employee_Page", u"October", None))
+        self.feb.setText(QCoreApplication.translate("Employee_Page", u"February", None))
+        self.jan.setText(QCoreApplication.translate("Employee_Page", u"January", None))
+        ___qtablewidgetitem3 = self.table_start.horizontalHeaderItem(0)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("Employee_Page", u"Date", None));
+        ___qtablewidgetitem4 = self.table_start.horizontalHeaderItem(1)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("Employee_Page", u"Status", None));
+        ___qtablewidgetitem5 = self.table_end.horizontalHeaderItem(0)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("Employee_Page", u"Date", None));
+        ___qtablewidgetitem6 = self.table_end.horizontalHeaderItem(1)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("Employee_Page", u"Status", None));
+        self.label.setText(QCoreApplication.translate("Employee_Page", u"<html><head/><body><p align=\"center\"><span style=\" color:#e6e6e6;\">Employee Attendance</span></p></body></html>", None))
+        self.may.setText(QCoreApplication.translate("Employee_Page", u"May", None))
+        self.june.setText(QCoreApplication.translate("Employee_Page", u"June", None))
+        self.july.setText(QCoreApplication.translate("Employee_Page", u"July", None))
+        self.aug.setText(QCoreApplication.translate("Employee_Page", u"August", None))
+        self.nov.setText(QCoreApplication.translate("Employee_Page", u"November", None))
+
+
+    
 class EmployeePage(QDialog):
     def __init__(self,id):
         super(EmployeePage, self).__init__()
@@ -420,7 +838,7 @@ class EmployeePage(QDialog):
         self.PAGE = QWidget(self)
         self.PAGE.setObjectName(u"PAGE")
 
-        self.side_bar=SideBar(self.PAGE,self)
+        self.side_bar=SideBar(self.PAGE,self,self.emp_id)
         self.Main_pages = QStackedWidget(self.PAGE)
         self.Main_pages.setObjectName(u"Main_pages")
         self.Main_pages.setEnabled(True)
@@ -428,6 +846,7 @@ class EmployeePage(QDialog):
         self.Main_pages.setMinimumSize(QSize(930, 720))
         self.Profile_page = Profile(self.PAGE,self.emp_id)
         self.Main_pages.addWidget(self.Profile_page)
+        self.side_bar.setup_connections(self.Main_pages)
         self.retranslateUi()
     
     def signout(self):
@@ -438,43 +857,12 @@ class EmployeePage(QDialog):
 
     def retranslateUi(self):
         self.setWindowTitle(QCoreApplication.translate("Employee_Page", u"MainWindow", None))
-        self.side_bar.setTitle("")
-        self.side_bar.logo.setText("")
-        self.side_bar.profile.setText(QCoreApplication.translate("Employee_Page", u"Leave Application", None))
-        self.side_bar.leave_report.setText(QCoreApplication.translate("Employee_Page", u"Profile", None))
-        self.side_bar.leave_application.setText(QCoreApplication.translate("Employee_Page", u"Salary", None))
-        self.side_bar.salary_3.setText(QCoreApplication.translate("Employee_Page", u"Leave Report", None))
-        self.side_bar.attendance.setText(QCoreApplication.translate("Employee_Page", u"Attendance", None))
-        self.side_bar.sign_out.setText(QCoreApplication.translate("Employee_Page", u"  Sign Out ", None))
-        self.Profile_page.l_name.setTitle(QCoreApplication.translate("Employee_Page", u"Last Name", None))
-        self.Profile_page.address.setTitle(QCoreApplication.translate("Employee_Page", u"Address", None))
+      
         
-        self.Profile_page.absent_input.setTitle(QCoreApplication.translate("Employee_Page", u"2", None))
-        self.Profile_page.pending_applications_input.setTitle(QCoreApplication.translate("Employee_Page", u"1", None))
+
+        
        
-        self.Profile_page.f_name.setTitle(QCoreApplication.translate("Employee_Page", u"First Name", None))
-        
-        self.Profile_page.pending_applications.setTitle(QCoreApplication.translate("Employee_Page", u"Pending Leave Applications", None))
-        self.Profile_page.salary_4.setTitle(QCoreApplication.translate("Employee_Page", u"Salary", None))
-        self.Profile_page.email.setTitle(QCoreApplication.translate("Employee_Page", u"Email", None))
-        self.Profile_page.leave.setTitle(QCoreApplication.translate("Employee_Page", u"Leave", None))
-        self.Profile_page.contact.setTitle(QCoreApplication.translate("Employee_Page", u"Contact", None))
-        self.Profile_page.head_dep.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))
-        self.Profile_page.present.setTitle(QCoreApplication.translate("Employee_Page", u"Present", None))
-        self.Profile_page.current_deduction.setTitle(QCoreApplication.translate("Employee_Page", u"Current Salary Deduction", None))
-        
-        self.Profile_page.General_info.setText(QCoreApplication.translate("Employee_Page", u" General Information", None))
-        self.Profile_page.Current_Month.setText(QCoreApplication.translate("Employee_Page", u"Current Month Details", None))
-        self.Profile_page.department.setTitle(QCoreApplication.translate("Employee_Page", u"Department", None))
-        self.Profile_page.current_deduction_input.setTitle(QCoreApplication.translate("Employee_Page", u"Rs. 23666", None))
-        self.Profile_page.department_input.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))
-        self.Profile_page.leave_input.setTitle(QCoreApplication.translate("Employee_Page", u"1", None))
-        self.Profile_page.absent.setTitle(QCoreApplication.translate("Employee_Page", u"Absent", None))
-        
-        self.Profile_page.present_input.setTitle(QCoreApplication.translate("Employee_Page", u"21", None))
-        self.Profile_page.total_days.setTitle(QCoreApplication.translate("Employee_Page", u"Total Days", None))
-        self.Profile_page.total_days_input.setTitle(QCoreApplication.translate("Employee_Page", u"24", None))
-        
+
     
 
 if __name__ == "__main__":
