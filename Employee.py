@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QLabel,
     QMainWindow, QPushButton, QSizePolicy, QStackedWidget,
-    QTextEdit, QWidget)
+    QWidget)
 
 class Ui_Employee_Page(object):
     def setupUi(self, Employee_Page):
@@ -97,279 +97,274 @@ class Ui_Employee_Page(object):
         self.Pages = QStackedWidget(self.Page)
         self.Pages.setObjectName(u"Pages")
         self.Pages.setGeometry(QRect(350, 0, 930, 720))
-        self.Profile_Page_2 = QWidget()
-        self.Profile_Page_2.setObjectName(u"Profile_Page_2")
-        self.l_name_2 = QGroupBox(self.Profile_Page_2)
-        self.l_name_2.setObjectName(u"l_name_2")
-        self.l_name_2.setGeometry(QRect(450, 230, 121, 41))
-        self.l_name_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_11 = QHBoxLayout(self.l_name_2)
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.address_2 = QGroupBox(self.Profile_Page_2)
-        self.address_2.setObjectName(u"address_2")
-        self.address_2.setGeometry(QRect(10, 350, 121, 40))
-        self.address_2.setMinimumSize(QSize(0, 40))
-        self.address_2.setMaximumSize(QSize(16777215, 40))
-        self.address_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_13 = QHBoxLayout(self.address_2)
-        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.salary_input_2 = QGroupBox(self.Profile_Page_2)
-        self.salary_input_2.setObjectName(u"salary_input_2")
-        self.salary_input_2.setGeometry(QRect(570, 410, 300, 40))
-        self.salary_input_2.setMinimumSize(QSize(300, 40))
-        self.salary_input_2.setMaximumSize(QSize(300, 40))
-        self.salary_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+        self.Profile_Page = QWidget()
+        self.Profile_Page.setObjectName(u"Profile_Page")
+        self.General_info = QLabel(self.Profile_Page)
+        self.General_info.setObjectName(u"General_info")
+        self.General_info.setGeometry(QRect(0, 130, 925, 60))
+        font = QFont()
+        font.setPointSize(25)
+        font.setBold(True)
+        self.General_info.setFont(font)
+        self.General_info.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: \"#e6e6e6\";")
+        self.General_info.setAlignment(Qt.AlignCenter)
+        self.f_name_input = QGroupBox(self.Profile_Page)
+        self.f_name_input.setObjectName(u"f_name_input")
+        self.f_name_input.setGeometry(QRect(130, 220, 320, 40))
+        self.f_name_input.setMinimumSize(QSize(320, 40))
+        self.f_name_input.setMaximumSize(QSize(290, 40))
+        self.f_name_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
 "font: 14pt \"Segoe UI\";\n"
 "")
-        self.horizontalLayout_17 = QHBoxLayout(self.salary_input_2)
+        self.horizontalLayout_17 = QHBoxLayout(self.f_name_input)
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.absent_input_2 = QGroupBox(self.Profile_Page_2)
-        self.absent_input_2.setObjectName(u"absent_input_2")
-        self.absent_input_2.setGeometry(QRect(130, 640, 100, 40))
-        self.absent_input_2.setMinimumSize(QSize(100, 40))
-        self.absent_input_2.setMaximumSize(QSize(100, 40))
-        self.absent_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+        self.department_input = QGroupBox(self.Profile_Page)
+        self.department_input.setObjectName(u"department_input")
+        self.department_input.setGeometry(QRect(130, 400, 320, 40))
+        self.department_input.setMinimumSize(QSize(320, 40))
+        self.department_input.setMaximumSize(QSize(320, 40))
+        self.department_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
 "font: 14pt \"Segoe UI\";\n"
 "")
-        self.horizontalLayout_49 = QHBoxLayout(self.absent_input_2)
-        self.horizontalLayout_49.setObjectName(u"horizontalLayout_49")
-        self.pending_applications_input_2 = QGroupBox(self.Profile_Page_2)
-        self.pending_applications_input_2.setObjectName(u"pending_applications_input_2")
-        self.pending_applications_input_2.setGeometry(QRect(770, 580, 100, 40))
-        self.pending_applications_input_2.setMinimumSize(QSize(100, 40))
-        self.pending_applications_input_2.setMaximumSize(QSize(100, 40))
-        self.pending_applications_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_50 = QHBoxLayout(self.pending_applications_input_2)
-        self.horizontalLayout_50.setObjectName(u"horizontalLayout_50")
-        self.f_name_input_2 = QGroupBox(self.Profile_Page_2)
-        self.f_name_input_2.setObjectName(u"f_name_input_2")
-        self.f_name_input_2.setGeometry(QRect(130, 230, 320, 40))
-        self.f_name_input_2.setMinimumSize(QSize(320, 40))
-        self.f_name_input_2.setMaximumSize(QSize(290, 40))
-        self.f_name_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_18 = QHBoxLayout(self.f_name_input_2)
+        self.horizontalLayout_18 = QHBoxLayout(self.department_input)
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
-        self.f_name_2 = QGroupBox(self.Profile_Page_2)
+        self.leave_input = QGroupBox(self.Profile_Page)
+        self.leave_input.setObjectName(u"leave_input")
+        self.leave_input.setGeometry(QRect(370, 630, 100, 40))
+        self.leave_input.setMinimumSize(QSize(100, 40))
+        self.leave_input.setMaximumSize(QSize(100, 40))
+        self.leave_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_44 = QHBoxLayout(self.leave_input)
+        self.horizontalLayout_44.setObjectName(u"horizontalLayout_44")
+        self.pending_applications_input = QGroupBox(self.Profile_Page)
+        self.pending_applications_input.setObjectName(u"pending_applications_input")
+        self.pending_applications_input.setGeometry(QRect(770, 570, 100, 40))
+        self.pending_applications_input.setMinimumSize(QSize(100, 40))
+        self.pending_applications_input.setMaximumSize(QSize(100, 40))
+        self.pending_applications_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_49 = QHBoxLayout(self.pending_applications_input)
+        self.horizontalLayout_49.setObjectName(u"horizontalLayout_49")
+        self.salary_input = QGroupBox(self.Profile_Page)
+        self.salary_input.setObjectName(u"salary_input")
+        self.salary_input.setGeometry(QRect(570, 400, 300, 40))
+        self.salary_input.setMinimumSize(QSize(300, 40))
+        self.salary_input.setMaximumSize(QSize(300, 40))
+        self.salary_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_19 = QHBoxLayout(self.salary_input)
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.f_name = QGroupBox(self.Profile_Page)
+        self.f_name.setObjectName(u"f_name")
+        self.f_name.setGeometry(QRect(10, 220, 121, 40))
+        self.f_name.setMinimumSize(QSize(0, 40))
+        self.f_name.setMaximumSize(QSize(16777215, 40))
+        self.f_name.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_20 = QHBoxLayout(self.f_name)
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.absent = QGroupBox(self.Profile_Page)
+        self.absent.setObjectName(u"absent")
+        self.absent.setGeometry(QRect(10, 630, 121, 40))
+        self.absent.setMinimumSize(QSize(0, 40))
+        self.absent.setMaximumSize(QSize(16777215, 40))
+        self.absent.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_50 = QHBoxLayout(self.absent)
+        self.horizontalLayout_50.setObjectName(u"horizontalLayout_50")
+        self.current_deduction_input = QGroupBox(self.Profile_Page)
+        self.current_deduction_input.setObjectName(u"current_deduction_input")
+        self.current_deduction_input.setGeometry(QRect(770, 630, 100, 40))
+        self.current_deduction_input.setMinimumSize(QSize(100, 40))
+        self.current_deduction_input.setMaximumSize(QSize(100, 40))
+        self.current_deduction_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_51 = QHBoxLayout(self.current_deduction_input)
+        self.horizontalLayout_51.setObjectName(u"horizontalLayout_51")
+        self.contact_input = QGroupBox(self.Profile_Page)
+        self.contact_input.setObjectName(u"contact_input")
+        self.contact_input.setGeometry(QRect(570, 280, 300, 40))
+        self.contact_input.setMinimumSize(QSize(300, 40))
+        self.contact_input.setMaximumSize(QSize(300, 40))
+        self.contact_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_21 = QHBoxLayout(self.contact_input)
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.current_deduction = QGroupBox(self.Profile_Page)
+        self.current_deduction.setObjectName(u"current_deduction")
+        self.current_deduction.setGeometry(QRect(500, 630, 261, 41))
+        self.current_deduction.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_52 = QHBoxLayout(self.current_deduction)
+        self.horizontalLayout_52.setObjectName(u"horizontalLayout_52")
+        self.f_name_3 = QGroupBox(self.Profile_Page)
+        self.f_name_3.setObjectName(u"f_name_3")
+        self.f_name_3.setGeometry(QRect(10, 60, 561, 40))
+        self.f_name_3.setMinimumSize(QSize(0, 40))
+        self.f_name_3.setMaximumSize(QSize(16777215, 40))
+        self.f_name_3.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 500 18pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_22 = QHBoxLayout(self.f_name_3)
+        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
+        self.l_name_input = QGroupBox(self.Profile_Page)
+        self.l_name_input.setObjectName(u"l_name_input")
+        self.l_name_input.setGeometry(QRect(570, 220, 300, 40))
+        self.l_name_input.setMinimumSize(QSize(300, 40))
+        self.l_name_input.setMaximumSize(QSize(300, 40))
+        self.l_name_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_23 = QHBoxLayout(self.l_name_input)
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.present_input = QGroupBox(self.Profile_Page)
+        self.present_input.setObjectName(u"present_input")
+        self.present_input.setGeometry(QRect(370, 570, 100, 40))
+        self.present_input.setMinimumSize(QSize(100, 40))
+        self.present_input.setMaximumSize(QSize(100, 40))
+        self.present_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_39 = QHBoxLayout(self.present_input)
+        self.horizontalLayout_39.setObjectName(u"horizontalLayout_39")
+        self.salary_2 = QGroupBox(self.Profile_Page)
+        self.salary_2.setObjectName(u"salary_2")
+        self.salary_2.setGeometry(QRect(450, 400, 121, 40))
+        self.salary_2.setMinimumSize(QSize(0, 40))
+        self.salary_2.setMaximumSize(QSize(16777215, 40))
+        self.salary_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_24 = QHBoxLayout(self.salary_2)
+        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
+        self.address = QGroupBox(self.Profile_Page)
+        self.address.setObjectName(u"address")
+        self.address.setGeometry(QRect(10, 340, 121, 40))
+        self.address.setMinimumSize(QSize(0, 40))
+        self.address.setMaximumSize(QSize(16777215, 40))
+        self.address.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_25 = QHBoxLayout(self.address)
+        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
+        self.Current_Month = QLabel(self.Profile_Page)
+        self.Current_Month.setObjectName(u"Current_Month")
+        self.Current_Month.setGeometry(QRect(0, 480, 925, 60))
+        self.Current_Month.setFont(font)
+        self.Current_Month.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: \"#e6e6e6\";")
+        self.Current_Month.setAlignment(Qt.AlignCenter)
+        self.l_name = QGroupBox(self.Profile_Page)
+        self.l_name.setObjectName(u"l_name")
+        self.l_name.setGeometry(QRect(450, 220, 121, 41))
+        self.l_name.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_26 = QHBoxLayout(self.l_name)
+        self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
+        self.pending_applications = QGroupBox(self.Profile_Page)
+        self.pending_applications.setObjectName(u"pending_applications")
+        self.pending_applications.setGeometry(QRect(500, 570, 261, 41))
+        self.pending_applications.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_53 = QHBoxLayout(self.pending_applications)
+        self.horizontalLayout_53.setObjectName(u"horizontalLayout_53")
+        self.present = QGroupBox(self.Profile_Page)
+        self.present.setObjectName(u"present")
+        self.present.setGeometry(QRect(250, 570, 121, 41))
+        self.present.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_54 = QHBoxLayout(self.present)
+        self.horizontalLayout_54.setObjectName(u"horizontalLayout_54")
+        self.email_input = QGroupBox(self.Profile_Page)
+        self.email_input.setObjectName(u"email_input")
+        self.email_input.setGeometry(QRect(130, 280, 320, 40))
+        self.email_input.setMinimumSize(QSize(320, 40))
+        self.email_input.setMaximumSize(QSize(320, 40))
+        self.email_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_27 = QHBoxLayout(self.email_input)
+        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
+        self.leave = QGroupBox(self.Profile_Page)
+        self.leave.setObjectName(u"leave")
+        self.leave.setGeometry(QRect(250, 630, 121, 41))
+        self.leave.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_55 = QHBoxLayout(self.leave)
+        self.horizontalLayout_55.setObjectName(u"horizontalLayout_55")
+        self.contact = QGroupBox(self.Profile_Page)
+        self.contact.setObjectName(u"contact")
+        self.contact.setGeometry(QRect(450, 280, 121, 41))
+        self.contact.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_28 = QHBoxLayout(self.contact)
+        self.horizontalLayout_28.setObjectName(u"horizontalLayout_28")
+        self.department = QGroupBox(self.Profile_Page)
+        self.department.setObjectName(u"department")
+        self.department.setGeometry(QRect(10, 400, 121, 40))
+        self.department.setMinimumSize(QSize(0, 40))
+        self.department.setMaximumSize(QSize(16777215, 40))
+        self.department.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_29 = QHBoxLayout(self.department)
+        self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
+        self.address_input = QGroupBox(self.Profile_Page)
+        self.address_input.setObjectName(u"address_input")
+        self.address_input.setGeometry(QRect(130, 340, 750, 40))
+        self.address_input.setMinimumSize(QSize(750, 40))
+        self.address_input.setMaximumSize(QSize(750, 40))
+        self.address_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 14pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_30 = QHBoxLayout(self.address_input)
+        self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
+        self.f_name_2 = QGroupBox(self.Profile_Page)
         self.f_name_2.setObjectName(u"f_name_2")
-        self.f_name_2.setGeometry(QRect(10, 230, 121, 40))
+        self.f_name_2.setGeometry(QRect(10, 20, 561, 40))
         self.f_name_2.setMinimumSize(QSize(0, 40))
         self.f_name_2.setMaximumSize(QSize(16777215, 40))
         self.f_name_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 24pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_31 = QHBoxLayout(self.f_name_2)
+        self.horizontalLayout_31.setObjectName(u"horizontalLayout_31")
+        self.email = QGroupBox(self.Profile_Page)
+        self.email.setObjectName(u"email")
+        self.email.setGeometry(QRect(10, 280, 121, 40))
+        self.email.setMinimumSize(QSize(0, 40))
+        self.email.setMaximumSize(QSize(16777215, 40))
+        self.email.setStyleSheet(u"color: rgb(50, 84, 110);\n"
 "font: 700 14pt \"Segoe UI\";\n"
 "")
-        self.horizontalLayout_19 = QHBoxLayout(self.f_name_2)
-        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.l_name_input_2 = QGroupBox(self.Profile_Page_2)
-        self.l_name_input_2.setObjectName(u"l_name_input_2")
-        self.l_name_input_2.setGeometry(QRect(570, 230, 300, 40))
-        self.l_name_input_2.setMinimumSize(QSize(300, 40))
-        self.l_name_input_2.setMaximumSize(QSize(300, 40))
-        self.l_name_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+        self.horizontalLayout_32 = QHBoxLayout(self.email)
+        self.horizontalLayout_32.setObjectName(u"horizontalLayout_32")
+        self.absent_input = QGroupBox(self.Profile_Page)
+        self.absent_input.setObjectName(u"absent_input")
+        self.absent_input.setGeometry(QRect(130, 630, 100, 40))
+        self.absent_input.setMinimumSize(QSize(100, 40))
+        self.absent_input.setMaximumSize(QSize(100, 40))
+        self.absent_input.setStyleSheet(u"color: rgb(50, 84, 110);\n"
 "font: 14pt \"Segoe UI\";\n"
 "")
-        self.horizontalLayout_20 = QHBoxLayout(self.l_name_input_2)
-        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.pending_applications_2 = QGroupBox(self.Profile_Page_2)
-        self.pending_applications_2.setObjectName(u"pending_applications_2")
-        self.pending_applications_2.setGeometry(QRect(500, 580, 261, 41))
-        self.pending_applications_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_51 = QHBoxLayout(self.pending_applications_2)
-        self.horizontalLayout_51.setObjectName(u"horizontalLayout_51")
-        self.salary_4 = QGroupBox(self.Profile_Page_2)
-        self.salary_4.setObjectName(u"salary_4")
-        self.salary_4.setGeometry(QRect(450, 410, 121, 40))
-        self.salary_4.setMinimumSize(QSize(0, 40))
-        self.salary_4.setMaximumSize(QSize(16777215, 40))
-        self.salary_4.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_21 = QHBoxLayout(self.salary_4)
-        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
-        self.email_2 = QGroupBox(self.Profile_Page_2)
-        self.email_2.setObjectName(u"email_2")
-        self.email_2.setGeometry(QRect(10, 290, 121, 40))
-        self.email_2.setMinimumSize(QSize(0, 40))
-        self.email_2.setMaximumSize(QSize(16777215, 40))
-        self.email_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_22 = QHBoxLayout(self.email_2)
-        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
-        self.leave_2 = QGroupBox(self.Profile_Page_2)
-        self.leave_2.setObjectName(u"leave_2")
-        self.leave_2.setGeometry(QRect(250, 640, 121, 41))
-        self.leave_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_52 = QHBoxLayout(self.leave_2)
-        self.horizontalLayout_52.setObjectName(u"horizontalLayout_52")
-        self.name_2 = QTextEdit(self.Profile_Page_2)
-        self.name_2.setObjectName(u"name_2")
-        self.name_2.setGeometry(QRect(20, 20, 651, 61))
-        self.name_2.setMinimumSize(QSize(0, 61))
-        self.name_2.setMaximumSize(QSize(16777215, 16777215))
-        self.name_2.setStyleSheet(u"color: rgb(44, 72, 97);")
-        self.contact_2 = QGroupBox(self.Profile_Page_2)
-        self.contact_2.setObjectName(u"contact_2")
-        self.contact_2.setGeometry(QRect(450, 290, 121, 41))
-        self.contact_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_23 = QHBoxLayout(self.contact_2)
-        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
-        self.department_st_2 = QTextEdit(self.Profile_Page_2)
-        self.department_st_2.setObjectName(u"department_st_2")
-        self.department_st_2.setGeometry(QRect(20, 70, 651, 51))
-        self.department_st_2.setMinimumSize(QSize(0, 0))
-        self.department_st_2.setMaximumSize(QSize(16777215, 16777215))
-        self.department_st_2.setStyleSheet(u"color: rgb(44, 72, 97);")
-        self.present_2 = QGroupBox(self.Profile_Page_2)
-        self.present_2.setObjectName(u"present_2")
-        self.present_2.setGeometry(QRect(250, 580, 121, 41))
-        self.present_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_53 = QHBoxLayout(self.present_2)
-        self.horizontalLayout_53.setObjectName(u"horizontalLayout_53")
-        self.current_deduction_2 = QGroupBox(self.Profile_Page_2)
-        self.current_deduction_2.setObjectName(u"current_deduction_2")
-        self.current_deduction_2.setGeometry(QRect(500, 640, 261, 41))
-        self.current_deduction_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_54 = QHBoxLayout(self.current_deduction_2)
-        self.horizontalLayout_54.setObjectName(u"horizontalLayout_54")
-        self.contact_input_2 = QGroupBox(self.Profile_Page_2)
-        self.contact_input_2.setObjectName(u"contact_input_2")
-        self.contact_input_2.setGeometry(QRect(570, 290, 300, 40))
-        self.contact_input_2.setMinimumSize(QSize(300, 40))
-        self.contact_input_2.setMaximumSize(QSize(300, 40))
-        self.contact_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_24 = QHBoxLayout(self.contact_input_2)
-        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
-        self.general_info_2 = QTextEdit(self.Profile_Page_2)
-        self.general_info_2.setObjectName(u"general_info_2")
-        self.general_info_2.setGeometry(QRect(0, 150, 921, 51))
-        self.general_info_2.setStyleSheet(u"background-color: rgb(50, 82, 110);\n"
-"color: rgb(230, 230, 230);")
-        self.email_input_2 = QGroupBox(self.Profile_Page_2)
-        self.email_input_2.setObjectName(u"email_input_2")
-        self.email_input_2.setGeometry(QRect(130, 290, 320, 40))
-        self.email_input_2.setMinimumSize(QSize(320, 40))
-        self.email_input_2.setMaximumSize(QSize(320, 40))
-        self.email_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_25 = QHBoxLayout(self.email_input_2)
-        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
-        self.month_details_2 = QTextEdit(self.Profile_Page_2)
-        self.month_details_2.setObjectName(u"month_details_2")
-        self.month_details_2.setGeometry(QRect(0, 510, 921, 51))
-        self.month_details_2.setStyleSheet(u"background-color: rgb(50, 82, 110);\n"
-"color: rgb(230, 230, 230);")
-        self.department_2 = QGroupBox(self.Profile_Page_2)
-        self.department_2.setObjectName(u"department_2")
-        self.department_2.setGeometry(QRect(10, 410, 121, 40))
-        self.department_2.setMinimumSize(QSize(0, 40))
-        self.department_2.setMaximumSize(QSize(16777215, 40))
-        self.department_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_26 = QHBoxLayout(self.department_2)
-        self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
-        self.current_deduction_input_2 = QGroupBox(self.Profile_Page_2)
-        self.current_deduction_input_2.setObjectName(u"current_deduction_input_2")
-        self.current_deduction_input_2.setGeometry(QRect(770, 640, 100, 40))
-        self.current_deduction_input_2.setMinimumSize(QSize(100, 40))
-        self.current_deduction_input_2.setMaximumSize(QSize(100, 40))
-        self.current_deduction_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_55 = QHBoxLayout(self.current_deduction_input_2)
-        self.horizontalLayout_55.setObjectName(u"horizontalLayout_55")
-        self.department_input_2 = QGroupBox(self.Profile_Page_2)
-        self.department_input_2.setObjectName(u"department_input_2")
-        self.department_input_2.setGeometry(QRect(130, 410, 320, 40))
-        self.department_input_2.setMinimumSize(QSize(320, 40))
-        self.department_input_2.setMaximumSize(QSize(320, 40))
-        self.department_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_27 = QHBoxLayout(self.department_input_2)
-        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
-        self.leave_input_2 = QGroupBox(self.Profile_Page_2)
-        self.leave_input_2.setObjectName(u"leave_input_2")
-        self.leave_input_2.setGeometry(QRect(370, 640, 100, 40))
-        self.leave_input_2.setMinimumSize(QSize(100, 40))
-        self.leave_input_2.setMaximumSize(QSize(100, 40))
-        self.leave_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_56 = QHBoxLayout(self.leave_input_2)
+        self.horizontalLayout_56 = QHBoxLayout(self.absent_input)
         self.horizontalLayout_56.setObjectName(u"horizontalLayout_56")
-        self.absent_2 = QGroupBox(self.Profile_Page_2)
-        self.absent_2.setObjectName(u"absent_2")
-        self.absent_2.setGeometry(QRect(10, 640, 121, 40))
-        self.absent_2.setMinimumSize(QSize(0, 40))
-        self.absent_2.setMaximumSize(QSize(16777215, 40))
-        self.absent_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_57 = QHBoxLayout(self.absent_2)
-        self.horizontalLayout_57.setObjectName(u"horizontalLayout_57")
-        self.address_input_2 = QGroupBox(self.Profile_Page_2)
-        self.address_input_2.setObjectName(u"address_input_2")
-        self.address_input_2.setGeometry(QRect(130, 350, 750, 40))
-        self.address_input_2.setMinimumSize(QSize(750, 40))
-        self.address_input_2.setMaximumSize(QSize(750, 40))
-        self.address_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_28 = QHBoxLayout(self.address_input_2)
-        self.horizontalLayout_28.setObjectName(u"horizontalLayout_28")
-        self.present_input_2 = QGroupBox(self.Profile_Page_2)
-        self.present_input_2.setObjectName(u"present_input_2")
-        self.present_input_2.setGeometry(QRect(370, 580, 100, 40))
-        self.present_input_2.setMinimumSize(QSize(100, 40))
-        self.present_input_2.setMaximumSize(QSize(100, 40))
-        self.present_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_58 = QHBoxLayout(self.present_input_2)
-        self.horizontalLayout_58.setObjectName(u"horizontalLayout_58")
-        self.total_days_2 = QGroupBox(self.Profile_Page_2)
-        self.total_days_2.setObjectName(u"total_days_2")
-        self.total_days_2.setGeometry(QRect(10, 580, 121, 40))
-        self.total_days_2.setMinimumSize(QSize(0, 40))
-        self.total_days_2.setMaximumSize(QSize(16777215, 40))
-        self.total_days_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 700 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_59 = QHBoxLayout(self.total_days_2)
-        self.horizontalLayout_59.setObjectName(u"horizontalLayout_59")
-        self.total_days_input_2 = QGroupBox(self.Profile_Page_2)
-        self.total_days_input_2.setObjectName(u"total_days_input_2")
-        self.total_days_input_2.setGeometry(QRect(130, 580, 100, 40))
-        self.total_days_input_2.setMinimumSize(QSize(100, 40))
-        self.total_days_input_2.setMaximumSize(QSize(100, 40))
-        self.total_days_input_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
-"font: 14pt \"Segoe UI\";\n"
-"")
-        self.horizontalLayout_60 = QHBoxLayout(self.total_days_input_2)
-        self.horizontalLayout_60.setObjectName(u"horizontalLayout_60")
-        self.Pages.addWidget(self.Profile_Page_2)
+        self.Pages.addWidget(self.Profile_Page)
         Employee_Page.setCentralWidget(self.Page)
 
         self.retranslateUi(Employee_Page)
@@ -390,51 +385,33 @@ class Ui_Employee_Page(object):
         self.salary_3.setText(QCoreApplication.translate("Employee_Page", u"Leave Report", None))
         self.attendance_2.setText(QCoreApplication.translate("Employee_Page", u"Attendance", None))
         self.sign_out_2.setText(QCoreApplication.translate("Employee_Page", u"  Sign Out ", None))
-        self.l_name_2.setTitle(QCoreApplication.translate("Employee_Page", u"Last Name", None))
-        self.address_2.setTitle(QCoreApplication.translate("Employee_Page", u"Address", None))
-        self.salary_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"Rs. 355000", None))
-        self.absent_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"2", None))
-        self.pending_applications_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"1", None))
-        self.f_name_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"Aatiqa", None))
-        self.f_name_2.setTitle(QCoreApplication.translate("Employee_Page", u"First Name", None))
-        self.l_name_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"Hussain", None))
-        self.pending_applications_2.setTitle(QCoreApplication.translate("Employee_Page", u"Pending Leave Applications", None))
-        self.salary_4.setTitle(QCoreApplication.translate("Employee_Page", u"Salary", None))
-        self.email_2.setTitle(QCoreApplication.translate("Employee_Page", u"Email", None))
-        self.leave_2.setTitle(QCoreApplication.translate("Employee_Page", u"Leave", None))
-        self.name_2.setHtml(QCoreApplication.translate("Employee_Page", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:28pt; font-weight:696;\">Aatiqa Hussain</span></p></body></html>", None))
-        self.contact_2.setTitle(QCoreApplication.translate("Employee_Page", u"Contact", None))
-        self.department_st_2.setHtml(QCoreApplication.translate("Employee_Page", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:16pt;\">Accounts Department</span></p></body></html>", None))
-        self.present_2.setTitle(QCoreApplication.translate("Employee_Page", u"Present", None))
-        self.current_deduction_2.setTitle(QCoreApplication.translate("Employee_Page", u"Current Salary Deduction", None))
-        self.contact_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"0333-8629629", None))
-        self.general_info_2.setHtml(QCoreApplication.translate("Employee_Page", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:20pt; font-weight:696;\">General Information</span></p></body></html>", None))
-        self.email_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"aatiqahussain@gmail.com", None))
-        self.month_details_2.setHtml(QCoreApplication.translate("Employee_Page", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Segoe UI'; font-size:20pt; font-weight:696;\">Current Month Details</span></p></body></html>", None))
-        self.department_2.setTitle(QCoreApplication.translate("Employee_Page", u"Department", None))
-        self.current_deduction_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"Rs. 23666", None))
-        self.department_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))
-        self.leave_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"1", None))
-        self.absent_2.setTitle(QCoreApplication.translate("Employee_Page", u"Absent", None))
-        self.address_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"852-B Milaad Street, Faisal Town, Lahore", None))
-        self.present_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"21", None))
-        self.total_days_2.setTitle(QCoreApplication.translate("Employee_Page", u"Total Days", None))
-        self.total_days_input_2.setTitle(QCoreApplication.translate("Employee_Page", u"24", None))
+        self.General_info.setText(QCoreApplication.translate("Employee_Page", u" General Information", None))
+        self.f_name_input.setTitle(QCoreApplication.translate("Employee_Page", u"Aatiqa", None))
+        self.department_input.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))
+        self.leave_input.setTitle(QCoreApplication.translate("Employee_Page", u"1", None))
+        self.pending_applications_input.setTitle(QCoreApplication.translate("Employee_Page", u"1", None))
+        self.salary_input.setTitle(QCoreApplication.translate("Employee_Page", u"Rs. 355000", None))
+        self.f_name.setTitle(QCoreApplication.translate("Employee_Page", u"First Name", None))
+        self.absent.setTitle(QCoreApplication.translate("Employee_Page", u"Absent", None))
+        self.current_deduction_input.setTitle(QCoreApplication.translate("Employee_Page", u"Rs. 23666", None))
+        self.contact_input.setTitle(QCoreApplication.translate("Employee_Page", u"0333-8629629", None))
+        self.current_deduction.setTitle(QCoreApplication.translate("Employee_Page", u"Current Salary Deduction", None))
+        self.f_name_3.setTitle(QCoreApplication.translate("Employee_Page", u"Accounts", None))
+        self.l_name_input.setTitle(QCoreApplication.translate("Employee_Page", u"Hussain", None))
+        self.present_input.setTitle(QCoreApplication.translate("Employee_Page", u"21", None))
+        self.salary_2.setTitle(QCoreApplication.translate("Employee_Page", u"Salary", None))
+        self.address.setTitle(QCoreApplication.translate("Employee_Page", u"Address", None))
+        self.Current_Month.setText(QCoreApplication.translate("Employee_Page", u"Current Month Details", None))
+        self.l_name.setTitle(QCoreApplication.translate("Employee_Page", u"Last Name", None))
+        self.pending_applications.setTitle(QCoreApplication.translate("Employee_Page", u"Pending Leave Applications", None))
+        self.present.setTitle(QCoreApplication.translate("Employee_Page", u"Present", None))
+        self.email_input.setTitle(QCoreApplication.translate("Employee_Page", u"aatiqahussain@gmail.com", None))
+        self.leave.setTitle(QCoreApplication.translate("Employee_Page", u"Leave", None))
+        self.contact.setTitle(QCoreApplication.translate("Employee_Page", u"Contact", None))
+        self.department.setTitle(QCoreApplication.translate("Employee_Page", u"Department", None))
+        self.address_input.setTitle(QCoreApplication.translate("Employee_Page", u"852-B Milaad Street, Faisal Town, Lahore", None))
+        self.f_name_2.setTitle(QCoreApplication.translate("Employee_Page", u"Aatiqa Hussain", None))
+        self.email.setTitle(QCoreApplication.translate("Employee_Page", u"Email", None))
+        self.absent_input.setTitle(QCoreApplication.translate("Employee_Page", u"2", None))
     # retranslateUi
 

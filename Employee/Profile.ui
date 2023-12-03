@@ -1079,7 +1079,7 @@ font: 500 18pt &quot;Segoe UI&quot;;
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_13"/>
   </widget>
-  <widget class="QLabel" name="title">
+  <widget class="QLabel" name="General_info">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -1091,6 +1091,7 @@ font: 500 18pt &quot;Segoe UI&quot;;
    <property name="font">
     <font>
      <pointsize>25</pointsize>
+     <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
@@ -1099,10 +1100,13 @@ font: 500 18pt &quot;Segoe UI&quot;;
 color: &quot;#e6e6e6&quot;;</string>
    </property>
    <property name="text">
-    <string>                                  General Information</string>
+    <string> General Information</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="title_2">
+  <widget class="QLabel" name="Current_Month">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -1114,6 +1118,7 @@ color: &quot;#e6e6e6&quot;;</string>
    <property name="font">
     <font>
      <pointsize>25</pointsize>
+     <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
@@ -1122,7 +1127,10 @@ color: &quot;#e6e6e6&quot;;</string>
 color: &quot;#e6e6e6&quot;;</string>
    </property>
    <property name="text">
-    <string>                                Current Month Details</string>
+    <string>Current Month Details</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>
