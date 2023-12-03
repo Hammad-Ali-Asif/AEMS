@@ -204,7 +204,7 @@ class AttendancePage(QWidget):
         self.Date.setObjectName(u"Date")
         self.Date.setGeometry(230, 130, 110, 22)
         self.Date.setMaximumDate(QDate(2023, 12, 31))
-        self.Date.setMinimumDate(QDate(2000, 1, 1))
+        self.Date.setMinimumDate(QDate(2023, 1, 1))
         self.Date.setCalendarPopup(True)
 
         self.Attendance_Bar = QGroupBox(self)
