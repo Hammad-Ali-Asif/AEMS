@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ProfileaAelvh.ui'
+## Form generated from reading UI file 'ProfileTYcClu.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -16,8 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QGroupBox, QHBoxLayout,
-    QLabel, QPushButton, QSizePolicy, QTextEdit,
-    QWidget)
+    QLabel, QPushButton, QSizePolicy, QWidget)
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -92,28 +91,6 @@ class Ui_Dialog(object):
         icon.addFile(u"../Images/sign out-grey.png", QSize(), QIcon.Normal, QIcon.Off)
         self.sign_out.setIcon(icon)
         self.sign_out.setIconSize(QSize(30, 30))
-        self.general_info = QTextEdit(Dialog)
-        self.general_info.setObjectName(u"general_info")
-        self.general_info.setGeometry(QRect(350, 140, 921, 51))
-        self.general_info.setStyleSheet(u"background-color: rgb(50, 82, 110);\n"
-"color: rgb(230, 230, 230);")
-        self.name = QTextEdit(Dialog)
-        self.name.setObjectName(u"name")
-        self.name.setGeometry(QRect(370, 10, 651, 61))
-        self.name.setMinimumSize(QSize(0, 61))
-        self.name.setMaximumSize(QSize(16777215, 16777215))
-        self.name.setStyleSheet(u"color: rgb(44, 72, 97);")
-        self.department_st = QTextEdit(Dialog)
-        self.department_st.setObjectName(u"department_st")
-        self.department_st.setGeometry(QRect(370, 60, 651, 51))
-        self.department_st.setMinimumSize(QSize(0, 0))
-        self.department_st.setMaximumSize(QSize(16777215, 16777215))
-        self.department_st.setStyleSheet(u"color: rgb(44, 72, 97);")
-        self.month_details = QTextEdit(Dialog)
-        self.month_details.setObjectName(u"month_details")
-        self.month_details.setGeometry(QRect(350, 500, 921, 51))
-        self.month_details.setStyleSheet(u"background-color: rgb(50, 82, 110);\n"
-"color: rgb(230, 230, 230);")
         self.f_name = QGroupBox(Dialog)
         self.f_name.setObjectName(u"f_name")
         self.f_name.setGeometry(QRect(360, 220, 121, 40))
@@ -362,6 +339,41 @@ class Ui_Dialog(object):
 "")
         self.horizontalLayout_48 = QHBoxLayout(self.current_deduction_input)
         self.horizontalLayout_48.setObjectName(u"horizontalLayout_48")
+        self.f_name_2 = QGroupBox(Dialog)
+        self.f_name_2.setObjectName(u"f_name_2")
+        self.f_name_2.setGeometry(QRect(360, 20, 561, 40))
+        self.f_name_2.setMinimumSize(QSize(0, 40))
+        self.f_name_2.setMaximumSize(QSize(16777215, 40))
+        self.f_name_2.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 700 24pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_11 = QHBoxLayout(self.f_name_2)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.f_name_3 = QGroupBox(Dialog)
+        self.f_name_3.setObjectName(u"f_name_3")
+        self.f_name_3.setGeometry(QRect(360, 60, 561, 40))
+        self.f_name_3.setMinimumSize(QSize(0, 40))
+        self.f_name_3.setMaximumSize(QSize(16777215, 40))
+        self.f_name_3.setStyleSheet(u"color: rgb(50, 84, 110);\n"
+"font: 500 18pt \"Segoe UI\";\n"
+"")
+        self.horizontalLayout_13 = QHBoxLayout(self.f_name_3)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.title = QLabel(Dialog)
+        self.title.setObjectName(u"title")
+        self.title.setGeometry(QRect(350, 130, 925, 60))
+        font = QFont()
+        font.setPointSize(25)
+        font.setBold(True)
+        self.title.setFont(font)
+        self.title.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: \"#e6e6e6\";")
+        self.title_2 = QLabel(Dialog)
+        self.title_2.setObjectName(u"title_2")
+        self.title_2.setGeometry(QRect(350, 480, 925, 60))
+        self.title_2.setFont(font)
+        self.title_2.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
+"color: \"#e6e6e6\";")
 
         self.retranslateUi(Dialog)
 
@@ -378,38 +390,6 @@ class Ui_Dialog(object):
         self.salary.setText(QCoreApplication.translate("Dialog", u"Leave Report", None))
         self.attendance.setText(QCoreApplication.translate("Dialog", u"Attendance", None))
         self.sign_out.setText(QCoreApplication.translate("Dialog", u"  Sign Out ", None))
-        self.general_info.setHtml(QCoreApplication.translate("Dialog", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt; font-weight:700;\">General Information</span></p></body></html>", None))
-        self.name.setHtml(QCoreApplication.translate("Dialog", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:28pt; font-weight:700;\">Aatiqa Hussain</span></p></body></html>", None))
-        self.department_st.setHtml(QCoreApplication.translate("Dialog", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">Accounts Department</span></p></body></html>", None))
-        self.month_details.setHtml(QCoreApplication.translate("Dialog", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt; font-weight:700;\">Current Month Details</span></p></body></html>", None))
         self.f_name.setTitle(QCoreApplication.translate("Dialog", u"First Name", None))
         self.address.setTitle(QCoreApplication.translate("Dialog", u"Address", None))
         self.email.setTitle(QCoreApplication.translate("Dialog", u"Email", None))
@@ -436,5 +416,9 @@ class Ui_Dialog(object):
         self.pending_applications_input.setTitle(QCoreApplication.translate("Dialog", u"1", None))
         self.current_deduction.setTitle(QCoreApplication.translate("Dialog", u"Current Salary Deduction", None))
         self.current_deduction_input.setTitle(QCoreApplication.translate("Dialog", u"Rs. 23666", None))
+        self.f_name_2.setTitle(QCoreApplication.translate("Dialog", u"Aatiqa Hussain", None))
+        self.f_name_3.setTitle(QCoreApplication.translate("Dialog", u"Accounts", None))
+        self.title.setText(QCoreApplication.translate("Dialog", u"                                  General Information", None))
+        self.title_2.setText(QCoreApplication.translate("Dialog", u"                                Current Month Details", None))
     # retranslateUi
 
