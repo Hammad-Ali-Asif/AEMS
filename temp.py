@@ -1274,7 +1274,6 @@ class salarypage(QWidget):
                 #                 self.salary_record.setItem(11, 4, QTableWidgetItem(str(amount)))
                 #                 self.salary_record.setItem(11, 5, QTableWidgetItem(str(total)))
 
-
                 
 class applicationpage(QWidget):
         def __init__(self,Page,id):
@@ -1340,6 +1339,8 @@ class applicationpage(QWidget):
         "border-color: rgb(230, 230, 230);\n"
         "color: rgb(230, 230, 230);\n"
         "font: 700 12pt \"Segoe UI\";")
+                self.submit_button.clicked.connect (self.load_application_data())
+
                 self.category = QLabel(self)
                 self.category.setObjectName(u"category")
                 self.category.setGeometry(QRect(50, 230, 141, 41))
@@ -1382,6 +1383,72 @@ class applicationpage(QWidget):
                 self.category.setText(QCoreApplication.translate("Employee_Page", u"Category", None))
                 self.start_date.setText(QCoreApplication.translate("Employee_Page", u"Start Date", None))
                 self.title_3.setText(QCoreApplication.translate("Employee_Page", u"                         Leave Application", None))
+
+        def load_application_data(self):
+                # Connect to the PostgreSQL database (adjust connection parameters accordingly)
+                db_connection = psycopg2.connect(
+                        user="postgres",
+                        password="zendagimigzara",
+                        host="localhost",
+                        port="5432",
+                        database="AEMS"
+                )
+
+                # Create a cursor
+                cursor = db_connection.cursor()
+
+                try:
+                        # Get data from UI elements
+                        start_date = self.start_date_input.date().toPyDate()
+                        end_date = self.end_date_input.date().toPyDate()
+                        description = self.description_input.toPlainText()
+                        category = self.category_input.currentText()
+
+                        # Insert data into Leave_Record table
+                        insert_query = """
+                        INSERT INTO Leave_Record (employee_id, start_date, end_date, description, category, status)
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                        """
+
+                        # Assume self.emp_id is the employee_id, replace it accordingly
+                        employee_id = self.emp_id
+
+                        # Status is assumed to be 'pending' initially, change it if needed
+                        status = 'pending'
+
+                        # Execute the query
+                        cursor.execute(insert_query, (employee_id, start_date, end_date, description, category, status))
+
+                        # Commit the changes to the database
+                        db_connection.commit()
+
+                        # Display a success message or handle as per your requirement
+                        print("Leave application submitted successfully!")
+
+                except Exception as e:
+                        # Handle exceptions or display error messages as needed
+                        print(f"Error: {e}")
+
+                finally:
+                        # Close the cursor and connection
+                        cursor.close()
+                        db_connection.close()
+
+                
+                                
+                        # # Query to get count of general and health leaves that are accepted
+                        # query = """
+                        #         SELECT
+                        #                 COALESCE((SELECT COUNT(*) FROM Leave_Record WHERE employee_id = %s AND category = 'general' AND status = 'accepted'), 0) AS general_leave_count,
+                        #                 COALESCE((SELECT COUNT(*) FROM Leave_Record WHERE employee_id = %s AND category = 'health' AND status = 'accepted'), 0) AS health_leave_count
+                        # """
+
+                        # # Execute the query
+                        # cursor.execute(query, (self.emp_id, self.emp_id))
+
+                        # # Fetch the result
+                        # result = cursor.fetchone()
+               
 
 class EmployeePage(QDialog):
         def __init__(self,id):
