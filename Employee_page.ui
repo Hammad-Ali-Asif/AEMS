@@ -78,7 +78,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>Images/logo-grey.png</pixmap>
+      <pixmap>../Project &amp; Assignments/Semester 5/SDA/AEMS/Images/logo-grey.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -277,8 +277,8 @@ color: rgb(230, 230, 230);</string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>Images/sign out-grey.png</normaloff>
-       <normalon>Images/sign out-grey.png</normalon>Images/sign out-grey.png</iconset>
+       <normaloff>../Project &amp; Assignments/Semester 5/SDA/AEMS/Images/sign out-grey.png</normaloff>
+       <normalon>../Project &amp; Assignments/Semester 5/SDA/AEMS/Images/sign out-grey.png</normalon>../Project &amp; Assignments/Semester 5/SDA/AEMS/Images/sign out-grey.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -625,11 +625,7 @@ font: 700 14pt &quot;Segoe UI&quot;;
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_52"/>
      </widget>
-<<<<<<< HEAD
-     <widget class="QGroupBox" name="head_dep">
-=======
      <widget class="QGroupBox" name="department_title">
->>>>>>> a52e2d16f4882f1a2545921da357e83d438cde9e
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -998,11 +994,7 @@ font: 14pt &quot;Segoe UI&quot;;
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_30"/>
      </widget>
-<<<<<<< HEAD
-     <widget class="QGroupBox" name="Head_name">
-=======
      <widget class="QGroupBox" name="name_2">
->>>>>>> a52e2d16f4882f1a2545921da357e83d438cde9e
       <property name="geometry">
        <rect>
         <x>10</x>
