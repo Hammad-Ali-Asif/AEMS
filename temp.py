@@ -476,7 +476,7 @@ class Profile(QWidget):
                 # Connect to the PostgreSQL database
                 db_connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -679,7 +679,7 @@ class leavereportpage(QWidget):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -979,7 +979,7 @@ class attendancepage(QWidget):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 db_connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -1277,7 +1277,7 @@ class salarypage(QWidget):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 db_connection = psycopg2.connect(
                 user="postgres",
-                password="zendagimigzara",
+                password="12345678",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -1450,7 +1450,7 @@ class applicationpage(QWidget):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 db_connection = psycopg2.connect(
                         user="postgres",
-                        password="zendagimigzara",
+                        password="12345678",
                         host="localhost",
                         port="5432",
                         database="AEMS"
@@ -1550,7 +1550,7 @@ def generateSalary():
          # Connect to the PostgreSQL database (adjust connection parameters accordingly)
         db_connection = psycopg2.connect(
         user="postgres",
-        password="zendagimigzara",
+        password="12345678",
         host="localhost",
         port="5432",
         database="AEMS"
