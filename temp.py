@@ -1564,6 +1564,6 @@ if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
     global window
-    window =  EmployeePage('1001')
+    window =  EmployeePage('9')
     window.show()
     sys.exit(app.exec_())
