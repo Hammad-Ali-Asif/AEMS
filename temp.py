@@ -1492,13 +1492,14 @@ class applicationpage(QWidget):
 
                         # Status is assumed to be 'pending' initially, change it if needed
                         status = 'pending'
-                        category.lower()
+                        category = category.lower()
+                        print (category)
                         # Execute the query
-                        if category == 'general' and result[0] != 15 or category == 'health' and result[1] != 10:
+                        if category == 'general' and result[0] < 15 or category == 'health' and result[1] < 10:
                                 cursor.execute(insert_query, (employee_id, start_date_text, end_date_text, description, category, status))
                                 QMessageBox.information(self, "Success", "Application sent successfully!")
                         else:
-                                QMessageBox.critical(self, "Error!!", "No " + category + "leave left!")
+                                QMessageBox.critical(self, "Error!!", "No " + category + " leave left!")
 
                         # Commit the changes to the database
                         db_connection.commit()
