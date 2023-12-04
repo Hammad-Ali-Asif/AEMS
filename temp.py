@@ -742,59 +742,80 @@ class attendancepage(QWidget):
                 font3.setBold(True)
                 self.dec.setGeometry(QRect(830, 170, 90, 30))
                 self.dec.setFont(font3)
+                self.dec.setCursor(QCursor(Qt.PointingHandCursor))
                 self.dec.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.dec.clicked.connect (lambda: self.load_attendance_data('12'))
+
                 self.sep = QPushButton(self)
                 self.sep.setObjectName(u"sep")
                 self.sep.setGeometry(QRect(529, 170, 92, 30))
                 self.sep.setFont(font3)
+                self.sep.setCursor(QCursor(Qt.PointingHandCursor))
                 self.sep.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.sep.clicked.connect (lambda: self.load_attendance_data('09'))
+
                 self.april = QPushButton(self)
                 self.april.setObjectName(u"april")
                 self.april.setGeometry(QRect(580, 130, 90, 30))
                 self.april.setFont(font3)
+                self.april.setCursor(QCursor(Qt.PointingHandCursor))
                 self.april.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.april.clicked.connect (lambda: self.load_attendance_data('04'))
+                
                 self.march = QPushButton(self)
                 self.march.setObjectName(u"march")
                 self.march.setGeometry(QRect(480, 130, 90, 30))
                 self.march.setFont(font3)
+                self.march.setCursor(QCursor(Qt.PointingHandCursor))
                 self.march.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px\n"
         "")
+                self.march.clicked.connect (lambda: self.load_attendance_data('03'))
+
                 self.oct = QPushButton(self)
                 self.oct.setObjectName(u"oct")
                 self.oct.setGeometry(QRect(630, 170, 90, 30))
                 self.oct.setFont(font3)
+                self.oct.setCursor(QCursor(Qt.PointingHandCursor))
                 self.oct.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.oct.clicked.connect (lambda: self.load_attendance_data('10'))
+
                 self.feb = QPushButton(self)
                 self.feb.setObjectName(u"feb")
                 self.feb.setGeometry(QRect(380, 130, 90, 30))
                 self.feb.setFont(font3)
+                self.feb.setCursor(QCursor(Qt.PointingHandCursor))
                 self.feb.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.feb.clicked.connect (lambda: self.load_attendance_data('02'))
+
                 self.jan = QPushButton(self)
                 self.jan.setObjectName(u"jan")
                 self.jan.setGeometry(QRect(280, 130, 90, 30))
                 self.jan.setFont(font3)
+                self.jan.setCursor(QCursor(Qt.PointingHandCursor))
                 self.jan.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.jan.clicked.connect (lambda: self.load_attendance_data('01'))
+
                 self.stackedWidget = QStackedWidget(self)
                 self.stackedWidget.setObjectName(u"stackedWidget")
                 self.stackedWidget.setGeometry(QRect(40, 230, 741, 481))
@@ -876,45 +897,59 @@ class attendancepage(QWidget):
                 self.may = QPushButton(self)
                 self.may.setObjectName(u"may")
                 self.may.setGeometry(QRect(680, 130, 90, 30))
-                
+                self.may.setCursor(QCursor(Qt.PointingHandCursor))
                 self.may.setFont(font3)
                 self.may.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.may.clicked.connect (lambda: self.load_attendance_data('05'))
+
                 self.june = QPushButton(self)
                 self.june.setObjectName(u"june")
                 self.june.setGeometry(QRect(780, 130, 90, 30))
                 self.june.setFont(font3)
+                self.june.setCursor(QCursor(Qt.PointingHandCursor))
                 self.june.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px\n"
         "")
+                self.june.clicked.connect (lambda: self.load_attendance_data('06'))
+
                 self.july = QPushButton(self)
                 self.july.setObjectName(u"july")
                 self.july.setGeometry(QRect(330, 170, 90, 30))
                 self.july.setFont(font3)
+                self.july.setCursor(QCursor(Qt.PointingHandCursor))
                 self.july.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.july.clicked.connect (lambda: self.load_attendance_data('07'))
+
                 self.aug = QPushButton(self)
                 self.aug.setObjectName(u"aug")
                 self.aug.setGeometry(QRect(430, 170, 90, 30))
                 self.aug.setFont(font3)
+                self.aug.setCursor(QCursor(Qt.PointingHandCursor))
                 self.aug.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.aug.clicked.connect (lambda: self.load_attendance_data('08'))
+
                 self.nov = QPushButton(self)
                 self.nov.setObjectName(u"nov")
                 self.nov.setGeometry(QRect(730, 170, 90, 30))
                 self.nov.setFont(font3)
+                self.nov.setCursor(QCursor(Qt.PointingHandCursor))
                 self.nov.setStyleSheet(u"background-color: rgb(50, 84, 110);\n"
         "color: rgb(230, 230, 230);\n"
         "border:1px solid;\n"
         "border-radius: 10px")
+                self.nov.clicked.connect (lambda: self.load_attendance_data('11'))
+                self.load_attendance_data("12")
                 self.translateui()
         
         def translateui(self):
@@ -940,7 +975,7 @@ class attendancepage(QWidget):
                 self.aug.setText(QCoreApplication.translate("Employee_Page", u"August", None))
                 self.nov.setText(QCoreApplication.translate("Employee_Page", u"November", None))
 
-        def load_attendace_data(self, month):
+        def load_attendance_data(self, month):
                 # Connect to the PostgreSQL database (adjust connection parameters accordingly)
                 db_connection = psycopg2.connect(
                 user="postgres",
@@ -950,8 +985,56 @@ class attendancepage(QWidget):
                 database="AEMS"
                 )
 
-                 # Create a cursor
+                # Create a cursor
                 cursor = db_connection.cursor()
+
+                try:
+                        # Fetch attendance data for the selected month
+                        select_query = """
+                                SELECT date_, status 
+                                FROM Attendance 
+                                WHERE employee_id = %s AND EXTRACT(MONTH FROM date_) = EXTRACT(MONTH FROM TO_DATE(%s, 'MM'))
+                        """
+                        cursor.execute(select_query, (self.emp_id, month))
+                        attendance_data = cursor.fetchall()
+
+                        # Clear the existing data in the tables
+                        self.clear_tables()
+
+                        # Populate the tables with attendance data
+                        self.populate_tables(attendance_data)
+
+                except Exception as e:
+                        # Handle exceptions or display error messages as needed
+                        print(f"Error: {e}")
+
+                finally:
+                        # Close the cursor and connection
+                        cursor.close()
+                        db_connection.close()
+
+        def clear_tables(self):
+                # Clear the contents of both tables
+                self.table_start.setRowCount(0)
+                self.table_end.setRowCount(0)
+
+        i = 0
+        def populate_tables(self, attendance_data):
+                # Populate the tables with attendance data
+                #if i <13:
+                        for row, (date_, status) in enumerate(attendance_data):
+                                self.table_start.insertRow(row)
+                                self.table_start.setItem(row, 0, QTableWidgetItem(str(date_)))
+                                self.table_start.setItem(row, 1, QTableWidgetItem(status))
+                # else:
+                #         for row, (date_, status) in enumerate(attendance_data):
+                #                 self.table_end.insertRow(row)
+                #                 self.table_end.setItem(row, 0, QTableWidgetItem(str(date_)))
+                #                 self.table_end.setItem(row, 1, QTableWidgetItem(status))
+                # i+=1
+
+        # The rest of your class remains unchanged
+        # ...
 
 class salarypage(QWidget):
         def __init__(self,Page,id):
@@ -1339,7 +1422,7 @@ class applicationpage(QWidget):
         "border-color: rgb(230, 230, 230);\n"
         "color: rgb(230, 230, 230);\n"
         "font: 700 12pt \"Segoe UI\";")
-                self.submit_button.clicked.connect (self.load_application_data())
+                self.submit_button.clicked.connect (lambda: self.load_application_data())
 
                 self.category = QLabel(self)
                 self.category.setObjectName(u"category")
@@ -1399,10 +1482,25 @@ class applicationpage(QWidget):
 
                 try:
                         # Get data from UI elements
-                        start_date = self.start_date_input.date().toPyDate()
-                        end_date = self.end_date_input.date().toPyDate()
+                        start_date_text = self.start_date_input.date().toString("yyyy-MM-dd")
+                        end_date_text = self.end_date_input.date().toString("yyyy-MM-dd")
+
                         description = self.description_input.toPlainText()
                         category = self.category_input.currentText()
+
+                        # Query to get count of general and health leaves that are accepted
+                        query = """
+                                SELECT
+                                        COALESCE((SELECT COUNT(*) FROM Leave_Record WHERE employee_id = %s AND category = 'general' AND (status = 'accepted' OR status = 'pending')), 0) AS general_leave_count,
+                                        COALESCE((SELECT COUNT(*) FROM Leave_Record WHERE employee_id = %s AND category = 'health' AND (status = 'accepted' OR status = 'pending')), 0) AS health_leave_count
+                        """
+
+                        # Execute the query
+                        
+                        cursor.execute(query, (self.emp_id, self.emp_id))
+
+                        # Fetch the result
+                        result = cursor.fetchone()
 
                         # Insert data into Leave_Record table
                         insert_query = """
@@ -1415,15 +1513,16 @@ class applicationpage(QWidget):
 
                         # Status is assumed to be 'pending' initially, change it if needed
                         status = 'pending'
-
+                        category.lower()
                         # Execute the query
-                        cursor.execute(insert_query, (employee_id, start_date, end_date, description, category, status))
+                        if category == 'general' and result[0] != 15 or category == 'health' and result[1] != 10:
+                                cursor.execute(insert_query, (employee_id, start_date_text, end_date_text, description, category, status))
+                                QMessageBox.information(self, "Success", "Application sent successfully!")
+                        else:
+                                QMessageBox.critical(self, "Error!!", "No " + category + "leave left!")
 
                         # Commit the changes to the database
                         db_connection.commit()
-
-                        # Display a success message or handle as per your requirement
-                        print("Leave application submitted successfully!")
 
                 except Exception as e:
                         # Handle exceptions or display error messages as needed
@@ -1436,18 +1535,7 @@ class applicationpage(QWidget):
 
                 
                                 
-                        # # Query to get count of general and health leaves that are accepted
-                        # query = """
-                        #         SELECT
-                        #                 COALESCE((SELECT COUNT(*) FROM Leave_Record WHERE employee_id = %s AND category = 'general' AND status = 'accepted'), 0) AS general_leave_count,
-                        #                 COALESCE((SELECT COUNT(*) FROM Leave_Record WHERE employee_id = %s AND category = 'health' AND status = 'accepted'), 0) AS health_leave_count
-                        # """
-
-                        # # Execute the query
-                        # cursor.execute(query, (self.emp_id, self.emp_id))
-
-                        # # Fetch the result
-                        # result = cursor.fetchone()
+                
                
 
 class EmployeePage(QDialog):
