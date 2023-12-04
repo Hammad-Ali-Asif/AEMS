@@ -1312,7 +1312,7 @@ class salarypage(QWidget):
 
                 # Fetch all rows
                 salary_data = cursor.fetchall()
-                print (salary_data)
+               
 
                 # Close the cursor and connection
                 cursor.close()
@@ -1493,7 +1493,7 @@ class applicationpage(QWidget):
                         # Status is assumed to be 'pending' initially, change it if needed
                         status = 'pending'
                         category = category.lower()
-                        print (category)
+                        
                         # Execute the query
                         if category == 'general' and result[0] < 15 or category == 'health' and result[1] < 10:
                                 cursor.execute(insert_query, (employee_id, start_date_text, end_date_text, description, category, status))
