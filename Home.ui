@@ -71,7 +71,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>Images/Dashboard.png</normaloff>Images/Dashboard.png</iconset>
+       <normaloff>Admin/Images/Dashboard.png</normaloff>Admin/Images/Dashboard.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -107,7 +107,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>Images/attendance.png</normaloff>Images/attendance.png</iconset>
+       <normaloff>Admin/Images/attendance.png</normaloff>Admin/Images/attendance.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -190,7 +190,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
       </property>
       <attribute name="icon">
        <iconset>
-        <normaloff>Images/Employee.jpg</normaloff>Images/Employee.jpg</iconset>
+        <normaloff>Admin/Images/Employee.jpg</normaloff>Admin/Images/Employee.jpg</iconset>
       </attribute>
       <attribute name="label">
        <string>Employee</string>
@@ -217,7 +217,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Images/list.png</normaloff>Images/list.png</iconset>
+         <normaloff>Admin/Images/list.png</normaloff>Admin/Images/list.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -248,7 +248,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Images/add.png</normaloff>Images/add.png</iconset>
+         <normaloff>Admin/Images/add.png</normaloff>Admin/Images/add.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -279,7 +279,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Images/remove.png</normaloff>Images/remove.png</iconset>
+         <normaloff>Admin/Images/remove.png</normaloff>Admin/Images/remove.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -300,7 +300,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
       </property>
       <attribute name="icon">
        <iconset>
-        <normaloff>Images/leave.png</normaloff>Images/leave.png</iconset>
+        <normaloff>Admin/Images/leave.png</normaloff>Admin/Images/leave.png</iconset>
       </attribute>
       <attribute name="label">
        <string>Leave</string>
@@ -327,7 +327,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Images/pending.png</normaloff>Images/pending.png</iconset>
+         <normaloff>Admin/Images/pending.png</normaloff>Admin/Images/pending.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -358,7 +358,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Images/approve.png</normaloff>Images/approve.png</iconset>
+         <normaloff>Admin/Images/approve.png</normaloff>Admin/Images/approve.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -389,7 +389,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>Images/decline.png</normaloff>Images/decline.png</iconset>
+         <normaloff>Admin/Images/decline.png</normaloff>Admin/Images/decline.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -413,10 +413,43 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>Images/logo.png</pixmap>
+      <pixmap>Admin/Images/logo.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Sign_out_button">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>652</y>
+       <width>291</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>  Sign Out</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>Images/sign out-grey.png</normaloff>Images/sign out-grey.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
    </widget>
@@ -439,7 +472,7 @@ font: 15pt &quot;Book Antiqua&quot;;</string>
      </size>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="dashboard_page">
      <property name="styleSheet">
@@ -594,7 +627,7 @@ color: rgb(255, 255, 255);</string>
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>Images/toppng.com-free-twitter-white-icon-employee-icon-white-537x501.png</pixmap>
+        <pixmap>Admin/Images/toppng.com-free-twitter-white-icon-employee-icon-white-537x501.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -652,7 +685,7 @@ border-radius:30px;</string>
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>Images/pending_logo.png</pixmap>
+        <pixmap>Admin/Images/pending_logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -709,7 +742,7 @@ border-radius:30px;</string>
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>Images/approve_logo.png</pixmap>
+        <pixmap>Admin/Images/approve_logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -787,7 +820,7 @@ border-radius:30px;</string>
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>Images/Decline_logo.png</pixmap>
+        <pixmap>Admin/Images/Decline_logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -2180,7 +2213,7 @@ color: rgb(255, 255, 255);</string>
        </property>
       </widget>
      </widget>
-     <widget class="QTableWidget" name="pending_leave_list">
+     <widget class="QTableWidget" name="Pending_table">
       <property name="geometry">
        <rect>
         <x>25</x>
@@ -2310,7 +2343,7 @@ color: rgb(255, 255, 255);</string>
        </property>
       </column>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="Total_text">
       <property name="geometry">
        <rect>
         <x>90</x>
@@ -2333,7 +2366,7 @@ color: rgb(255, 255, 255);</string>
        <string>Total:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="Total_input">
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -2349,6 +2382,426 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>20</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="approved_leave">
+     <widget class="QGroupBox" name="approved_bar">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-10</y>
+        <width>991</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(88, 55, 89);</string>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QLabel" name="Approved_text">
+       <property name="geometry">
+        <rect>
+         <x>33</x>
+         <y>22</y>
+         <width>261</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Approved Leaves</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="Total_input_2">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>115</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>20</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="Approved_table">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>220</y>
+        <width>925</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QHeaderView::section {
+    background-color: rgb(88, 55, 89); /* Set your desired background color */
+    color: white; /* Set the text color */
+    border: 1px solid rgb(88, 55, 89); /* Set the border color */
+}</string>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="rowCount">
+       <number>0</number>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>131</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderMinimumSectionSize">
+       <number>25</number>
+      </attribute>
+      <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Leave_ID</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Employee_ID</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Start_date</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Email</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Category</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Description</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Status</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+     </widget>
+     <widget class="QLabel" name="Total_text_2">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>110</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(88, 55, 89);</string>
+      </property>
+      <property name="text">
+       <string>Total:</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="declined_leave">
+     <widget class="QLabel" name="Total_input_3">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>115</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>20</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="Declined_table">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>220</y>
+        <width>925</width>
+        <height>331</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QHeaderView::section {
+    background-color: rgb(88, 55, 89); /* Set your desired background color */
+    color: white; /* Set the text color */
+    border: 1px solid rgb(88, 55, 89); /* Set the border color */
+}</string>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="rowCount">
+       <number>0</number>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>131</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderMinimumSectionSize">
+       <number>25</number>
+      </attribute>
+      <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Leave_ID</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Employee_ID</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Start_date</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Email</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Category</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Description</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Status</string>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+     </widget>
+     <widget class="QGroupBox" name="Declined_bar">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-10</y>
+        <width>991</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(88, 55, 89);</string>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QLabel" name="Declined_text">
+       <property name="geometry">
+        <rect>
+         <x>33</x>
+         <y>25</y>
+         <width>261</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Declined Leaves</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="Total_text_3">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>110</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(88, 55, 89);</string>
+      </property>
+      <property name="text">
+       <string>Total:</string>
       </property>
      </widget>
     </widget>

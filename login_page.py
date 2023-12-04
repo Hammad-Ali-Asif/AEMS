@@ -7,7 +7,8 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-
+admin_email='admin'
+admin_pass="admin"
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -16,8 +17,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QMainWindow,
-    QPushButton, QSizePolicy, QWidget,QMessageBox)
+    QPushButton, QSizePolicy, QWidget,QMessageBox,QRadioButton)
 import temp
+import admin
 import psycopg2
 
 class Ui_Login_page(object):
@@ -91,7 +93,7 @@ class Ui_Login_page(object):
         self.password_box.setEchoMode(QLineEdit.Password)
         self.Sign_in_button = QPushButton(self.centralwidget)
         self.Sign_in_button.setObjectName(u"Sign_in_button")
-        self.Sign_in_button.setGeometry(QRect(190, 530, 111, 41))
+        self.Sign_in_button.setGeometry(QRect(190, 560, 111, 41))
         font3 = QFont()
         font3.setPointSize(10)
         font3.setBold(True)
@@ -105,6 +107,29 @@ class Ui_Login_page(object):
 "")
         self.Sign_in_button.clicked.connect(self.check_credentials)
         Login_page.setCentralWidget(self.centralwidget)
+        self.employee_radio_button = QRadioButton(self.centralwidget)
+        self.employee_radio_button.setObjectName(u"employee_radio_button")
+        self.employee_radio_button.setGeometry(QRect(130, 520, 111, 31))
+        font4 = QFont()
+        font4.setPointSize(10)
+        font4.setBold(True)
+        self.employee_radio_button.setFont(font4)
+        self.employee_radio_button.setStyleSheet(u"color: rgb(50, 82, 110);")
+        self.employee_radio_button.setText(QCoreApplication.translate("Login_page", u"Employee", None))
+
+        self.admin_radio_button = QRadioButton(self.centralwidget)
+        self.admin_radio_button.setObjectName(u"admin_radio_button")
+        self.admin_radio_button.setGeometry(QRect(270, 520, 111, 31))
+        self.admin_radio_button.setFont(font4)
+        self.admin_radio_button.setStyleSheet(u"color: rgb(50, 82, 110);")
+        self.admin_radio_button.setText(QCoreApplication.translate("Login_page", u"Admin", None))
+
+        self.Sign_in_button.clicked.connect(self.check_credentials)
+
+        Login_page.setCentralWidget(self.centralwidget)
+        self.retranslateUi(Login_page)
+
+        QMetaObject.connectSlotsByName(Login_page)
 
         self.retranslateUi(Login_page)
 
@@ -112,34 +137,46 @@ class Ui_Login_page(object):
     # setupUi
 
     def check_credentials(self):
-        self.connection = psycopg2.connect(
-            user="postgres",
-            password="zendagimigzara",
-            host="localhost",
-            port="5432",
-            database="AEMS"
-        )
-
-        # Create a cursor object to execute SQL queries
-        self.cursor = self.connection.cursor()
-
+        
+        
+        is_employee = self.employee_radio_button.isChecked()
+        is_admin = self.admin_radio_button.isChecked()
         email = self.HR_ID_BOX.text()
         password = self.password_box.text()
+        if is_employee and not is_admin:
+            self.connection = psycopg2.connect(
+                user="postgres",
+                password="12345678",
+                host="localhost",
+                port="5432",
+                database="AEMS"
+            )
 
-        # Execute the SELECT query
-        query = "SELECT * FROM Employee WHERE email = %s AND password = %s;"
-        self.cursor.execute(query, (email, password))
+            # Create a cursor object to execute SQL queries
+            self.cursor = self.connection.cursor()
 
-        # Fetch the result
-        result = self.cursor.fetchone()
-        self.cursor.close()
-        self.connection.close()
-        if result:
-            id=result[0]
-            self.authenticate_user(id)
+
+            # Execute the SELECT query
+            query = "SELECT * FROM Employee WHERE email = %s AND password = %s;"
+            self.cursor.execute(query, (email, password))
+
+            # Fetch the result
+            result = self.cursor.fetchone()
+            self.cursor.close()
+            self.connection.close()
+            if result:
+                id=result[0]
+                self.authenticate_user(id)
+            else:
+                QMessageBox.warning(self, "Login Failed", "Invalid username or password. Please try again.")
+
+        elif is_admin and not is_employee:
+            if email==admin_email and password==admin_pass:
+                self.authenticate_admin()
+            else:
+                QMessageBox.warning(self, "Login Failed", "Invalid username or password. Please try again.")
         else:
-            QMessageBox.warning(self, "Login Failed", "Invalid username or password. Please try again.")
-
+            QMessageBox.warning(self, "Login Failed", "Please select either Employee or Admin.")
     def authenticate_user(self,employee_id):
 
         self.close()
@@ -147,6 +184,13 @@ class Ui_Login_page(object):
         # Pass the employee ID to the EmployeePage instance
         employee_page = temp.EmployeePage(employee_id)
         employee_page.show()
+    
+    def authenticate_admin(self):
+        self.close()
+        admin_page = admin.AdminPage()
+        admin_page.show()
+        admin_page.exec_()
+
         
 
             

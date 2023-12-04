@@ -12,6 +12,7 @@ QWidget,QMessageBox,QTableWidget, QTableWidgetItem,QVBoxLayout,QItemDelegate,QSp
 import re
 import psycopg2
 from functools import partial
+import login_page
 def is_valid_email(email):
     # Define a regular expression pattern for a basic email validation
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -35,8 +36,10 @@ class CustomSpinBox(QSpinBox):
             return super(CustomSpinBox, self).textFromValue(value)
 
 class Sidebar(QGroupBox):
-    def __init__(self,Page):
+    def __init__(self,Page,admin_instance):
+        self.admin=admin_instance
         super(Sidebar, self).__init__(Page)
+        self.page=Page
         self.setObjectName(u"side_bar")
         self.setGeometry(0, -10, 291, 731)
         self.setStyleSheet(u"background-color: rgb(88, 55, 89);")
@@ -167,13 +170,131 @@ class Sidebar(QGroupBox):
         self.Logo.setGeometry(QRect(0, 10, 290, 131))
         self.Logo.setPixmap(QPixmap(u"Images/logo.png"))
         self.Logo.setScaledContents(True)
+        self.Sign_out_button = QPushButton(self)
+        self.Sign_out_button.setObjectName(u"Sign_out_button")
+        self.Sign_out_button.setGeometry(QRect(0, 670, 291, 61))
+        self.Sign_out_button.setFont(font1)
+        self.Sign_out_button.setStyleSheet(u"color: rgb(255, 255, 255);")
+        icon10 = QIcon()
+        icon10.addFile(u"Images/sign out-grey.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.Sign_out_button.setIcon(icon10)
+        self.Sign_out_button.setIconSize(QSize(20, 20))
+        self.Sign_out_button.setCursor(QCursor(Qt.PointingHandCursor))
+        self.Sign_out_button.clicked.connect(self.admin.signout)
+        self.translateui()
+        
+    def translateui(self):
+        self.setTitle(QCoreApplication.translate(" Admin_Page", u"GroupBox", None))
+        self.Dashboard_button.setText(QCoreApplication.translate(" Admin_Page", u"Dashboard", None))
+        self.attendance.setText(QCoreApplication.translate(" Admin_Page", u"Attendance", None))
+        self.list_employee.setText(QCoreApplication.translate(" Admin_Page", u"List of Employee", None))
+        self.Add_employee.setText(QCoreApplication.translate(" Admin_Page", u"Add Employee", None))
+        self.Remove_employee.setText(QCoreApplication.translate(" Admin_Page", u"Remove Employee", None))
+        self.EandL.setItemText(self.EandL.indexOf(self.Employee), QCoreApplication.translate(" Admin_Page", u"Employee", None))
+        self.Pending.setText(QCoreApplication.translate(" Admin_Page", u"Pending", None))
+        self.Approve.setText(QCoreApplication.translate(" Admin_Page", u"Approved", None))
+        self.Decline.setText(QCoreApplication.translate(" Admin_Page", u"Declined", None))
+        self.EandL.setItemText(self.EandL.indexOf(self.Leave), QCoreApplication.translate(" Admin_Page", u"Leave", None))
+        self.Logo.setText("")
+        
     def setup_connections(self, stacked_widget):
-        # Connect the Dashboard_button click signal to show_dashboard_page function
-        self.Dashboard_button.clicked.connect(lambda: stacked_widget.setCurrentIndex(0))
-        self.attendance.clicked.connect(lambda:stacked_widget.setCurrentIndex(1))
-        self.list_employee.clicked.connect(lambda:stacked_widget.setCurrentIndex(2))
-        self.Add_employee.clicked.connect(lambda: stacked_widget.setCurrentIndex(3))
-        self.Remove_employee.clicked.connect(lambda: stacked_widget.setCurrentIndex(4))
+            self.Sign_out_button.setText(QCoreApplication.translate("Admin_Page", u"  Sign Out", None))
+            self.Dashboard_button.clicked.connect(lambda: self.setdashboardpage(stacked_widget))
+            self.attendance.clicked.connect(lambda: self.setattendancepage(stacked_widget))
+            self.list_employee.clicked.connect(lambda: self.setlistpage(stacked_widget))
+            self.Add_employee.clicked.connect(lambda: self.setaddemployeepage(stacked_widget))
+            self.Remove_employee.clicked.connect(lambda: self.setremovepage(stacked_widget))
+            self.Pending.clicked.connect(lambda: self.setpendingpage(stacked_widget))
+            self.Approve.clicked.connect(lambda:self.setapprovepage(stacked_widget))
+            self.Decline.clicked.connect(lambda:self.setdeclinepage(stacked_widget))
+
+    def setdashboardpage(self, stacked_widget):
+            current_index = stacked_widget.currentIndex()
+            if current_index != -1:
+                    current_widget = stacked_widget.widget(current_index)
+                    stacked_widget.removeWidget(current_widget)
+                    current_widget.deleteLater()
+            new_dashboard_page = DashboardPage(self.page)
+            stacked_widget.addWidget(new_dashboard_page)
+            new_index = stacked_widget.indexOf(new_dashboard_page)
+            stacked_widget.setCurrentIndex(new_index)
+    
+    def setattendancepage(self, stacked_widget):
+            current_index = stacked_widget.currentIndex()
+            if current_index != -1:
+                    current_widget = stacked_widget.widget(current_index)
+                    stacked_widget.removeWidget(current_widget)
+                    current_widget.deleteLater()
+            new_attendance_page = AttendancePage(self.page,stacked_widget)
+            stacked_widget.addWidget(new_attendance_page)
+            new_index = stacked_widget.indexOf(new_attendance_page)
+            stacked_widget.setCurrentIndex(new_index)
+    
+    def setlistpage(self, stacked_widget):
+            current_index = stacked_widget.currentIndex()
+            if current_index != -1:
+                    current_widget = stacked_widget.widget(current_index)
+                    stacked_widget.removeWidget(current_widget)
+                    current_widget.deleteLater()
+            new_list_page = Employee_list_page(self.page,stacked_widget)
+            stacked_widget.addWidget(new_list_page)
+            new_index = stacked_widget.indexOf(new_list_page)
+            stacked_widget.setCurrentIndex(new_index)
+
+    def setaddemployeepage(self, stacked_widget):
+            current_index = stacked_widget.currentIndex()
+            if current_index != -1:
+                    current_widget = stacked_widget.widget(current_index)
+                    stacked_widget.removeWidget(current_widget)
+                    current_widget.deleteLater()
+            new_addemployee_page = Add_Employee_page(self.page)
+            stacked_widget.addWidget(new_addemployee_page)
+            new_index = stacked_widget.indexOf(new_addemployee_page)
+            stacked_widget.setCurrentIndex(new_index)
+
+    def setremovepage(self, stacked_widget):
+            current_index = stacked_widget.currentIndex()
+            if current_index != -1:
+                    current_widget = stacked_widget.widget(current_index)
+                    stacked_widget.removeWidget(current_widget)
+                    current_widget.deleteLater()
+            new_remove_page = Remove_Employee_page(self.page)
+            stacked_widget.addWidget(new_remove_page)
+            new_index = stacked_widget.indexOf(new_remove_page)
+            stacked_widget.setCurrentIndex(new_index)
+
+    def setpendingpage(self, stacked_widget):
+            current_index = stacked_widget.currentIndex()
+            if current_index != -1:
+                    current_widget = stacked_widget.widget(current_index)
+                    stacked_widget.removeWidget(current_widget)
+                    current_widget.deleteLater()
+            new_pending_page = PendingPage(self.page)
+            stacked_widget.addWidget(new_pending_page)
+            new_index = stacked_widget.indexOf(new_pending_page)
+            stacked_widget.setCurrentIndex(new_index)
+    
+    def setapprovepage(self, stacked_widget):
+            current_index = stacked_widget.currentIndex()
+            if current_index != -1:
+                    current_widget = stacked_widget.widget(current_index)
+                    stacked_widget.removeWidget(current_widget)
+                    current_widget.deleteLater()
+            new_approve_page = ApprovedPage(self.page)
+            stacked_widget.addWidget(new_approve_page)
+            new_index = stacked_widget.indexOf(new_approve_page)
+            stacked_widget.setCurrentIndex(new_index)
+    
+    def setdeclinepage(self, stacked_widget):
+            current_index = stacked_widget.currentIndex()
+            if current_index != -1:
+                    current_widget = stacked_widget.widget(current_index)
+                    stacked_widget.removeWidget(current_widget)
+                    current_widget.deleteLater()
+            new_decline_page = DeclinedPage(self.page)
+            stacked_widget.addWidget(new_decline_page)
+            new_index = stacked_widget.indexOf(new_decline_page)
+            stacked_widget.setCurrentIndex(new_index)
         
 
 class AttendanceStatusDelegate(QItemDelegate):
@@ -284,6 +405,23 @@ class AttendancePage(QWidget):
 
         # Set the edit trigger to allow editing when a key is pressed
         self.Attendance_sheet.setEditTriggers(QAbstractItemView.AllEditTriggers | QAbstractItemView.EditKeyPressed)
+        self.translateui()
+    
+    def translateui(self):
+        self.Attendance_Bar.setTitle("")
+        self.Attendance_bar_text.setText(QCoreApplication.translate("Admin_Page", u"Mark Attendance", None))
+        self.Select_date.setText(QCoreApplication.translate("Admin_Page", u"Select Date:", None))
+        ___qtablewidgetitem4 = self.Attendance_sheet.horizontalHeaderItem(0)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("Admin_Page", u"Employee ID", None));
+        ___qtablewidgetitem5 = self.Attendance_sheet.horizontalHeaderItem(1)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("Admin_Page", u"First Name", None));
+        ___qtablewidgetitem6 = self.Attendance_sheet.horizontalHeaderItem(2)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("Admin_Page", u"Last Name", None));
+        ___qtablewidgetitem7 = self.Attendance_sheet.horizontalHeaderItem(3)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("Admin_Page", u"Date", None));
+        ___qtablewidgetitem8 = self.Attendance_sheet.horizontalHeaderItem(4)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("Admin_Page", u"Status", None));
+        self.Mark_button.setText(QCoreApplication.translate("Admin_Page", u"Mark", None))
     def refreshAndPopulateTable(self):
         # Clear existing data in the table
         self.Attendance_sheet.setRowCount(0)
@@ -378,7 +516,6 @@ class AttendancePage(QWidget):
 
         # Optionally, show a success message
         QMessageBox.information(self, "Success", "Attendance marked successfully!")
-
 
 
 
@@ -554,7 +691,26 @@ class Add_Employee_page(QWidget):
 "background-color: rgb(88, 55, 89);\n"
 "color: rgb(255, 255, 255);")
         self.add_button.clicked.connect(self.add_employee_to_database)
-    
+        self.translateui()
+    def translateui(self):
+        self.new_employee_title_bar.setTitle("")
+        self.new_employee_text.setText(QCoreApplication.translate(" Admin_Page", u"Add New Employee", None))
+        self.Department.setItemText(0, QCoreApplication.translate(" Admin_Page", u"    Marketing", None))
+        self.Department.setItemText(1, QCoreApplication.translate(" Admin_Page", u"    Accounts", None))
+        self.Department.setItemText(2, QCoreApplication.translate(" Admin_Page", u"    Sales", None))
+        self.Department.setItemText(3, QCoreApplication.translate(" Admin_Page", u"    Finance", None))
+        self.Department.setItemText(4, QCoreApplication.translate(" Admin_Page", u"    Research", None))
+
+        self.Department_Text.setText(QCoreApplication.translate(" Admin_Page", u"Department:", None))
+        self.Employee_id_text.setText(QCoreApplication.translate(" Admin_Page", u"Employee ID:", None))
+        self.Fname_text.setText(QCoreApplication.translate(" Admin_Page", u"First Name:", None))
+        self.Lname_text.setText(QCoreApplication.translate(" Admin_Page", u"Last Name:", None))
+        self.Contact_text.setText(QCoreApplication.translate(" Admin_Page", u"Contact #:", None))
+        self.Address_text.setText(QCoreApplication.translate(" Admin_Page", u"Address:", None))
+        self.Email_text.setText(QCoreApplication.translate(" Admin_Page", u"Email:", None))
+        self.Password_text.setText(QCoreApplication.translate(" Admin_Page", u"Password:", None))
+        self.add_button.setText(QCoreApplication.translate(" Admin_Page", u"ADD", None))
+        self.Salary_text.setText(QCoreApplication.translate(" Admin_Page", u"Salary:", None))
 
     def add_employee_to_database(self):
         # Get employee data from the form
@@ -615,6 +771,8 @@ class Add_Employee_page(QWidget):
                 port="5432",
                 database="AEMS"
             )
+
+
             cursor = connection.cursor()
             existing_id_query = f"SELECT * FROM Employee WHERE id = '{self.Employee_id.text()}'"
             cursor.execute(existing_id_query)
@@ -636,9 +794,9 @@ class Add_Employee_page(QWidget):
                 return
                 # Insert the employee data into the Employee table
             cursor.execute("""
-                INSERT INTO Employee (id, department, Fname, Lname, contact, address, email, password,salary)
+                INSERT INTO Employee (id, Fname, Lname,email, password, address,department, salary,contact)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s)
-            """, (employee_id, department, fname, lname, contact, address, email, password,salary))
+            """, (employee_id, fname, lname,email, password, address,department, salary,contact))
 
             connection.commit()
             # Close the cursor and connection
@@ -705,12 +863,19 @@ class Employee_list_page(QWidget):
         self.setupTable()
         self.adjustTableHeightAndWidth()
 
-        # Add a refresh button
-        self.refresh_button = QPushButton("Refresh", self)
-        self.refresh_button.setGeometry(QRect(25, 180, 80, 30))
-        self.refresh_button.setStyleSheet(u"background-color: rgb(88, 55, 89);\n" "color: rgb(255, 255, 255);" "border-radius:10px;")
-        self.refresh_button.setCursor(QCursor(Qt.PointingHandCursor))
-        self.refresh_button.clicked.connect(self.refreshDataFromDatabase)
+        self.refreshDataFromDatabase()
+        self.translateui()
+    def translateui(self):
+        self.List_title_bar.setTitle("")
+        self.List_employee_text.setText(QCoreApplication.translate("Admin_Page", u"List of Employess", None))
+        ___qtablewidgetitem = self.List.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("Admin_Page", u"Employee ID", None))
+        ___qtablewidgetitem1 = self.List.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("Admin_Page", u"First Name", None))
+        ___qtablewidgetitem2 = self.List.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("Admin_Page", u"Last Name", None))
+        ___qtablewidgetitem3 = self.List.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("Admin_Page", u"Email", None))
 
     def setupTable(self):
         if self.List.columnCount() < 5:  # Increase column count to accommodate the "Details" button
@@ -803,14 +968,14 @@ class Employee_list_page(QWidget):
         # Adjust the height of the table according to the number of rows
         total_height = sum(self.List.rowHeight(row) for row in range(self.List.rowCount()))
         # Add some extra height to account for header and spacing
-        total_height += self.List.horizontalHeader().height() + 10
+        total_height += self.List.horizontalHeader().height() + 20
         # Set the height of the table
         self.List.setFixedHeight(total_height)
 
         # Adjust the width of the table according to the content
         for col in range(self.List.columnCount()):
             max_width = max(self.List.sizeHintForColumn(col), self.List.columnWidth(col))
-            max_width -= 9
+            max_width -= 12
             self.List.setColumnWidth(col, max_width)
 
     def showDetails(self, row):
@@ -833,7 +998,7 @@ class Employee_list_page(QWidget):
         details_page.Department_Text_2.setText(QCoreApplication.translate("Admin_Page", u"Department:", None))
         details_page.back_button.setText(QCoreApplication.translate("Admin_Page", u"Back", None))
         self.stack_widget.addWidget(details_page)
-        self.stack_widget.setCurrentIndex(5)
+        self.stack_widget.setCurrentIndex(1)
 
 class Employee_detail_page(QWidget):
     def __init__(self,id,stacked_widget):
@@ -1002,14 +1167,17 @@ class Employee_detail_page(QWidget):
             # Display the fetched data in the line edits
             if data:
                 self.Employee_id_2.setText(str(data[0]))
-                self.Department_2.setText(data[1])
-                self.Fname_2.setText(data[2])
-                self.Lname_2.setText(data[3])
-                self.Contact_2.setText(data[4])
+                self.Fname_2.setText(data[1])
+                self.Lname_2.setText(data[2])
+                self.Email_2.setText(data[3])
+                self.password_2.setText(data[4])
                 self.Address_2.setText(data[5])
-                self.Email_2.setText(data[6])
-                self.password_2.setText(data[7])
-                self.Salary_2.setText(data[8])
+                self.Department_2.setText(data[6])
+                self.Salary_2.setText(data[7])
+                self.Contact_2.setText(data[8])
+                
+                
+                
                 
                 
                 # Similarly, set other line edits with respective data
@@ -1044,11 +1212,11 @@ class Employee_detail_page(QWidget):
             # Execute a query to update employee data
             query = """
                 UPDATE Employee 
-                SET department = %s, Fname = %s, Lname = %s, contact = %s, 
-                    address = %s, email = %s, password = %s, salary = %s
+                SET  Fname = %s, Lname = %s, email = %s, password = %s, 
+                    address = %s,department = %s, salary = %s,contact = %s
                 WHERE id = %s
             """
-            cursor.execute(query, (department, fname, lname, contact, address, email, password, salary, emp_id))
+            cursor.execute(query, (fname, lname,email, password, address,department, salary,contact, emp_id))
 
             connection.commit()
             cursor.close()
@@ -1099,6 +1267,12 @@ class Remove_Employee_page(QWidget):
 "background-color: rgb(175, 0, 0);\n"
 "color: rgb(255, 255, 255);")
         self.Remove.clicked.connect(self.remove_employee_from_database)
+        self.translateui()
+    def translateui(self):
+        self.Remove_bar.setTitle("")
+        self.new_employee_text_2.setText(QCoreApplication.translate("Admin_Page", u"Remove Employee", None))
+        self.Enter_ID.setText(QCoreApplication.translate("Admin_Page", u"Enter Employee ID", None))
+        self.Remove.setText(QCoreApplication.translate("Admin_Page", u"Remove", None))
         
     def remove_employee_from_database(self):
         # Get the employee ID from the input box
@@ -1298,10 +1472,608 @@ class DashboardPage(QWidget):
         self.declined_leaves_count.setGeometry(QRect(140, 90, 91, 61))
         self.declined_leaves_count.setFont(font8)
         self.declined_leaves_count.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.translateui()
+        self.set_values()
+    def set_values(self):
+        connection = psycopg2.connect(
+            user="postgres",
+            password="12345678",
+            host="localhost",
+            port="5432",
+            database="AEMS"
+        )
 
+        # Create a cursor to execute SQL queries
+        cursor = connection.cursor()
+
+        try:
+            query = "SELECT * FROM Leave_Record WHERE status = 'accepted';"
+            cursor.execute(query)
+
+            # Fetch all the rows
+            records = cursor.fetchall()
+            approve_count=len(records)
+
+            query = "SELECT * FROM Leave_Record WHERE status = 'rejected';"
+            cursor.execute(query)
+
+            # Fetch all the rows
+            records = cursor.fetchall()
+            decline_count=len(records)
+
+            query = "SELECT * FROM Leave_Record WHERE status = 'pending';"
+            cursor.execute(query)
+
+            # Fetch all the rows
+            records = cursor.fetchall()
+            pending_count=len(records)
+
+            query = "SELECT * FROM Employee;"
+            cursor.execute(query)
+
+            # Fetch all the rows
+            records = cursor.fetchall()
+            employee_count=len(records)
+
+            self.approved_leaves_count.setText(str(approve_count))
+            self.declined_leaves_count.setText(str(decline_count))
+            self.pending_leaves_count.setText(str(pending_count))
+            self.active_employee_count.setText(str(employee_count))
+        except Exception as e:
+            print(f"Error fetching approved leave records: {e}")
+
+        finally:
+            # Close the cursor and connection
+            cursor.close()
+            connection.close()
+        
+
+    def translateui(self):
+        self.title_bar.setTitle("")
+        self.Dashboard_text.setText(QCoreApplication.translate(" Admin_Page", u"Dashboard", None))
+        self.home_text.setText(QCoreApplication.translate(" Admin_Page", u"Home  /", None))
+        self. Admin_dashboard_text.setText(QCoreApplication.translate(" Admin_Page", u" Admin's  Dashboard", None))
+        self.active_employee.setTitle("")
+        self.active_employee_text.setText(QCoreApplication.translate(" Admin_Page", u"Active Employees", None))
+        self.active_employee_count.setText(QCoreApplication.translate(" Admin_Page", u"10", None))
+        self.active_employee_logo.setText("")
+        self.pending_leaves.setTitle("")
+        self.pending_leaves_text.setText(QCoreApplication.translate(" Admin_Page", u"Pending Leaves", None))
+        self.pending_leaves_logo.setText("")
+        self.pending_leaves_count.setText(QCoreApplication.translate(" Admin_Page", u"4", None))
+        self.approved_leaves.setTitle("")
+        self.approved_leaves_logo.setText("")
+        self.approved_leaves_text.setText(QCoreApplication.translate(" Admin_Page", u"Approved Leaves", None))
+        self.approved_leaves_count.setText(QCoreApplication.translate(" Admin_Page", u"5", None))
+        self.declined_leaves.setTitle("")
+        self.declined_leaves_logo.setText("")
+        self.declined_leaves_text.setText(QCoreApplication.translate(" Admin_Page", u"Declined Leaves", None))
+        self.declined_leaves_count.setText(QCoreApplication.translate(" Admin_Page", u"11", None))
+
+class PendingPage(QWidget):
+    def __init__(self,Page):
+        super(PendingPage, self).__init__(Page)
+        self.setObjectName(u"pending_leave")
+        self.pending_bar = QGroupBox(self)
+        self.pending_bar.setObjectName(u"pending_bar")
+        self.pending_bar.setGeometry(QRect(0, 0, 991, 80))
+        self.pending_bar.setStyleSheet(u"background-color: rgb(88, 55, 89);")
+        self.pending_text = QLabel(self.pending_bar)
+        self.pending_text.setObjectName(u"pending_text")
+        self.pending_text.setGeometry(QRect(33, 22, 261, 31))
+        font10 = QFont()
+        font10.setPointSize(18)
+        self.pending_text.setFont(font10)
+        self.pending_text.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.Pending_table = QTableWidget(self)
+        if (self.Pending_table.columnCount() < 7):
+            self.Pending_table.setColumnCount(7)
+        __qtablewidgetitem9 = QTableWidgetItem()
+        font11 = QFont()
+        font11.setBold(True)
+        __qtablewidgetitem9.setFont(font11);
+        self.Pending_table.setHorizontalHeaderItem(0, __qtablewidgetitem9)
+        __qtablewidgetitem10 = QTableWidgetItem()
+        __qtablewidgetitem10.setFont(font11);
+        self.Pending_table.setHorizontalHeaderItem(1, __qtablewidgetitem10)
+        __qtablewidgetitem11 = QTableWidgetItem()
+        __qtablewidgetitem11.setFont(font11);
+        self.Pending_table.setHorizontalHeaderItem(2, __qtablewidgetitem11)
+        __qtablewidgetitem12 = QTableWidgetItem()
+        __qtablewidgetitem12.setFont(font11);
+        self.Pending_table.setHorizontalHeaderItem(3, __qtablewidgetitem12)
+        __qtablewidgetitem13 = QTableWidgetItem()
+        __qtablewidgetitem13.setFont(font11);
+        self.Pending_table.setHorizontalHeaderItem(4, __qtablewidgetitem13)
+        __qtablewidgetitem14 = QTableWidgetItem()
+        __qtablewidgetitem14.setFont(font11);
+        self.Pending_table.setHorizontalHeaderItem(5, __qtablewidgetitem14)
+        __qtablewidgetitem15 = QTableWidgetItem()
+        __qtablewidgetitem15.setFont(font11);
+        self.Pending_table.setHorizontalHeaderItem(6, __qtablewidgetitem15)
+        self.Pending_table.setObjectName(u"Pending_table")
+        self.Pending_table.setGeometry(QRect(25, 230, 925, 331))
+        self.Pending_table.setStyleSheet(u"QHeaderView::section {\n"
+"    background-color: rgb(88, 55, 89); /* Set your desired background color */\n"
+"    color: white; /* Set the text color */\n"
+"    border: 1px solid rgb(88, 55, 89); /* Set the border color */\n"
+"}")
+        self.Pending_table.setShowGrid(True)
+        self.Pending_table.setSortingEnabled(False)
+        self.Pending_table.setRowCount(0)
+        self.Pending_table.horizontalHeader().setCascadingSectionResizes(False)
+        self.Pending_table.horizontalHeader().setDefaultSectionSize(131)
+        self.Pending_table.horizontalHeader().setHighlightSections(False)
+        self.Pending_table.horizontalHeader().setProperty("showSortIndicator", False)
+        self.Pending_table.horizontalHeader().setStretchLastSection(False)
+        self.Pending_table.verticalHeader().setCascadingSectionResizes(False)
+        self.Pending_table.verticalHeader().setMinimumSectionSize(25)
+        self.Pending_table.verticalHeader().setProperty("showSortIndicator", False)
+        self.Pending_table.verticalHeader().setStretchLastSection(False)
+        self.Total_text = QLabel(self)
+        self.Total_text.setObjectName(u"Total_text")
+        self.Total_text.setGeometry(QRect(90, 120, 111, 31))
+        font15 = QFont()
+        font15.setPointSize(20)
+        font15.setBold(True)
+        self.Total_text.setFont(font15)
+        self.Total_text.setStyleSheet(u"color: rgb(88, 55, 89);")
+        self.Total_input = QLabel(self)
+        self.Total_input.setObjectName(u"Total_input")
+        self.Total_input.setGeometry(QRect(180, 125, 121, 21))
+        font4 = QFont()
+        font4.setPointSize(20)
+        self.Total_input.setFont(font4)
+        self.translateui()
+        self.Pending_table.setColumnCount(9)
+        self.Pending_table.setHorizontalHeaderItem(7, QTableWidgetItem("Actions"))
+        self.Pending_table.setHorizontalHeaderItem(8, QTableWidgetItem("Actions"))
+        self.populate_pending_table()
+    def populate_pending_table(self):
+        # Connect to the database
+        connection = psycopg2.connect(
+            user="postgres",
+            password="12345678",
+            host="localhost",
+            port="5432",
+            database="AEMS"
+        )
+
+        # Create a cursor to execute SQL queries
+        cursor = connection.cursor()
+
+        try:
+            # Execute the SELECT query to fetch approved leave records
+            query = "SELECT leave_id, employee_id, start_date, end_date, category, description, status FROM Leave_Record WHERE status = 'pending';"
+            cursor.execute(query)
+
+            # Fetch all the rows
+            records = cursor.fetchall()
+
+            # Set the number of rows in the table
+            self.Pending_table.setRowCount(len(records))
+
+            # Populate the table with the fetched data
+            for row, record in enumerate(records):
+                for col, value in enumerate(record):
+                    item = QTableWidgetItem(str(value))
+                    self.Pending_table.setItem(row, col, item)
+
+                # Add buttons for each row to change status
+                approve_button = QPushButton("Approve")
+                decline_button = QPushButton("Decline")
+
+                # Connect button click events to corresponding methods
+                approve_button.clicked.connect(self.create_approve_button_click_handler(row))
+                decline_button.clicked.connect(self.create_decline_button_click_handler(row))
+
+                # Add buttons to separate cells in the last column
+                self.Pending_table.setCellWidget(row, 7, approve_button)
+                self.Pending_table.setCellWidget(row, 8, decline_button)
+
+
+
+            total_count = len(records)
+            self.Total_input.setText(str(total_count))
+
+        except Exception as e:
+            print(f"Error fetching approved leave records: {e}")
+
+        finally:
+            # Close the cursor and connection
+            cursor.close()
+            connection.close()
+        
+        self.adjustTableHeightAndWidth()
+    def create_approve_button_click_handler(self, row):
+        def handler():
+            self.change_status(row, "accepted")
+        return handler
+
+    def create_decline_button_click_handler(self, row):
+        def handler():
+            self.change_status(row, "rejected")
+        return handler
+    def adjustTableHeightAndWidth(self):
+        # Adjust the height of the table according to the number of rows
+        total_height = sum(self.Pending_table.rowHeight(row) for row in range(self.Pending_table.rowCount()))
+        # Add some extra height to account for header and spacing
+        total_height += self.Pending_table.horizontalHeader().height() + 20
+        # Set the height of the table
+        self.Pending_table.setFixedHeight(total_height)
+
+        # Adjust the width of the table according to the content
+        for col in range(self.Pending_table.columnCount()):
+            max_width = max(self.Pending_table.sizeHintForColumn(col), self.Pending_table.columnWidth(col))
+            max_width -= 2
+            self.Pending_table.setColumnWidth(col, max_width)
+    
+    def change_status(self, row, new_status):
+        leave_id_item = self.Pending_table.item(row, 0)
+        leave_id = leave_id_item.text()
+
+
+        # Connect to the database
+        connection = psycopg2.connect(
+            user="postgres",
+            password="12345678",
+            host="localhost",
+            port="5432",
+            database="AEMS"
+        )
+
+        # Create a cursor to execute SQL queries
+        cursor = connection.cursor()
+
+        try:
+            # Execute the UPDATE query to change the leave status
+            query = "UPDATE Leave_Record SET status = %s WHERE leave_id = %s;"
+            cursor.execute(query, (new_status, leave_id))
+
+            # Commit the transaction
+            connection.commit()
+
+            # Update the UI
+            self.populate_pending_table()
+
+        except Exception as e:
+            print(f"Error changing leave status: {e}")
+
+        finally:
+            # Close the cursor and connection
+            cursor.close()
+            connection.close()
+
+
+    def translateui(self):
+        self.pending_bar.setTitle("")
+        self.pending_text.setText(QCoreApplication.translate("Admin_Page", u"Pending Leaves", None))
+        ___qtablewidgetitem9 = self.Pending_table.horizontalHeaderItem(0)
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("Admin_Page", u"Leave_ID", None));
+        ___qtablewidgetitem10 = self.Pending_table.horizontalHeaderItem(1)
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("Admin_Page", u"Employee_ID", None));
+        ___qtablewidgetitem11 = self.Pending_table.horizontalHeaderItem(2)
+        ___qtablewidgetitem11.setText(QCoreApplication.translate("Admin_Page", u"Start_date", None));
+        ___qtablewidgetitem12 = self.Pending_table.horizontalHeaderItem(3)
+        ___qtablewidgetitem12.setText(QCoreApplication.translate("Admin_Page", u"Email", None));
+        ___qtablewidgetitem13 = self.Pending_table.horizontalHeaderItem(4)
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("Admin_Page", u"Category", None));
+        ___qtablewidgetitem14 = self.Pending_table.horizontalHeaderItem(5)
+        ___qtablewidgetitem14.setText(QCoreApplication.translate("Admin_Page", u"Description", None));
+        ___qtablewidgetitem15 = self.Pending_table.horizontalHeaderItem(6)
+        ___qtablewidgetitem15.setText(QCoreApplication.translate("Admin_Page", u"Status", None));
+        self.Total_text.setText(QCoreApplication.translate("Admin_Page", u"Total:", None))
+        self.Total_input.setText(QCoreApplication.translate("Admin_Page", u"20", None))
+        
+class ApprovedPage(QWidget):
+    def __init__(self,Page):
+        super(ApprovedPage, self).__init__(Page)
+        self.setObjectName(u"approved_leave")
+        self.approved_bar = QGroupBox(self)
+        self.approved_bar.setObjectName(u"approved_bar")
+        self.approved_bar.setGeometry(QRect(0, -10, 991, 80))
+        self.approved_bar.setStyleSheet(u"background-color: rgb(88, 55, 89);")
+        self.Approved_text = QLabel(self.approved_bar)
+        self.Approved_text.setObjectName(u"Approved_text")
+        self.Approved_text.setGeometry(QRect(33, 22, 261, 31))
+        font10 = QFont()
+        font10.setPointSize(18)
+        self.Approved_text.setFont(font10)
+        self.Approved_text.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.Total_input_2 = QLabel(self)
+        self.Total_input_2.setObjectName(u"Total_input_2")
+        self.Total_input_2.setGeometry(QRect(180, 115, 121, 21))
+        font4 = QFont()
+        font4.setPointSize(20)
+        self.Total_input_2.setFont(font4)
+        self.Approved_table = QTableWidget(self)
+        if (self.Approved_table.columnCount() < 7):
+            self.Approved_table.setColumnCount(7)
+        __qtablewidgetitem16 = QTableWidgetItem()
+        font11 = QFont()
+        font11.setBold(True)
+        __qtablewidgetitem16.setFont(font11);
+        self.Approved_table.setHorizontalHeaderItem(0, __qtablewidgetitem16)
+        __qtablewidgetitem17 = QTableWidgetItem()
+        __qtablewidgetitem17.setFont(font11);
+        self.Approved_table.setHorizontalHeaderItem(1, __qtablewidgetitem17)
+        __qtablewidgetitem18 = QTableWidgetItem()
+        __qtablewidgetitem18.setFont(font11);
+        self.Approved_table.setHorizontalHeaderItem(2, __qtablewidgetitem18)
+        __qtablewidgetitem19 = QTableWidgetItem()
+        __qtablewidgetitem19.setFont(font11);
+        self.Approved_table.setHorizontalHeaderItem(3, __qtablewidgetitem19)
+        __qtablewidgetitem20 = QTableWidgetItem()
+        __qtablewidgetitem20.setFont(font11);
+        self.Approved_table.setHorizontalHeaderItem(4, __qtablewidgetitem20)
+        __qtablewidgetitem21 = QTableWidgetItem()
+        __qtablewidgetitem21.setFont(font11);
+        self.Approved_table.setHorizontalHeaderItem(5, __qtablewidgetitem21)
+        __qtablewidgetitem22 = QTableWidgetItem()
+        __qtablewidgetitem22.setFont(font11);
+        self.Approved_table.setHorizontalHeaderItem(6, __qtablewidgetitem22)
+        self.Approved_table.setObjectName(u"Approved_table")
+        self.Approved_table.setGeometry(QRect(25, 220, 925, 331))
+        self.Approved_table.setStyleSheet(u"QHeaderView::section {\n"
+"    background-color: rgb(88, 55, 89); /* Set your desired background color */\n"
+"    color: white; /* Set the text color */\n"
+"    border: 1px solid rgb(88, 55, 89); /* Set the border color */\n"
+"}")
+        self.Approved_table.setShowGrid(True)
+        self.Approved_table.setSortingEnabled(False)
+        self.Approved_table.setRowCount(0)
+        self.Approved_table.horizontalHeader().setCascadingSectionResizes(False)
+        self.Approved_table.horizontalHeader().setDefaultSectionSize(131)
+        self.Approved_table.horizontalHeader().setHighlightSections(False)
+        self.Approved_table.horizontalHeader().setProperty("showSortIndicator", False)
+        self.Approved_table.horizontalHeader().setStretchLastSection(False)
+        self.Approved_table.verticalHeader().setCascadingSectionResizes(False)
+        self.Approved_table.verticalHeader().setMinimumSectionSize(25)
+        self.Approved_table.verticalHeader().setProperty("showSortIndicator", False)
+        self.Approved_table.verticalHeader().setStretchLastSection(False)
+        self.Total_text_2 = QLabel(self)
+        self.Total_text_2.setObjectName(u"Total_text_2")
+        self.Total_text_2.setGeometry(QRect(90, 110, 111, 31))
+        font15 = QFont()
+        font15.setPointSize(20)
+        font15.setBold(True)
+        self.Total_text_2.setFont(font15)
+        self.Total_text_2.setStyleSheet(u"color: rgb(88, 55, 89);")
+        self.translateui()
+        self.populate_approved_table()
+
+    
+    def populate_approved_table(self):
+        # Connect to the database
+        connection = psycopg2.connect(
+            user="postgres",
+            password="12345678",
+            host="localhost",
+            port="5432",
+            database="AEMS"
+        )
+
+        # Create a cursor to execute SQL queries
+        cursor = connection.cursor()
+
+        try:
+            # Execute the SELECT query to fetch approved leave records
+            query = "SELECT leave_id, employee_id, start_date, end_date, category, description, status FROM Leave_Record WHERE status = 'accepted';"
+            cursor.execute(query)
+
+            # Fetch all the rows
+            records = cursor.fetchall()
+
+            # Set the number of rows in the table
+            self.Approved_table.setRowCount(len(records))
+
+            # Populate the table with the fetched data
+            for row, record in enumerate(records):
+                for col, value in enumerate(record):
+                    item = QTableWidgetItem(str(value))
+                    self.Approved_table.setItem(row, col, item)
+
+            total_count = len(records)
+            self.Total_input_2.setText(str(total_count))
+
+        except Exception as e:
+            print(f"Error fetching approved leave records: {e}")
+
+        finally:
+            # Close the cursor and connection
+            cursor.close()
+            connection.close()
+        self.adjustTableHeightAndWidth()
+
+    def adjustTableHeightAndWidth(self):
+        # Adjust the height of the table according to the number of rows
+        total_height = sum(self.Approved_table.rowHeight(row) for row in range(self.Approved_table.rowCount()))
+        # Add some extra height to account for header and spacing
+        total_height += self.Approved_table.horizontalHeader().height() + 20
+        # Set the height of the table
+        self.Approved_table.setFixedHeight(total_height)
+
+        # Adjust the width of the table according to the content
+        for col in range(self.Approved_table.columnCount()):
+            max_width = max(self.Approved_table.sizeHintForColumn(col), self.Approved_table.columnWidth(col))
+            max_width -= 2
+            self.Approved_table.setColumnWidth(col, max_width)
+    def translateui(self):
+        self.approved_bar.setTitle("")
+        self.Approved_text.setText(QCoreApplication.translate("Admin_Page", u"Approved Leaves", None))
+        self.Total_input_2.setText(QCoreApplication.translate("Admin_Page", u"20", None))
+        ___qtablewidgetitem16 = self.Approved_table.horizontalHeaderItem(0)
+        ___qtablewidgetitem16.setText(QCoreApplication.translate("Admin_Page", u"Leave_ID", None));
+        ___qtablewidgetitem17 = self.Approved_table.horizontalHeaderItem(1)
+        ___qtablewidgetitem17.setText(QCoreApplication.translate("Admin_Page", u"Employee_ID", None));
+        ___qtablewidgetitem18 = self.Approved_table.horizontalHeaderItem(2)
+        ___qtablewidgetitem18.setText(QCoreApplication.translate("Admin_Page", u"Start_date", None));
+        ___qtablewidgetitem19 = self.Approved_table.horizontalHeaderItem(3)
+        ___qtablewidgetitem19.setText(QCoreApplication.translate("Admin_Page", u"End_date", None));
+        ___qtablewidgetitem20 = self.Approved_table.horizontalHeaderItem(4)
+        ___qtablewidgetitem20.setText(QCoreApplication.translate("Admin_Page", u"Category", None));
+        ___qtablewidgetitem21 = self.Approved_table.horizontalHeaderItem(5)
+        ___qtablewidgetitem21.setText(QCoreApplication.translate("Admin_Page", u"Description", None));
+        ___qtablewidgetitem22 = self.Approved_table.horizontalHeaderItem(6)
+        ___qtablewidgetitem22.setText(QCoreApplication.translate("Admin_Page", u"Status", None));
+        self.Total_text_2.setText(QCoreApplication.translate("Admin_Page", u"Total:", None))
+
+class DeclinedPage(QWidget):
+    def __init__(self,Page):
+        super(DeclinedPage, self).__init__(Page)
+        self.setObjectName(u"declined_leave")
+        self.Total_input_3 = QLabel(self)
+        self.Total_input_3.setObjectName(u"Total_input_3")
+        self.Total_input_3.setGeometry(QRect(180, 115, 121, 21))
+        font10 = QFont()
+        font10.setPointSize(18)
+        font4 = QFont()
+        font4.setPointSize(20)
+        self.Total_input_3.setFont(font4)
+        self.Declined_table = QTableWidget(self)
+        if (self.Declined_table.columnCount() < 7):
+            self.Declined_table.setColumnCount(7)
+        __qtablewidgetitem23 = QTableWidgetItem()
+        font11 = QFont()
+        font11.setBold(True)
+        __qtablewidgetitem23.setFont(font11);
+        self.Declined_table.setHorizontalHeaderItem(0, __qtablewidgetitem23)
+        __qtablewidgetitem24 = QTableWidgetItem()
+        __qtablewidgetitem24.setFont(font11);
+        self.Declined_table.setHorizontalHeaderItem(1, __qtablewidgetitem24)
+        __qtablewidgetitem25 = QTableWidgetItem()
+        __qtablewidgetitem25.setFont(font11);
+        self.Declined_table.setHorizontalHeaderItem(2, __qtablewidgetitem25)
+        __qtablewidgetitem26 = QTableWidgetItem()
+        __qtablewidgetitem26.setFont(font11);
+        self.Declined_table.setHorizontalHeaderItem(3, __qtablewidgetitem26)
+        __qtablewidgetitem27 = QTableWidgetItem()
+        __qtablewidgetitem27.setFont(font11);
+        self.Declined_table.setHorizontalHeaderItem(4, __qtablewidgetitem27)
+        __qtablewidgetitem28 = QTableWidgetItem()
+        __qtablewidgetitem28.setFont(font11);
+        self.Declined_table.setHorizontalHeaderItem(5, __qtablewidgetitem28)
+        __qtablewidgetitem29 = QTableWidgetItem()
+        __qtablewidgetitem29.setFont(font11);
+        self.Declined_table.setHorizontalHeaderItem(6, __qtablewidgetitem29)
+        self.Declined_table.setObjectName(u"Declined_table")
+        self.Declined_table.setGeometry(QRect(25, 220, 925, 331))
+        self.Declined_table.setStyleSheet(u"QHeaderView::section {\n"
+"    background-color: rgb(88, 55, 89); /* Set your desired background color */\n"
+"    color: white; /* Set the text color */\n"
+"    border: 1px solid rgb(88, 55, 89); /* Set the border color */\n"
+"}")
+        self.Declined_table.setShowGrid(True)
+        self.Declined_table.setSortingEnabled(False)
+        self.Declined_table.setRowCount(0)
+        self.Declined_table.horizontalHeader().setCascadingSectionResizes(False)
+        self.Declined_table.horizontalHeader().setDefaultSectionSize(131)
+        self.Declined_table.horizontalHeader().setHighlightSections(False)
+        self.Declined_table.horizontalHeader().setProperty("showSortIndicator", False)
+        self.Declined_table.horizontalHeader().setStretchLastSection(False)
+        self.Declined_table.verticalHeader().setCascadingSectionResizes(False)
+        self.Declined_table.verticalHeader().setMinimumSectionSize(25)
+        self.Declined_table.verticalHeader().setProperty("showSortIndicator", False)
+        self.Declined_table.verticalHeader().setStretchLastSection(False)
+        self.Declined_bar = QGroupBox(self)
+        self.Declined_bar.setObjectName(u"Declined_bar")
+        self.Declined_bar.setGeometry(QRect(0, -10, 991, 80))
+        self.Declined_bar.setStyleSheet(u"background-color: rgb(88, 55, 89);")
+        self.Declined_text = QLabel(self.Declined_bar)
+        self.Declined_text.setObjectName(u"Declined_text")
+        self.Declined_text.setGeometry(QRect(33, 25, 261, 31))
+        self.Declined_text.setFont(font10)
+        self.Declined_text.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.Total_text_3 = QLabel(self)
+        self.Total_text_3.setObjectName(u"Total_text_3")
+        self.Total_text_3.setGeometry(QRect(90, 110, 111, 31))
+        font15 = QFont()
+        font15.setPointSize(20)
+        font15.setBold(True)
+        self.Total_text_3.setFont(font15)
+        self.Total_text_3.setStyleSheet(u"color: rgb(88, 55, 89);")
+        self.translateui()
+        self.populate_declined_table()
+    def populate_declined_table(self):
+        # Connect to the database
+        connection = psycopg2.connect(
+            user="postgres",
+            password="12345678",
+            host="localhost",
+            port="5432",
+            database="AEMS"
+        )
+
+        # Create a cursor to execute SQL queries
+        cursor = connection.cursor()
+
+        try:
+            # Execute the SELECT query to fetch approved leave records
+            query = "SELECT leave_id, employee_id, start_date, end_date, category, description, status FROM Leave_Record WHERE status = 'rejected';"
+            cursor.execute(query)
+
+            # Fetch all the rows
+            records = cursor.fetchall()
+
+            # Set the number of rows in the table
+            self.Declined_table.setRowCount(len(records))
+
+            # Populate the table with the fetched data
+            for row, record in enumerate(records):
+                for col, value in enumerate(record):
+                    item = QTableWidgetItem(str(value))
+                    self.Declined_table.setItem(row, col, item)
+
+            total_count = len(records)
+            self.Total_input_3.setText(str(total_count))
+
+        except Exception as e:
+            print(f"Error fetching approved leave records: {e}")
+
+        finally:
+            # Close the cursor and connection
+            cursor.close()
+            connection.close()
+        self.adjustTableHeightAndWidth()
+
+    def adjustTableHeightAndWidth(self):
+        # Adjust the height of the table according to the number of rows
+        total_height = sum(self.Declined_table.rowHeight(row) for row in range(self.Declined_table.rowCount()))
+        # Add some extra height to account for header and spacing
+        total_height += self.Declined_table.horizontalHeader().height() + 20
+        # Set the height of the table
+        self.Declined_table.setFixedHeight(total_height)
+
+        # Adjust the width of the table according to the content
+        for col in range(self.Declined_table.columnCount()):
+            max_width = max(self.Declined_table.sizeHintForColumn(col), self.Declined_table.columnWidth(col))
+            max_width -= 2
+            self.Declined_table.setColumnWidth(col, max_width)
+
+    def translateui(self):
+        self.Total_input_3.setText(QCoreApplication.translate("Admin_Page", u"20", None))
+        ___qtablewidgetitem23 = self.Declined_table.horizontalHeaderItem(0)
+        ___qtablewidgetitem23.setText(QCoreApplication.translate("Admin_Page", u"Leave_ID", None));
+        ___qtablewidgetitem24 = self.Declined_table.horizontalHeaderItem(1)
+        ___qtablewidgetitem24.setText(QCoreApplication.translate("Admin_Page", u"Employee_ID", None));
+        ___qtablewidgetitem25 = self.Declined_table.horizontalHeaderItem(2)
+        ___qtablewidgetitem25.setText(QCoreApplication.translate("Admin_Page", u"Start_date", None));
+        ___qtablewidgetitem26 = self.Declined_table.horizontalHeaderItem(3)
+        ___qtablewidgetitem26.setText(QCoreApplication.translate("Admin_Page", u"Email", None));
+        ___qtablewidgetitem27 = self.Declined_table.horizontalHeaderItem(4)
+        ___qtablewidgetitem27.setText(QCoreApplication.translate("Admin_Page", u"Category", None));
+        ___qtablewidgetitem28 = self.Declined_table.horizontalHeaderItem(5)
+        ___qtablewidgetitem28.setText(QCoreApplication.translate("Admin_Page", u"Description", None));
+        ___qtablewidgetitem29 = self.Declined_table.horizontalHeaderItem(6)
+        ___qtablewidgetitem29.setText(QCoreApplication.translate("Admin_Page", u"Status", None));
+        self.Declined_bar.setTitle("")
+        self.Declined_text.setText(QCoreApplication.translate("Admin_Page", u"Declined Leaves", None))
+        self.Total_text_3.setText(QCoreApplication.translate("Admin_Page", u"Total:", None))
+
+               
 class  AdminPage(QMainWindow):
     def __init__(self):
-        super( AdminPage, self).__init__()
+        super(AdminPage, self).__init__()
 
         self.setObjectName(u" Admin_Page")
         self.resize(1280, 720)
@@ -1315,22 +2087,14 @@ class  AdminPage(QMainWindow):
         
 
 
-        self.side_bar = Sidebar(self.PAGE)
+        self.side_bar = Sidebar(self.PAGE,self)
         self.Main_pages = QStackedWidget(self.PAGE)
         self.Main_pages.setObjectName(u"Main_pages")
         self.Main_pages.setEnabled(True)
         self.Main_pages.setGeometry(QRect(290, 0, 990, 720))
         self.Main_pages.setMinimumSize(QSize(990, 720))
         self.dashboard_page = DashboardPage(self.PAGE)
-        self.attendance_page=AttendancePage(self.PAGE,self.Main_pages)
-        self.listemployee_page=Employee_list_page(self.PAGE,self.Main_pages)
-        self.addEmployee_page =Add_Employee_page(self.PAGE)
-        self.remove_page=Remove_Employee_page(self.PAGE)
         self.Main_pages.addWidget(self.dashboard_page)
-        self.Main_pages.addWidget(self.attendance_page)
-        self.Main_pages.addWidget(self.listemployee_page )
-        self.Main_pages.addWidget(self.addEmployee_page )
-        self.Main_pages.addWidget(self.remove_page)
         self.side_bar.setup_connections(self.Main_pages)
         self.setCentralWidget(self.PAGE)
 
@@ -1339,85 +2103,11 @@ class  AdminPage(QMainWindow):
     def retranslateUi(self):
         # ... (Rest of the retranslation code)
         self.setWindowTitle(QCoreApplication.translate(" Admin_Page", u"MainWindow", None))
-        self.side_bar.setTitle(QCoreApplication.translate(" Admin_Page", u"GroupBox", None))
-        self.side_bar.Dashboard_button.setText(QCoreApplication.translate(" Admin_Page", u"Dashboard", None))
-        self.side_bar.attendance.setText(QCoreApplication.translate(" Admin_Page", u"Attendance", None))
-        self.side_bar.list_employee.setText(QCoreApplication.translate(" Admin_Page", u"List of Employee", None))
-        self.side_bar.Add_employee.setText(QCoreApplication.translate(" Admin_Page", u"Add Employee", None))
-        self.side_bar.Remove_employee.setText(QCoreApplication.translate(" Admin_Page", u"Remove Employee", None))
-        self.side_bar.EandL.setItemText(self.side_bar.EandL.indexOf(self.side_bar.Employee), QCoreApplication.translate(" Admin_Page", u"Employee", None))
-        self.side_bar.Pending.setText(QCoreApplication.translate(" Admin_Page", u"Pending", None))
-        self.side_bar.Approve.setText(QCoreApplication.translate(" Admin_Page", u"Approved", None))
-        self.side_bar.Decline.setText(QCoreApplication.translate(" Admin_Page", u"Declined", None))
-        self.side_bar.EandL.setItemText(self.side_bar.EandL.indexOf(self.side_bar.Leave), QCoreApplication.translate(" Admin_Page", u"Leave", None))
-        self.side_bar.Logo.setText("")
-        self.dashboard_page.title_bar.setTitle("")
-        self.dashboard_page.Dashboard_text.setText(QCoreApplication.translate(" Admin_Page", u"Dashboard", None))
-        self.dashboard_page.home_text.setText(QCoreApplication.translate(" Admin_Page", u"Home  /", None))
-        self.dashboard_page. Admin_dashboard_text.setText(QCoreApplication.translate(" Admin_Page", u" Admin's  Dashboard", None))
-        self.dashboard_page.active_employee.setTitle("")
-        self.dashboard_page.active_employee_text.setText(QCoreApplication.translate(" Admin_Page", u"Active Employees", None))
-        self.dashboard_page.active_employee_count.setText(QCoreApplication.translate(" Admin_Page", u"10", None))
-        self.dashboard_page.active_employee_logo.setText("")
-        self.dashboard_page.pending_leaves.setTitle("")
-        self.dashboard_page.pending_leaves_text.setText(QCoreApplication.translate(" Admin_Page", u"Pending Leaves", None))
-        self.dashboard_page.pending_leaves_logo.setText("")
-        self.dashboard_page.pending_leaves_count.setText(QCoreApplication.translate(" Admin_Page", u"4", None))
-        self.dashboard_page.approved_leaves.setTitle("")
-        self.dashboard_page.approved_leaves_logo.setText("")
-        self.dashboard_page.approved_leaves_text.setText(QCoreApplication.translate(" Admin_Page", u"Approved Leaves", None))
-        self.dashboard_page.approved_leaves_count.setText(QCoreApplication.translate(" Admin_Page", u"5", None))
-        self.dashboard_page.declined_leaves.setTitle("")
-        self.dashboard_page.declined_leaves_logo.setText("")
-        self.dashboard_page.declined_leaves_text.setText(QCoreApplication.translate(" Admin_Page", u"Declined Leaves", None))
-        self.dashboard_page.declined_leaves_count.setText(QCoreApplication.translate(" Admin_Page", u"11", None))
-        
-        self.addEmployee_page.new_employee_title_bar.setTitle("")
-        self.addEmployee_page.new_employee_text.setText(QCoreApplication.translate(" Admin_Page", u"Add New Employee", None))
-        self.addEmployee_page.Department.setItemText(0, QCoreApplication.translate(" Admin_Page", u"    Marketing", None))
-        self.addEmployee_page.Department.setItemText(1, QCoreApplication.translate(" Admin_Page", u"    Accounts", None))
-        self.addEmployee_page.Department.setItemText(2, QCoreApplication.translate(" Admin_Page", u"    Sales", None))
-        self.addEmployee_page.Department.setItemText(3, QCoreApplication.translate(" Admin_Page", u"    Finance", None))
-        self.addEmployee_page.Department.setItemText(4, QCoreApplication.translate(" Admin_Page", u"    Research", None))
-
-        self.addEmployee_page.Department_Text.setText(QCoreApplication.translate(" Admin_Page", u"Department:", None))
-        self.addEmployee_page.Employee_id_text.setText(QCoreApplication.translate(" Admin_Page", u"Employee ID:", None))
-        self.addEmployee_page.Fname_text.setText(QCoreApplication.translate(" Admin_Page", u"First Name:", None))
-        self.addEmployee_page.Lname_text.setText(QCoreApplication.translate(" Admin_Page", u"Last Name:", None))
-        self.addEmployee_page.Contact_text.setText(QCoreApplication.translate(" Admin_Page", u"Contact #:", None))
-        self.addEmployee_page.Address_text.setText(QCoreApplication.translate(" Admin_Page", u"Address:", None))
-        self.addEmployee_page.Email_text.setText(QCoreApplication.translate(" Admin_Page", u"Email:", None))
-        self.addEmployee_page.Password_text.setText(QCoreApplication.translate(" Admin_Page", u"Password:", None))
-        self.addEmployee_page.add_button.setText(QCoreApplication.translate(" Admin_Page", u"ADD", None))
-        self.addEmployee_page.Salary_text.setText(QCoreApplication.translate(" Admin_Page", u"Salary:", None))
-        self.listemployee_page.List_title_bar.setTitle("")
-        self.listemployee_page.List_employee_text.setText(QCoreApplication.translate("Admin_Page", u"List of Employess", None))
-        ___qtablewidgetitem = self.listemployee_page.List.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("Admin_Page", u"Employee ID", None))
-        ___qtablewidgetitem1 = self.listemployee_page.List.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("Admin_Page", u"First Name", None))
-        ___qtablewidgetitem2 = self.listemployee_page.List.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("Admin_Page", u"Last Name", None))
-        ___qtablewidgetitem3 = self.listemployee_page.List.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("Admin_Page", u"Email", None))
-        self.remove_page.Remove_bar.setTitle("")
-        self.remove_page.new_employee_text_2.setText(QCoreApplication.translate("Admin_Page", u"Remove Employee", None))
-        self.remove_page.Enter_ID.setText(QCoreApplication.translate("Admin_Page", u"Enter Employee ID", None))
-        self.remove_page.Remove.setText(QCoreApplication.translate("Admin_Page", u"Remove", None))
-        self.attendance_page.Attendance_Bar.setTitle("")
-        self.attendance_page.Attendance_bar_text.setText(QCoreApplication.translate("Admin_Page", u"Mark Attendance", None))
-        self.attendance_page.Select_date.setText(QCoreApplication.translate("Admin_Page", u"Select Date:", None))
-        ___qtablewidgetitem4 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(0)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("Admin_Page", u"Employee ID", None));
-        ___qtablewidgetitem5 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(1)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("Admin_Page", u"First Name", None));
-        ___qtablewidgetitem6 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(2)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("Admin_Page", u"Last Name", None));
-        ___qtablewidgetitem7 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(3)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("Admin_Page", u"Date", None));
-        ___qtablewidgetitem8 = self.attendance_page.Attendance_sheet.horizontalHeaderItem(4)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("Admin_Page", u"Status", None));
-        self.attendance_page.Mark_button.setText(QCoreApplication.translate("Admin_Page", u"Mark", None))
+    def signout(self):
+            self.close()
+            login=login_page.LoginPage()
+            login.show()
+            login.exec_()
     # retranslateUi
 if __name__ == "__main__":
     import sys
