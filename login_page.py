@@ -146,7 +146,7 @@ class Ui_Login_page(object):
         if is_employee and not is_admin:
             self.connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"

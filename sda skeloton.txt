@@ -1,0 +1,38 @@
+1-Employee/Admin (Fatima)
+2-Login (Hammad)
+
+-----------Employee-------------
+Side Bar (Fatima)
+profile (Fatima)
+leave application(past leaves, apply for leave, number of leaves remaining,type of leave(general,health,marraige(4),Parental,religous) (Fatima)
+
+attendance (show attendance) (Aatiqa)
+view salary report --> if generated
+past year salary record(S no,month,amount, issuance date,view details)
+leave report
+
+--------------Admin------------------
+Login
+Side Bar
+mark attendance(employee id ki base peh)
+add/remove empolyee
+review leave application
+list of employess --> can view any employee profile
+
+
+----------System---------------
+genrate salary and salary report
+generate attendance report
+leave report
+
+
+Dimensions: 1280 x 720
+SideBar Dimensions: 350 x 720
+
+Admin:
+Color scheme: plum and white (plum RGB: 88, 55, 89)
+
+Employee:
+Color scheme: dull blue and gre (dull blue: 50, 82, 110, grey: 230, 230, 230)
+
+

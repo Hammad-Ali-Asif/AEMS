@@ -430,7 +430,7 @@ class AttendancePage(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -468,7 +468,7 @@ class AttendancePage(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -523,7 +523,7 @@ class AttendancePage(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -766,7 +766,7 @@ class Add_Employee_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -922,7 +922,7 @@ class Employee_list_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -1152,7 +1152,7 @@ class Employee_detail_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -1191,7 +1191,7 @@ class Employee_detail_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -1287,7 +1287,7 @@ class Remove_Employee_page(QWidget):
         try:
             connection = psycopg2.connect(
                 user="postgres",
-                password="12345678",
+                password="zendagimigzara",
                 host="localhost",
                 port="5432",
                 database="AEMS"
@@ -1477,7 +1477,7 @@ class DashboardPage(QWidget):
     def set_values(self):
         connection = psycopg2.connect(
             user="postgres",
-            password="12345678",
+            password="zendagimigzara",
             host="localhost",
             port="5432",
             database="AEMS"
@@ -1633,7 +1633,7 @@ class PendingPage(QWidget):
         # Connect to the database
         connection = psycopg2.connect(
             user="postgres",
-            password="12345678",
+            password="zendagimigzara",
             host="localhost",
             port="5432",
             database="AEMS"
@@ -1716,7 +1716,7 @@ class PendingPage(QWidget):
         # Connect to the database
         connection = psycopg2.connect(
             user="postgres",
-            password="12345678",
+            password="zendagimigzara",
             host="localhost",
             port="5432",
             database="AEMS"
@@ -1847,7 +1847,7 @@ class ApprovedPage(QWidget):
         # Connect to the database
         connection = psycopg2.connect(
             user="postgres",
-            password="12345678",
+            password="zendagimigzara",
             host="localhost",
             port="5432",
             database="AEMS"
@@ -1998,7 +1998,7 @@ class DeclinedPage(QWidget):
         # Connect to the database
         connection = psycopg2.connect(
             user="postgres",
-            password="12345678",
+            password="zendagimigzara",
             host="localhost",
             port="5432",
             database="AEMS"
